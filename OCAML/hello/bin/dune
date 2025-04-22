@@ -1,5 +1,0 @@
-(executable
- (public_name hello)
- (name main)
- (libraries hello)
- (flags (:standard -w -32)))
