@@ -10,7 +10,25 @@ let priority op =
   else if op = "n" then 0
   else failwith "Unknown operator"
 
+let sentence_priority sentence = 
+  match sentence with 
+  |ATOMIC _ -> 0
+  |NEG _ -> 1
+  |AND _ -> 2
 
+let sentence_priority_is_bigger sentence_a sentence_b= 
+  match sentence_a, sentence_b with 
+  | ATOMIC _ ,ATOMIC _ -> false
+          | ATOMIC _, NEG _ -> false
+                | ATOMIC _, AND _ -> false
+  | NEG _, ATOMIC _ -> true
+          | NEG _, NEG _ -> false
+                   | NEG _, AND _ -> false
+  | AND _, ATOMIC _ -> true
+          | AND _, NEG _ -> true
+                   | AND _, AND _ -> true
+
+(*n(na^a)^n(b^nb)*)
 let find_operator phrase =
     let rec aux i depth operator_location =
       if i >= String.length phrase then
@@ -91,6 +109,42 @@ let rec sentence_to_string expr =
   | AND (s1, s2) -> Printf.sprintf "(%s^%s)" (sentence_to_string s1) (sentence_to_string s2)
 
 
+
+
 let sequence_of_sentences_to_string sentences =
   String.concat "," (List.map sentence_to_string sentences)
+
+let rec midle_of_sentence_to_latex expr =
+    let result = (
+    match expr with
+    | ATOMIC s -> s
+    | NEG s -> Printf.sprintf "\\neg (%s)" (midle_of_sentence_to_latex s)
+    | AND (s1, s2) -> Printf.sprintf "(%s \\land %s)" (midle_of_sentence_to_latex s1) (midle_of_sentence_to_latex s2)
+    ) in
+      result
+
+let rec smart_midle_of_sentence_to_latex ?upper_sentence expr =
+  let upper_sentence = match upper_sentence with
+    | Some u -> u
+    | None -> expr
+  in
+  let str = match expr with
+    | ATOMIC s -> s
+    | NEG s -> Printf.sprintf "\\neg %s" (smart_midle_of_sentence_to_latex ~upper_sentence s)
+    | AND (s1, s2) -> Printf.sprintf "%s \\land %s"
+                        (smart_midle_of_sentence_to_latex ~upper_sentence s1)
+                        (smart_midle_of_sentence_to_latex ~upper_sentence s2)
+  in
+  if sentence_priority_is_bigger expr upper_sentence then
+    "(" ^ str ^ ")"
+  else
+    str
+      
+
+let sentence_to_latex expr = 
+  "$"^smart_midle_of_sentence_to_latex expr^"$"
+
+let sequence_of_sentences_to_latex sentences =
+    String.concat ", " (List.map sentence_to_latex sentences)
+
 

@@ -3,4 +3,5 @@
  (name main)
  
  (modules main sintax) ; Explicitly list the modules
- (libraries PROJECT))
+ (libraries PROJECT)
+ (flags (:standard -w -32))) ; Ignore warning 32

@@ -1,4 +1,6 @@
 (* TODO discuss this
+
+
 type t_justification = 
   | CONTRADICTION_rule of signed_sentence list
   | F_NEG_rule of  alt_proof_tree 

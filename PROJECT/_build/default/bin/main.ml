@@ -19,6 +19,11 @@ let sequent_to_string sequent =
   match sequent with
     |SEQ (left, right) -> Printf.sprintf "%s > %s" (sequence_of_sentences_to_string left) (sequence_of_sentences_to_string right)
 
+let sequent_to_latex sequent =
+  match sequent with
+    |SEQ (left, right) -> Printf.sprintf "%s $\\vdash$ %s" (sequence_of_sentences_to_latex left) (sequence_of_sentences_to_latex right)
+
+
 let justification_to_string justification = 
   match justification with
     | AXIOM_RULE s -> Printf.sprintf "Axiom: %s" (sentence_to_string s)
@@ -28,26 +33,68 @@ let justification_to_string justification =
     | AND_R_RULE (_, s) -> Printf.sprintf "And Right: on %s" (sentence_to_string s)
       
 
-let rec sequent_proof_to_string proof =
+let justification_to_latex justification = 
+  match justification with
+    | AXIOM_RULE s -> Printf.sprintf "Ax %s" (sentence_to_latex s)
+    | NEG_L_RULE (_, s) -> Printf.sprintf "$\\neg$L %s"  (sentence_to_latex s)
+    | NEG_R_RULE (_, s) -> Printf.sprintf "$\\neg$R %s" (sentence_to_latex s)
+    | AND_L_RULE (_, s) -> Printf.sprintf "$\\land$L %s" (sentence_to_latex s)
+    | AND_R_RULE (_, s) -> Printf.sprintf "$\\land$R %s" (sentence_to_latex s)
+      
+
+
+let rec sequent_proof_to_nonlatex_string proof =
   match proof with
   | PROOF (sequent, justification) ->
       let subproofs =
         match justification with
         | AXIOM_RULE _ -> []
         | NEG_L_RULE (subproof, _) | NEG_R_RULE (subproof, _) ->
-            [sequent_proof_to_string subproof]
+            [sequent_proof_to_nonlatex_string subproof]
         | AND_L_RULE (subproof, _) ->
-            [sequent_proof_to_string subproof]
+            [sequent_proof_to_nonlatex_string subproof]
         | AND_R_RULE ((subproof1, subproof2), _) ->
-            [sequent_proof_to_string subproof1; sequent_proof_to_string subproof2]
+            [sequent_proof_to_nonlatex_string subproof1; sequent_proof_to_nonlatex_string subproof2]
       in
-      let subproofs_str = String.concat "\n" subproofs in
+      let subproofs_str = String.concat "
+      \n" subproofs in
       Printf.sprintf "%s\n--------------------------------------------------------------------%s\n%s" 
       subproofs_str
         
         (justification_to_string justification)
         (sequent_to_string sequent)
 
+    
+
+let rec sequent_proof_to_middle_latex proof =
+  match proof with
+  | PROOF (sequent, justification) ->
+      let subproofs , bussproofstype=
+        match justification with
+        | AXIOM_RULE _ -> [], "\\AxiomC"
+        | NEG_L_RULE (subproof, _) | NEG_R_RULE (subproof, _) ->
+            [sequent_proof_to_middle_latex subproof], "\\UnaryInfC"
+        | AND_L_RULE (subproof, _) ->
+            [sequent_proof_to_middle_latex subproof],  "\\UnaryInfC"
+        | AND_R_RULE ((subproof1, subproof2), _) ->
+            [sequent_proof_to_middle_latex subproof1; sequent_proof_to_middle_latex subproof2], "\\BinaryInfC"
+      in
+      let subproofs_str = String.concat "\n" subproofs in
+      Printf.sprintf "%s\n\\RightLabel{\\scriptsize{%s}}\n%s{%s}" 
+        
+        subproofs_str
+        (justification_to_latex justification)
+        bussproofstype
+        (sequent_to_latex sequent)
+
+
+let sequent_proof_to_latex proof = 
+  let middle = sequent_proof_to_middle_latex proof in 
+  Printf.sprintf "
+\\begin{prooftree}
+%s\n 
+\\end{prooftree}
+" middle
 
 (*TODO find a smater way *)
 let cardinal_minus a b =
@@ -75,6 +122,13 @@ let cardinal_union sequent_lists =
       if List.exists (fun existing -> sentence_to_string existing = sentence_to_string sequent) acc then acc
       else sequent :: acc)) []
       sequent_lists
+
+let union_lists l1 l2 =
+  let rec add_unique acc = function
+    | [] -> acc
+    | x::xs -> if List.mem x acc then add_unique acc xs else add_unique (x::acc) xs
+  in
+  add_unique l1 l2
 
 
 let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_elements: sentence list list) =
@@ -154,7 +208,7 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
       end
       
   | PROOF (sequent, NEG_R_RULE (PROOF (premisse, justification), NEG a)) ->
-        if check_pattern_between_sequents (premisse) (sequent) 
+        if check_pattern_between_sequents premisse sequent 
           [
           [a]     ;    [];     (*is in sequent  *)
           []         ; [NEG a] (*is in premise  *)
@@ -165,7 +219,7 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
           false
 
   | PROOF (sequent, NEG_L_RULE (PROOF (premisse, justification), NEG a)) ->
-    if check_pattern_between_sequents (premisse) (sequent) 
+    if check_pattern_between_sequents premisse sequent 
       [
       []     ;    [a];     (*is in sequent  *)
       [NEG a]         ; [] (*is in premise  *)
@@ -224,10 +278,25 @@ type signed_sentence =
   | T of sentence
   | F of sentence
 
+let signed_sentence_to_string expr =
+    match expr with
+    | T s -> Printf.sprintf "T(%s)" (sentence_to_string s)
+    | F s -> Printf.sprintf "F(%s)" (sentence_to_string s)
+
+let cardinal_in a b =
+    List.exists (fun x -> signed_sentence_to_string a = signed_sentence_to_string x) b
+
+
 let signed_sentence_list_to_string signed_sentences =
   String.concat ", " (List.map (function
     | T s -> Printf.sprintf "T(%s)" (sentence_to_string s)
     | F s -> Printf.sprintf "F(%s)" (sentence_to_string s)
+  ) signed_sentences)
+
+let signed_sentence_list_to_latex signed_sentences =
+  String.concat ", " (List.map (function
+    | T s -> Printf.sprintf "T(%s)" (sentence_to_latex s)
+    | F s -> Printf.sprintf "F(%s)" (sentence_to_latex s)
   ) signed_sentences)
 
 type proof_tree =
@@ -275,16 +344,35 @@ let rec proof_tree_to_string ?(depth=0) tree =
         (signed_sentence_list_to_string signed_sentence_list)
   | _ -> failwith "Invalid proof tree structure"
 
-  
-  
-(* Helper: union of two lists without duplicates *)
 
-let union_lists l1 l2 =
-  let rec add_unique acc = function
-    | [] -> acc
-    | x::xs -> if List.mem x acc then add_unique acc xs else add_unique (x::acc) xs
-  in
-  add_unique l1 l2
+  let rec proof_tree_to_middle_latex tree =
+    let _, signed_sentence_list, proof_tree_list = get_proof_tree_signed_sentence_list_and_proof_tree_list tree in
+    let signed_sentences_latex = signed_sentence_list_to_latex signed_sentence_list in
+    match proof_tree_list with
+    | [one] ->
+        Printf.sprintf "%s\n\\UnaryInfC{%s}" 
+          (proof_tree_to_middle_latex one)
+          (signed_sentences_latex)
+    | [one; two] ->
+        Printf.sprintf "%s\n%s\n\\BinaryInfC{%s}"
+          (proof_tree_to_middle_latex one)
+          (proof_tree_to_middle_latex two)
+          (signed_sentences_latex)
+    | [] ->
+        Printf.sprintf "\\AxiomC{%s}" (signed_sentences_latex)
+    | _ -> failwith "Invalid proof tree structure"
+  
+  let proof_tree_to_latex tree =
+    let middle = proof_tree_to_middle_latex tree in
+    Printf.sprintf "
+  \\begin{prooftree}
+  %s
+  \\end{prooftree}
+  " middle
+  
+  
+  
+
   
 let rec is_contradiction signed_sentence_list = 
 
@@ -366,66 +454,60 @@ let rec develop_signed_sentence_list_n_times signed_sentence_list n =
   Printf.printf "Resulting sequent: %s\n" (sequent_to_string result);*)
   result 
 
-let signed_sentence_to_string expr =
-    match expr with
-    | T s -> Printf.sprintf "T(%s)" (sentence_to_string s)
-    | F s -> Printf.sprintf "F(%s)" (sentence_to_string s)
 
-  let cardinal_in a b =
-    List.exists (fun x -> signed_sentence_to_string a = signed_sentence_to_string x) b
+let find_rule_sentence tree =
+  let maybe_signed_sentence =
+    match tree with 
+    | CONTRADICTION signed_sentence_list -> 
+        Some (List.hd (find_contradictions signed_sentence_list))
 
-    let find_rule_sentence tree =
-      let maybe_signed_sentence =
-        match tree with 
-        | CONTRADICTION signed_sentence_list -> 
-            Some (List.hd (find_contradictions signed_sentence_list))
-    
-        | T_NEG (signed_sentence_list, proof_tree) -> 
-            let _, new_signed_sentence_list, _ = 
-              get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
-            in 
-            List.find_opt (function 
-              | T (NEG sentence) -> cardinal_in (F sentence) new_signed_sentence_list
-              | _ -> false) signed_sentence_list 
-    
-        | F_NEG (signed_sentence_list, proof_tree) -> 
-            let _, new_signed_sentence_list, _ = 
-              get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
-            in 
-            List.find_opt (function 
-              | F (NEG sentence) -> (cardinal_in (T sentence) new_signed_sentence_list ) && not (cardinal_in (T sentence) signed_sentence_list)
-              | _ -> false) signed_sentence_list 
-    
-        | T_AND (signed_sentence_list, proof_tree) -> 
-            let _, new_signed_sentence_list, _ = 
-              get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
-            in 
-            List.find_opt (function 
-              | T (AND (s1, s2)) -> 
-                  cardinal_in (T s1) new_signed_sentence_list && 
-                  cardinal_in (T s2) new_signed_sentence_list
-              | _ -> false) signed_sentence_list 
-    
-        | F_AND (signed_sentence_list, proof_tree1, proof_tree2) ->
-            let _, ss_list1, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree1 in
-            let _, ss_list2, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree2 in
-            List.find_opt (function 
-              | F (AND (s1, s2)) -> 
-                  (cardinal_in (F s1) ss_list1 && cardinal_in (F s2) ss_list2) ||
-                  (cardinal_in (F s2) ss_list1 && cardinal_in (F s1) ss_list2)
-              | _ -> false) signed_sentence_list 
-      in
-      match maybe_signed_sentence with
-      | Some (T sentence) -> sentence
-      | Some (F sentence) -> sentence
-      | None -> 
-          let operation, signed_sentence_list, proof_tree_list = get_proof_tree_signed_sentence_list_and_proof_tree_list tree in
-          Printf.printf "Operation: %s\n" operation;
-          Printf.printf "Signed Sentence List: %s\n" (signed_sentence_list_to_string signed_sentence_list);
-          List.iter (fun subtree -> 
-        Printf.printf "Subtree:\n%s\n" (proof_tree_to_string subtree)
-          ) proof_tree_list;
-          failwith "No matching rule sentence found in proof tree"
+    | T_NEG (signed_sentence_list, proof_tree) -> 
+        let _, new_signed_sentence_list, _ = 
+          get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
+        in 
+        
+        List.find_opt (function 
+          | T (NEG sentence) -> cardinal_in (F sentence) new_signed_sentence_list
+          | _ -> false) signed_sentence_list 
+
+    | F_NEG (signed_sentence_list, proof_tree) -> 
+        let _, new_signed_sentence_list, _ = 
+          get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
+        in 
+        List.find_opt (function 
+          | F (NEG sentence) -> (cardinal_in (T sentence) new_signed_sentence_list ) && not (cardinal_in (T sentence) signed_sentence_list)
+          | _ -> false) signed_sentence_list 
+
+    | T_AND (signed_sentence_list, proof_tree) -> 
+        let _, new_signed_sentence_list, _ = 
+          get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree 
+        in 
+        List.find_opt (function 
+          | T (AND (s1, s2)) -> 
+              cardinal_in (T s1) new_signed_sentence_list && 
+              cardinal_in (T s2) new_signed_sentence_list
+          | _ -> false) signed_sentence_list 
+
+    | F_AND (signed_sentence_list, proof_tree1, proof_tree2) ->
+        let _, ss_list1, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree1 in
+        let _, ss_list2, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree2 in
+        List.find_opt (function 
+          | F (AND (s1, s2)) -> 
+              (cardinal_in (F s1) ss_list1 && cardinal_in (F s2) ss_list2) ||
+              (cardinal_in (F s2) ss_list1 && cardinal_in (F s1) ss_list2)
+          | _ -> false) signed_sentence_list 
+  in
+  match maybe_signed_sentence with
+  | Some (T sentence) -> sentence
+  | Some (F sentence) -> sentence
+  | None -> 
+      let operation, signed_sentence_list, proof_tree_list = get_proof_tree_signed_sentence_list_and_proof_tree_list tree in
+      Printf.printf "Operation: %s\n" operation;
+      Printf.printf "Signed Sentence List: %s\n" (signed_sentence_list_to_string signed_sentence_list);
+      List.iter (fun subtree -> 
+    Printf.printf "Subtree:\n%s\n" (proof_tree_to_latex subtree)
+      ) proof_tree_list;
+      failwith "No matching rule sentence found in proof tree"
     
     
     
@@ -512,7 +594,7 @@ let () =
   
 
   (* Print and verify *)
-  Printf.printf "example of a sequent proof:\n%s\n" (sequent_proof_to_string p0);
+  Printf.printf "example of a sequent proof:\n%s\n" (sequent_proof_to_latex p0);
   Printf.printf "checking if its valid: %b\n" (verify_proof p0 ); 
 
 
@@ -539,23 +621,23 @@ let () =
       )
   in
   Printf.printf "Example example of proof_tree:\n%s\n"
-  (proof_tree_to_string example_proof_tree);
+  (proof_tree_to_latex example_proof_tree);
 
     let example_proof_tree_acc = accumulate_proof_tree example_proof_tree in
         Printf.printf "example of proof_tree 'Accumulated' :\n%s\n"
-          (proof_tree_to_string example_proof_tree_acc);
+          (proof_tree_to_latex example_proof_tree_acc);
 
     let translated_sequent_proof = proof_tree_to_sequent_proof example_proof_tree_acc in
     Printf.printf "example of proof_tree Accumulated then Translated:\n%s\n"
-    (sequent_proof_to_string translated_sequent_proof);
+    (sequent_proof_to_latex translated_sequent_proof);
     Printf.printf "checking if its valid: %b\n" (verify_proof translated_sequent_proof);
 
     let auto_p = develop_signed_sentence_list_n_times [F (NEG(AND(a, NEG(a))))] 30 in 
       Printf.printf "Auto:\n%s\n"
-    (proof_tree_to_string auto_p);
+    (proof_tree_to_latex auto_p);
 
     let auto_sequent_proof = proof_tree_to_sequent_proof (accumulate_proof_tree auto_p) in
-    Printf.printf "Auto translated to sequent proof:\n%s\n" (sequent_proof_to_string auto_sequent_proof);
+    Printf.printf "Auto translated to sequent proof:\n%s\n" (sequent_proof_to_latex auto_sequent_proof);
     Printf.printf "Auto proof is valid: %b\n" (verify_proof auto_sequent_proof);
 
 
@@ -571,10 +653,10 @@ let () =
 
       let tree = develop_signed_sentence_list_n_times [(F (parsed_sentence))] 200 in 
       Printf.printf "Proof tree:\n%s\n"
-    (proof_tree_to_string tree);
+    (proof_tree_to_latex tree);
 
       let sequent_proof = proof_tree_to_sequent_proof (accumulate_proof_tree tree) in
-      Printf.printf "Translated to sequent proof:\n%s\n" (sequent_proof_to_string sequent_proof);
+      Printf.printf "Translated to sequent proof:\n%s\n" (sequent_proof_to_latex sequent_proof);
       Printf.printf "Proof is valid: %b\n" (verify_proof sequent_proof);
 
       loop ()

@@ -4,6 +4,7 @@
 %
 \documentclass[runningheads]{llncs}
 %
+\usepackage{tikz}
 \usepackage[T1]{fontenc}
 % T1 fonts will be used to generate the final print and online PDFs,
 % so please use T1 fonts in your manuscript whenever possible.
@@ -77,8 +78,12 @@ In this work, sentences wont have function symbols.
 \end{definition}
 
 ()Every predicate is a formula, and if \a
-()Sentences ...
 
+
+()Sentences 
+
+
+()Signed sentences
 \subsection{Truth in classical logic}
 
 
@@ -95,7 +100,93 @@ In this work, sentences wont have function symbols.
 \begin{definition}
     Kripe 
 \end{definition}
-\subsubsection{ }
+
+\subsection{Translation in classical logic}
+    We first define a slightly diferent version of a tableaux proof tree \cite{book1}, 
+    were each node is represented by a set of signed sentences. Intuitively, 
+    a node in the usal definiton is replaced by set of 
+    all nodes in the path that goes from the root to him. %[TODO "root to him" is a bit ugly]  
+
+    A tree with a single node $\{F \phi \}$ is a tableaux development of $\phi$. 
+    Given a signed sentence $\sigma$ in a leaf $\{T \Gamma_1, T\Gamma_2, \ldots, F \Delta_1, F \Delta_2, \ldots\}$ of a
+    tableaux development $\tau$ of $\phi$, we define : 
+    $\f(\sigma,\tau)$:
+    \begin{itemize}
+        \item $\hookrightarrow(T \neg \alpha,\tau) = \tau$ with $L \cup \{F \alpha\}$ 
+        added (adjoined?) to all leaves $L$ that contain $T \neg \alpha$.
+        \item $f(F \neg \alpha,\tau) = \tau$ with $L \cup \{T \alpha\}$ 
+        added (adjoined?) to all leaves $L$ that contain $F \neg \alpha$.
+        \item $f(T (\alpha \land \beta),\tau) = \tau$ with $L \cup \{T \alpha, T \beta\}$ 
+        added to all leaves $L$ that contain $T (\alpha \land \beta)$.
+        \item $f(F (\alpha \land \beta),\tau) = \tau$ with $L \cup \{F \alpha\}$ and $L \cup \{F \beta\}$ 
+        added to all leaves $L$ that contain $F (\alpha \land \beta)$.
+        \item $f(T (\alpha \lor \beta),\tau) = \tau$ with $L \cup \{T \alpha\}$ and $L \cup \{T \beta\}$ 
+        added to all leaves $L$ that contain $T (\alpha \lor \beta)$.
+        \item $f(F (\alpha \lor \beta),\tau) = \tau$ with $L \cup \{F \alpha, F \beta\}$ 
+        added to all leaves $L$ that contain $F (\alpha \lor \beta)$.
+        \item $f(T (\alpha \to \beta),\tau) = \tau$ with $L \cup \{F \alpha\}$ and $L \cup \{T \beta\}$ 
+        added to all leaves $L$ that contain $T (\alpha \to \beta)$.
+        \item $f(F (\alpha \to \beta),\tau) = \tau$ with $L \cup \{T \alpha, F \beta\}$ 
+        added to all leaves $L$ that contain $F (\alpha \to \beta)$.
+     \end{itemize}
+
+
+     A tree with a single node $\{F \phi \}$ is a tableaux development of $\phi$. 
+    Given a signed sentence $\sigma$ in a leaf $\{T \Gamma_1, T\Gamma_2, \ldots, F \Delta_1, F \Delta_2, \ldots\}$ of a
+    tableaux development $\tau$ of $\phi$, we denote $\tau \hookrightarrow_{\sigma} \tau'$
+    as a function that takes a tableaux development of phi and gives another tree. 
+    \begin{center}
+        \begin{scriptsize}
+        \begin{tikzpicture}[scale=0.6
+            , level distance=1.5cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=2cm}]
+        \node {$\{F \phi\}$}
+            child {node {$\{\ldots\}$}
+                child {node {$\{L\}$}}
+                child {node {$\{T \neg \alpha, \ldots\}$}}
+                child {node {$\{T \neg \alpha, \ldots\}$}}
+            };
+        \end{tikzpicture}
+        \hspace{1.5cm} $\hookrightarrow$ \hspace{1.5cm}
+        \begin{tikzpicture}[scale=0.6, level distance=1.5cm,
+            level 1/.style={sibling distance=3cm},
+            level 2/.style={sibling distance=2cm}]
+        \node {$\{F \phi\}$}
+            child {node {$\{\ldots\}$}
+                child {node {$\{\ldots\}$}}
+                child {node {$\{\ldots\}$}}
+                child {node {$\{T \neg \alpha, \ldots\}$}
+                    child {node {$\{F \alpha, \ldots\}$}}}
+                child {node {$\{T \neg \alpha, \ldots\}$}
+                    child {node {$\{F \alpha, \ldots\}$}}}
+            };
+        \end{tikzpicture}
+        \end{scriptsize}
+    \end{center}
+
+
+    \begin{center}
+        \begin{tikzpicture}[level distance=2cm,
+            level 1/.style={sibling distance=4cm},
+        \node {$\{T \neg \alpha, \ldots\}$}
+
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+    \begin{tikzpicture}[level distance=2cm,
+        level 1/.style={sibling distance=4cm},
+        level 2/.style={sibling distance=2cm}]
+    \node {$\{T \neg \alpha, \ldots\}$}
+            child {node {$\{F \alpha, \ldots\}$}};
+    \end{tikzpicture}
+    \end{center}
+
+
+
+    Definition: f($\tau$,$\phi$) is tableaux development of $\phi$.
+ 
 
 
 \begin{table}
