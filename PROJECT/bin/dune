@@ -1,4 +1,6 @@
 (executable
  (public_name PROJECT)
  (name main)
+ 
+ (modules main sintax) ; Explicitly list the modules
  (libraries PROJECT))

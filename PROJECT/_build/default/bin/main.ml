@@ -1,73 +1,7 @@
 (*opam exec -- dune build; opam exec ---dune exec hello*)
 
-
-let priority op =
-  if op = ">" then 3
-  else if op = "," then 2
-  else if op = "^" then 1
-  else if op = "n" then 0
-  else failwith "Unknown operator"
-
-
-  let find_operator phrase =
-      let rec aux i depth operator_location =
-        if i >= String.length phrase then
-          if operator_location = -1 && phrase.[0] = '(' && phrase.[String.length phrase - 1] = ')' then
-            0
-          else
-            operator_location
-        else
-          let c = phrase.[i] in
-          match c with
-          | '(' -> aux (i + 1) (depth + 1) operator_location
-          | ')' -> aux (i + 1) (depth - 1) operator_location
-          | '^' | 'n' | '>' | ',' when depth = 0 ->
-              let new_operator_location = 
-                if operator_location = -1 || priority (String.make 1 c) > priority (String.make 1 phrase.[operator_location]) 
-                then i
-                else operator_location
-              in
-              aux (i + 1) depth new_operator_location
-          | _ -> aux (i + 1) depth operator_location
-      in
-      aux 0 0 (-1)
-  
-
-  let find_subphrases phrase =
-    let operator_location = find_operator phrase in
-    
-    match phrase.[operator_location] with
-    | 'n' -> [String.sub phrase (operator_location + 1) (String.length phrase - operator_location - 1)]
-    | '(' -> [String.sub phrase (1) (String.length phrase - 2)]
-    | '^'| '>' -> 
-      [
-        String.sub phrase 0 operator_location;
-        String.sub phrase (operator_location + 1) (String.length phrase - operator_location - 1)
-      ]
-    | ',' ->
-      let rec aux_comma acc start i depth =
-      if i >= String.length phrase then
-        if start < i then List.rev (String.sub phrase start (i - start) :: acc)
-        else List.rev acc
-      else
-        let c = phrase.[i] in (* ai []*)
-        match c with
-        | '(' -> aux_comma acc start (i + 1) (depth + 1)
-        | ')' -> aux_comma acc start (i + 1) (depth - 1)
-        | ',' when depth = 0 ->
-          aux_comma (String.sub phrase start (i - start) :: acc) (i + 1) (i + 1) depth
-        | _ -> aux_comma acc start (i + 1) depth
-      in
-      aux_comma [] 0 0 0
-    | _ -> ["_"]
-
-
-
-type sentence = 
-  | ATOMIC of string
-  | NEG of sentence
-  | AND of sentence * sentence
-
+open Sintax
+(* PART I : Verifying sequent proofs*)
 type sequent =
   | SEQ of sentence list * sentence list
 
@@ -81,112 +15,43 @@ type justification =
 and sequent_proof = 
     | PROOF of sequent * justification
 
+let sequent_to_string sequent =
+  match sequent with
+    |SEQ (left, right) -> Printf.sprintf "%s > %s" (sequence_of_sentences_to_string left) (sequence_of_sentences_to_string right)
+
+let justification_to_string justification = 
+  match justification with
+    | AXIOM_RULE s -> Printf.sprintf "Axiom: %s" (sentence_to_string s)
+    | NEG_L_RULE (_, s) -> Printf.sprintf "Negation Left: on %s"  (sentence_to_string s)
+    | NEG_R_RULE (_, s) -> Printf.sprintf "Negation Right: on %s" (sentence_to_string s)
+    | AND_L_RULE (_, s) -> Printf.sprintf "And Left: on %s" (sentence_to_string s)
+    | AND_R_RULE (_, s) -> Printf.sprintf "And Right: on %s" (sentence_to_string s)
+      
+
+let rec sequent_proof_to_string proof =
+  match proof with
+  | PROOF (sequent, justification) ->
+      let subproofs =
+        match justification with
+        | AXIOM_RULE _ -> []
+        | NEG_L_RULE (subproof, _) | NEG_R_RULE (subproof, _) ->
+            [sequent_proof_to_string subproof]
+        | AND_L_RULE (subproof, _) ->
+            [sequent_proof_to_string subproof]
+        | AND_R_RULE ((subproof1, subproof2), _) ->
+            [sequent_proof_to_string subproof1; sequent_proof_to_string subproof2]
+      in
+      let subproofs_str = String.concat "\n" subproofs in
+      Printf.sprintf "%s\n--------------------------------------------------------------------%s\n%s" 
+      subproofs_str
+        
+        (justification_to_string justification)
+        (sequent_to_string sequent)
 
 
-(*
-type proof =
-  | SEQUENT_PROOF of sequent_proof
-  | TALBEUX_PROOF of sequent_proof
-*)
-
-(*
-
-type sequent_proof =
-  | AXIOM of sequent
-  | CONSEQUENCE_OF_ONE of sequent * (sequent_proof)  
-  | CONSEQUENCE_OF_TWO of sequent * (sequent_proof * sequent_proof)
-
-type investigated_sequent =
-  | ROOT of sequent
-  | NECESSITY of sequent * (investigated_sequent)
-*)
-
-  (*expressao e termos *)
-(*
-type rule =
-  |R of string*expression 
-
-type proof_three =
-  |T of expression*rule * proof_three list (*sequent e possiveis consequencias*)
-
-*)
-
-
-  let rec parse_as_sentence phrase = 
-    if String.length phrase = 0 then
-      ATOMIC ""
-    else 
-      let operator_location = find_operator phrase in
-      if operator_location = -1 then
-          ATOMIC phrase
-      else
-        let operator = String.make 1 phrase.[operator_location] in
-        let subphrases = find_subphrases phrase in
-        match operator with
-        | ">" -> AND (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
-        | "^" -> AND (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
-        | "n" -> NEG (parse_as_sentence (List.nth subphrases 0))
-        | "(" -> parse_as_sentence (List.nth subphrases 0)
-        | _ -> ATOMIC operator
-
-        (*
-  let parse_as_list_of_sentences phrase =
-    let subphrases = find_subphrases phrase in
-    List.map parse_as_sentence subphrases
-
-  let parse_as_sequent phrase =
-    let subphrases = find_subphrases phrase in
-    match subphrases with
-    | [left; right] ->
-        SEQ (parse_as_list_of_sentences  left, parse_as_list_of_sentences right)
-    | _ -> failwith "Invalid sequent format"
-    
-*)
-  let rec sentence_to_string expr =
-    match expr with
-    | ATOMIC s -> s
-    | NEG s -> Printf.sprintf "n(%s)" (sentence_to_string s)
-    | AND (s1, s2) -> Printf.sprintf "(%s^%s)" (sentence_to_string s1) (sentence_to_string s2)
-
-
-  let sequence_of_sentences_to_string sentences =
-    String.concat "," (List.map sentence_to_string sentences)
-
-(*
-  let sequence_of_sequence_of_sentences_to_string sentences =
-    String.concat "," (List.map sequence_of_sentences_to_string sentences)
-  *)
-  let sequent_to_string sequent =
-    match sequent with
-    | SEQ (left, right) -> Printf.sprintf "%s > %s" (sequence_of_sentences_to_string left) (sequence_of_sentences_to_string right)
-
-
-  
-
-  
-    
-  
-
-(*
-
-  let find_possible_rules_and_apply sequent =
-    match sequent with
-    | SEQ (lex, rex) ->
-        let new_lex = 
-          List.flatten (List.map (fun expr -> if can_apply_rule sequent "L" expr then apply_rule sequent "L" expr else []) lex) 
-        in
-        let new_rex = 
-          List.flatten (List.map (fun expr -> if can_apply_rule sequent "R" expr then apply_rule sequent "R" expr else []) rex) 
-        in
-        List.append new_lex new_rex
-    | _ -> []
-  
-*)
-
-(*TODO: find out if OCAML lets me do this in a smarter way*)
+(*TODO find a smater way *)
 let cardinal_minus a b =
   List.filter (fun x -> not (List.exists (fun y -> sentence_to_string x = sentence_to_string y) b)) a
-
 
 let vectorwise f list1 list2 =
   if List.length list1 <> List.length list2 then
@@ -197,21 +62,20 @@ let vectorwise f list1 list2 =
 let true_in_all bool_vector =
   List.fold_left (&&) true bool_vector
 
-
 let cardinal_equal a b =
   let result = cardinal_minus a b = [] && cardinal_minus b a = [] in
   result
 
-
-
 let cardinal_contains a b =
   let result = cardinal_minus b a = [] in
   result
-  let cardinal_union sequent_lists =
+
+let cardinal_union sequent_lists =
     List.fold_left (List.fold_left (fun acc sequent ->
       if List.exists (fun existing -> sentence_to_string existing = sentence_to_string sequent) acc then acc
       else sequent :: acc)) []
       sequent_lists
+
 
 let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_elements: sentence list list) =
   match (sa, sb) with
@@ -225,17 +89,10 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
           cardinal_union [left_side_b ; (List.nth necessary_elements 0)];
           cardinal_union [right_side_b ; (List.nth necessary_elements 1)]
       ] in
-    (*  let delta_gamma_delta_gamma = [
-        cardinal_minus left_side_a (List.nth necessary_elements 2) ;
-        cardinal_minus right_side_a (List.nth necessary_elements 3);
-        cardinal_minus left_side_b (List.nth necessary_elements 2);
-        cardinal_minus right_side_b (List.nth necessary_elements 3);
-      ] in *)
       if (cardinal_equal (List.nth expected_sequent 0)  (List.nth expected_sequent 2) ) 
       && (cardinal_equal (List.nth expected_sequent 1)  (List.nth expected_sequent 3) ) 
 
         then
-      (*if (List.nth delta_gamma_delta_gamma 0 = List.nth delta_gamma_delta_gamma 2) && (List.nth delta_gamma_delta_gamma 1 = List.nth delta_gamma_delta_gamma 3) then*)
           true
         else begin 
           Printf.printf "{\n";
@@ -282,40 +139,6 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
           Printf.printf "}\n";
         false
         end
-
-
-
-
-
-
-
-
-
-(*
-let rec verify_sequent_proof (simple_sequent : simple_sequent_proof) : bool  =
-Printf.printf "Verifying proof: %s\n" (match simple_sequent with AXIOM_RULE_PROOF (s, _) -> sequent_to_string s | _ -> "Unknown");
-match simple_sequent with AXIOM_RULE_PROOF (sequent, a) ->
-  if List.mem a (match sequent with SEQ (left, right) -> left @ right) then
-    true
-  else begin 
-    Printf.printf "Axiom rule failed: %s\n" (sequent_to_string sequent);
-    false
-  end
-
-| NEG_L_RULE_PROOF (sequent, premisse_proof, NEG a) ->
-  if check_pattern_between_sequents (premisse) (sequent) 
-    [
-    []     ;    [a];     (*is in sequent  *)
-    [NEG a]         ; [] (*is in premise  *)
-  ] 
-  then 
-    verify_sequent_proof premisse_proof
-  else 
-    false
-
-    | _ -> false
-
-*)
 
 
 let rec verify_proof (sequent_proof : sequent_proof) : bool =
@@ -395,63 +218,17 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
 
 
 
-let justification_to_string justification = 
-  match justification with
-    | AXIOM_RULE s -> Printf.sprintf "Axiom: %s" (sentence_to_string s)
-    | NEG_L_RULE (_, s) -> Printf.sprintf "Negation Left: on %s"  (sentence_to_string s)
-    | NEG_R_RULE (_, s) -> Printf.sprintf "Negation Right: on %s" (sentence_to_string s)
-    | AND_L_RULE (_, s) -> Printf.sprintf "And Left: on %s" (sentence_to_string s)
-    | AND_R_RULE (_, s) -> Printf.sprintf "And Right: on %s" (sentence_to_string s)
-      
-      
-
-
-let rec sequent_proof_to_string proof =
-  match proof with
-  | PROOF (sequent, justification) ->
-      let subproofs =
-        match justification with
-        | AXIOM_RULE _ -> []
-        | NEG_L_RULE (subproof, _) | NEG_R_RULE (subproof, _) ->
-            [sequent_proof_to_string subproof]
-        | AND_L_RULE (subproof, _) ->
-            [sequent_proof_to_string subproof]
-        | AND_R_RULE ((subproof1, subproof2), _) ->
-            [sequent_proof_to_string subproof1; sequent_proof_to_string subproof2]
-      in
-      let subproofs_str = String.concat "\n" subproofs in
-      Printf.sprintf "%s\n-------------------------------------------------------------------------------------%s\n%s" 
-      subproofs_str
-        
-        (justification_to_string justification)
-        (sequent_to_string sequent)
-     
-
+(* PART II : Defining tableux proofs*)
 
 type signed_sentence =
   | T of sentence
   | F of sentence
 
-  
-(*
-type proof_tree =
-  | CONTRADICTION of signed_sentence list
-  | F_NEG of signed_sentence list * proof_tree
-  | T_NEG of signed_sentence list * proof_tree
-  | F_AND of signed_sentence list * proof_tree * proof_tree
-  | T_AND of signed_sentence list * proof_tree 
-*)
-
-type t_justification = 
-  | CONTRADICTION_rule of signed_sentence list
-  | F_NEG_rule of  alt_proof_tree 
-  | T_NEG_rule of  alt_proof_tree 
-  | F_AND_rule of  alt_proof_tree * alt_proof_tree
-  | T_AND_rule of  alt_proof_tree 
-
-and alt_proof_tree =
-   signed_sentence list * t_justification
-
+let signed_sentence_list_to_string signed_sentences =
+  String.concat ", " (List.map (function
+    | T s -> Printf.sprintf "T(%s)" (sentence_to_string s)
+    | F s -> Printf.sprintf "F(%s)" (sentence_to_string s)
+  ) signed_sentences)
 
 type proof_tree =
   | CONTRADICTION of signed_sentence list
@@ -460,31 +237,9 @@ type proof_tree =
   | F_AND of signed_sentence list * proof_tree * proof_tree
   | T_AND of signed_sentence list * proof_tree 
 
-  
-  let rec convert_proof_tree (pt : proof_tree) : alt_proof_tree =
-    match pt with
-    | CONTRADICTION signed_sentence_list ->
-        (signed_sentence_list, CONTRADICTION_rule signed_sentence_list)
-  
-    | F_NEG (signed_sentence_list, subtree) ->
-        let converted_subtree = convert_proof_tree subtree in
-        (signed_sentence_list, F_NEG_rule converted_subtree)
-  
-    | T_NEG (signed_sentence_list, subtree) ->
-        let converted_subtree = convert_proof_tree subtree in
-        (signed_sentence_list, T_NEG_rule converted_subtree)
-  
-    | F_AND (signed_sentence_list, left, right) ->
-        let converted_left = convert_proof_tree left in
-        let converted_right = convert_proof_tree right in
-        (signed_sentence_list, F_AND_rule (converted_left, converted_right))
-  
-    | T_AND (signed_sentence_list, subtree) ->
-        let converted_subtree = convert_proof_tree subtree in
-        (signed_sentence_list, T_AND_rule converted_subtree)
-  
 
-
+(*TODO find more elegant way *)
+(*TODO remove useless strings*)
 let get_proof_tree_signed_sentence_list_and_proof_tree_list tree =
   match tree with
   | CONTRADICTION signed_sentence_list -> "CONTRADICTION", signed_sentence_list ,  []
@@ -493,18 +248,6 @@ let get_proof_tree_signed_sentence_list_and_proof_tree_list tree =
   | F_AND (signed_sentence_list, proof_tree1, proof_tree2) -> "F_AND", signed_sentence_list,[proof_tree1; proof_tree2]
   | T_AND (signed_sentence_list, proof_tree) -> "T_AND", signed_sentence_list,[proof_tree]
   
-  
-
-let signed_sentence_list_to_string signed_sentences =
-    String.concat ", " (List.map (function
-      | T s -> Printf.sprintf "T(%s)" (sentence_to_string s)
-      | F s -> Printf.sprintf "F(%s)" (sentence_to_string s)
-    ) signed_sentences)
-
-
-  (*
-(* []*)
-*)
 
 let rec proof_tree_to_string ?(depth=0) tree =
   let operation, signed_sentence_list, proof_tree_list = get_proof_tree_signed_sentence_list_and_proof_tree_list tree in
@@ -532,46 +275,8 @@ let rec proof_tree_to_string ?(depth=0) tree =
         (signed_sentence_list_to_string signed_sentence_list)
   | _ -> failwith "Invalid proof tree structure"
 
-  let rec alt_proof_tree_to_string ?(depth=0) (signed_sentence_list, justification : alt_proof_tree) : string =
-    let indent = String.make depth ' ' in
-    let ss_str = signed_sentence_list_to_string signed_sentence_list in
-    match justification with
-    | CONTRADICTION_rule _ ->
-        Printf.sprintf "%sCONTRADICTION[%s]" indent ss_str
   
-    | F_NEG_rule subtree ->
-        Printf.sprintf "%sF_NEG[%s] -> [\n%s\n%s]"
-          indent ss_str
-          (alt_proof_tree_to_string ~depth:(depth + 2) subtree)
-          indent
   
-    | T_NEG_rule subtree ->
-        Printf.sprintf "%sT_NEG[%s] -> [\n%s\n%s]"
-          indent ss_str
-          (alt_proof_tree_to_string ~depth:(depth + 2) subtree)
-          indent
-  
-    | F_AND_rule (left, right) ->
-        Printf.sprintf "%sF_AND[%s] -> [\n%s,\n%s\n%s]"
-          indent ss_str
-          (alt_proof_tree_to_string ~depth:(depth + 2) left)
-          (alt_proof_tree_to_string ~depth:(depth + 2) right)
-          indent
-  
-    | T_AND_rule subtree ->
-        Printf.sprintf "%sT_AND[%s] -> [\n%s\n%s]"
-          indent ss_str
-          (alt_proof_tree_to_string ~depth:(depth + 2) subtree)
-          indent
-  
-
-
-
-
-
-
-
-
 (* Helper: union of two lists without duplicates *)
 
 let union_lists l1 l2 =
@@ -581,68 +286,68 @@ let union_lists l1 l2 =
   in
   add_unique l1 l2
   
-    let rec is_contradiction signed_sentence_list = 
+let rec is_contradiction signed_sentence_list = 
 
+  match signed_sentence_list with
+  | T sentence :: rest ->  
+    if List.exists (function F s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
+      true
+    else
+      is_contradiction rest
+  | F sentence :: rest ->  
+    if List.exists (function T s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
+      true
+    else
+      is_contradiction rest
+  | [] -> false
+    
+let find_contradictions signed_sentence_list =
+  let rec aux acc remaining =
+  match remaining with
+  | T sentence :: rest ->  
+    if List.exists (function F s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
+    (T sentence :: F sentence :: acc)
+    else
+    aux acc rest
+  | F sentence :: rest ->  
+    if List.exists (function T s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
+    (F sentence :: T sentence :: acc)
+    else
+    aux acc rest
+  | [] -> acc
+  in
+  aux [] signed_sentence_list
+    
+
+let rec develop_signed_sentence_list_n_times signed_sentence_list n =  
+  if n = 0 then begin
+    Printf.printf "not found!";
+    CONTRADICTION []
+  end else
+    if is_contradiction signed_sentence_list then
+      CONTRADICTION signed_sentence_list
+      else
       match signed_sentence_list with
-      | T sentence :: rest ->  
-        if List.exists (function F s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
-          true
-        else
-          is_contradiction rest
-      | F sentence :: rest ->  
-        if List.exists (function T s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
-          true
-        else
-          is_contradiction rest
-      | [] -> false
-    
-    let find_contradictions signed_sentence_list =
-      let rec aux acc remaining =
-      match remaining with
-      | T sentence :: rest ->  
-        if List.exists (function F s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
-        (T sentence :: F sentence :: acc)
-        else
-        aux acc rest
-      | F sentence :: rest ->  
-        if List.exists (function T s -> sentence_to_string s = sentence_to_string sentence | _ -> false) rest then
-        (F sentence :: T sentence :: acc)
-        else
-        aux acc rest
-      | [] -> acc
-      in
-      aux [] signed_sentence_list
-    
-  
-  let rec develop_signed_sentence_list_n_times signed_sentence_list n =  
-    if n = 0 then begin
-      Printf.printf "not found!";
-      CONTRADICTION []
-    end else
-      if is_contradiction signed_sentence_list then
-        CONTRADICTION signed_sentence_list
-        else
-        match signed_sentence_list with
-        | T (NEG sentence) :: rest -> 
-            let circulated = [F sentence] @ rest @ [T (NEG sentence)] in 
-            T_NEG(signed_sentence_list, develop_signed_sentence_list_n_times circulated (n - 1))
+      | T (NEG sentence) :: rest -> 
+          let circulated = [F sentence] @ rest @ [T (NEG sentence)] in 
+          T_NEG(signed_sentence_list, develop_signed_sentence_list_n_times circulated (n - 1))
 
-        | F (NEG sentence) :: rest -> 
-            let circulated = [T sentence] @ rest @ [F (NEG sentence)] in 
-            F_NEG(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
+      | F (NEG sentence) :: rest -> 
+          let circulated = [T sentence] @ rest @ [F (NEG sentence)] in 
+          F_NEG(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
 
-        | T (AND (sentence1, sentence2)) :: rest -> 
-            let circulated = [T sentence1; T sentence2] @ rest @ [T (AND (sentence1, sentence2))] in 
-            T_AND(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
+      | T (AND (sentence1, sentence2)) :: rest -> 
+          let circulated = [T sentence1; T sentence2] @ rest @ [T (AND (sentence1, sentence2))] in 
+          T_AND(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
 
-        | F (AND (sentence1, sentence2)) :: rest -> 
-            let circulated1 = [F sentence1] @ rest @ [F (AND (sentence1, sentence2))] in 
-            let circulated2 = [F sentence2] @ rest @ [F (AND (sentence1, sentence2))] in 
-          F_AND(signed_sentence_list, develop_signed_sentence_list_n_times  circulated1 (n - 1), develop_signed_sentence_list_n_times  circulated2 (n - 1))
-        | T (sentence) :: rest -> develop_signed_sentence_list_n_times ( rest@ [T sentence] ) (n - 1)
-        | F (sentence) :: rest -> develop_signed_sentence_list_n_times (rest @  [F sentence]) (n - 1)
-        | [] -> CONTRADICTION []
-        
+      | F (AND (sentence1, sentence2)) :: rest -> 
+          let circulated1 = [F sentence1] @ rest @ [F (AND (sentence1, sentence2))] in 
+          let circulated2 = [F sentence2] @ rest @ [F (AND (sentence1, sentence2))] in 
+        F_AND(signed_sentence_list, develop_signed_sentence_list_n_times  circulated1 (n - 1), develop_signed_sentence_list_n_times  circulated2 (n - 1))
+      | T (sentence) :: rest -> develop_signed_sentence_list_n_times ( rest@ [T sentence] ) (n - 1)
+      | F (sentence) :: rest -> develop_signed_sentence_list_n_times (rest @  [F sentence]) (n - 1)
+      | [] -> CONTRADICTION []
+      
 
   
   
@@ -762,31 +467,6 @@ let signed_sentence_to_string expr =
     aux [] tree
 
 
-    let accumulate_alt_proof_tree tree =
-      let rec aux accumulated (signed_sentence_list, justification) =
-        let new_signed_sentence_list = union_lists accumulated signed_sentence_list in
-        match justification with
-        | CONTRADICTION_rule _ ->
-            (new_signed_sentence_list, CONTRADICTION_rule new_signed_sentence_list)
-    
-        | F_NEG_rule subtree ->
-            let updated_subtree = aux new_signed_sentence_list subtree in
-            (new_signed_sentence_list, F_NEG_rule updated_subtree)
-    
-        | T_NEG_rule subtree ->
-            let updated_subtree = aux new_signed_sentence_list subtree in
-            (new_signed_sentence_list, T_NEG_rule updated_subtree)
-    
-        | F_AND_rule (left, right) ->
-            let updated_left = aux new_signed_sentence_list left in
-            let updated_right = aux new_signed_sentence_list right in
-            (new_signed_sentence_list, F_AND_rule (updated_left, updated_right))
-    
-        | T_AND_rule subtree ->
-            let updated_subtree = aux new_signed_sentence_list subtree in
-            (new_signed_sentence_list, T_AND_rule updated_subtree)
-      in
-      aux [] tree
     
 
 
@@ -864,14 +544,6 @@ let () =
     let example_proof_tree_acc = accumulate_proof_tree example_proof_tree in
         Printf.printf "example of proof_tree 'Accumulated' :\n%s\n"
           (proof_tree_to_string example_proof_tree_acc);
-
-  
-    let converted= convert_proof_tree example_proof_tree in
-          Printf.printf "Converted to alt_proof_tree:\n%s\n" (alt_proof_tree_to_string converted);
-          let accumulated_alt_tree = accumulate_alt_proof_tree converted in
-          Printf.printf "Accumulated alt_proof_tree:\n%s\n" (alt_proof_tree_to_string accumulated_alt_tree);
-
-
 
     let translated_sequent_proof = proof_tree_to_sequent_proof example_proof_tree_acc in
     Printf.printf "example of proof_tree Accumulated then Translated:\n%s\n"
