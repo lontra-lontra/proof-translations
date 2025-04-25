@@ -366,6 +366,7 @@ let rec proof_tree_to_string ?(depth=0) tree =
     let middle = proof_tree_to_middle_latex tree in
     Printf.sprintf "
   \\begin{prooftree}
+  \\rootAtTop
   %s
   \\end{prooftree}
   " middle

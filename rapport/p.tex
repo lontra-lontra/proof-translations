@@ -2,8 +2,11 @@
 % LLNCS macro package for Springer Computer Science proceedings;
 % Version 2.21 of 2022/01/12
 %
+
 \documentclass[runningheads]{llncs}
-%
+
+\usepackage{amssymb}%
+\usepackage{amsmath}
 \usepackage{tikz}
 \usepackage[T1]{fontenc}
 % T1 fonts will be used to generate the final print and online PDFs,
@@ -46,221 +49,248 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Tableux proof are used in automated  "proofers" as (TODO), wereas sequent calculus 
-proofs are used in proof assitants as (TODO). This work aims to present a systematic 
-algorithm for translating tableaux proofs into sequent calculus proofs.
-It begins with an overview of the definitions underlying such translations 
+Tableaux proofs are used in automated  "proofers" as (TODO), whereas sequent calculus 
+proofs are used in proof assistants as (TODO). This work aims to discuss the translation between them and provide an 
+algorithm for translating first-order, predicate logic tableaux proofs into sequent calculus proofs.
+It begins with an overview of the definitions 
 in both intuitionistic and classical logic.
  It then shows a translation process in classical logic, along with its properties. 
- Finally, potential extensions toward translations in intuitionistic logic are explored.
+ Finally, a potential extension towards translation in intuitionistic logic is explored.
+ (TODO talk about book1, "extention")
 \keywords{Tableux proof  \and  sequent calculus  \and intuitionistic logic.}
 \end{abstract}
 %
 %
 %
-\section{Underlying concepts}
+\section{Introduction}
+\subsection{Notation}
+In this work, sentences will implicitly refer to first-order predicate logic sentences; for intuitionistic logic, their meaning will come from Kripke's semantics \cite{kripke1965} . The notation for structures and frames will be (heavily based on ? ) / (as in ) \cite{book1}. 
+To make this document slightly more self-reliant, we will briefly explain:  
+\subsection{Definitions}
 %(TODO how detailed? < or > than thepresentation? )
-The sintax and semantics from both classical and intuitionistic logic is based on \cite{book2}. 
-In this work, sentences wont have function symbols.
-\subsection{Language}
+The definitions will be given for intuitionistic logic;  To avoid redundancy, classical logic will be seen as intuitionistic logic with single-framed structures. [TODO cite?]
+
 \begin{definition}
-\item A \textbf{Language} $\mathcal{L}$ is a set of symbols, including:
-\begin{itemize}
-    \item parentheses $($ and $)$ 
-    \item logical connectives $\neg,\land,\lor,\to$
-    \item variable symbols $x,y,z,\ldots$
-    \item constant symbols $c_{1},c_{2},\ldots$
-   (% \item function symbols $p,q,r,\ldots$ %)
-    \item quantifier symbols $\forall,\exists$
-    \item predicate symbols $P,Q,R,\ldots$
-\end{itemize}
+
+
+    \textbf{A structure of a language} consists of a domain and an assignment from the constant symbols of the language to the domain and from  the predicate symbols of the language to predicates in the  domain. 
+\end{definition}
+ They represent "possible worlds" [TODO cite] in a frame: 
+\begin{definition}
+
+\textbf{ A Kripke Frame} of a Language \(\mathcal{L}\),   \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of a partially ordered set R, and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). Furthermore, in a Kripke Frame:
+  if $p \leq q$ , then C(q) extends C(p):  all sentences that are true in C(p) are true in C(q) , the domain of C(p) is included in the domain of C(q) and the assignments in C(p) are the same as in C(q)
 
 \end{definition}
 
-()Every predicate is a formula, and if \a
+For simplicity, R will always be the set of sequences of integers, and $p \leq q$ if $p$ is in $q$:
+\begin{figure}
+    \centering
+
+\scriptsize{
+        
+\begin{tikzpicture}
+            
+
+            % Root node
+            \node (root) at (0,0) {$\emptyset$};
+        
+            % Second stage nodes
+            \node (n1) at (-1,-1.5) {$0$};
+            \node (n2) at (0,-1.5) {$1$};
+            \node (n3) at (1,-1.5) {$...$};
+        
+            % Edges
+            \draw[->] (root) -- (n1) node[midway, sloped, above] {$\geq$};
+            \draw[->] (root) -- (n2) node[midway, sloped, above] {$\leq$};
+            \draw[->] (root) -- (n3) node[midway, sloped, above] {$\leq$};
+            
+            % Third stage nodes
+            \node (n00) at (-2,-3) {$00$};
+            \node (n01) at (-1,-3) {$01$};
+            \node (n02) at (0,-3) {$...$};
+        
+            % Edges
+            \draw[->] (n1) -- (n00) node[midway, sloped, above] {$\geq$};
+            \draw[->] (n1) -- (n01) node[midway, sloped, above] {$\leq$};
+            \draw[->] (n1) -- (n02) node[midway, sloped, above] {$\leq$};
+        
+        \end{tikzpicture}
+        \hspace{30pt}
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {C($\emptyset$)};
+        
+            % Second stage nodes
+            \node (n1) at (-1,-1.5) {$C(0)$};
+            \node (n2) at (0,-1.5) {$C(1)$};
+            \node (n3) at (1,-1.5) {$...$};
+        
+            % Edges
+            \draw[->] (root) -- (n1) node[midway, sloped, above] {\tiny{extends}};
+            \draw[->] (root) -- (n2) node[midway, sloped, above] {\tiny{extends}};
+            \draw[->] (root) -- (n3) node[midway, sloped, above] {\tiny{extends}};
+            
+            % Third stage nodes
+            \node (n00) at (-2,-3) {$C(00)$};
+            \node (n01) at (-1,-3) {$C(01)$};
+            \node (n02) at (0,-3) {$...$};
+        
+            % Edges
+            \draw[->] (n1) -- (n00) node[midway, sloped, above] {\tiny{extends}};
+            \draw[->] (n1) -- (n01) node[midway, sloped, above] {\tiny{extends}};
+            \draw[->] (n1) -- (n02) node[midway, sloped, above] {\tiny{extends}};
+
+        \end{tikzpicture}
+  
+
+}
+
+    \caption{R and a Kripke frame }
+    \label{fig:enter-label}
+
+    
+\end{figure}
 
 
-()Sentences 
+\begin{definition}\textbf{Forcing}.
+          When a sentence $\phi$ of a language $\mathcal{L}$ is \textbf{forced} by a structure $C(p)$ of a frame $\mathcal{C}$, we denote:
+        $ p \vDash_{\mathcal{C}} \phi$ \\
+         Forcing is defined by induction: \cite{book1}
 
 
-()Signed sentences
-\subsection{Truth in classical logic}
 
-
-\subsection{Truth in intuitionistic logic}
-
-
-\subsubsection{Kripke structures} 
-
+        \begin{itemize}
+            \item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+            \item    $ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$
+            \item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+            \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+            \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+            \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+            \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+        \end{itemize}
+\end{definition}
 \begin{definition}
-    A kripke structure is a s
+    \textbf{Truth}
+    A sentence is Intuitionistically valid if it is forced in all structures of all Kripke
+        frames of that the sentence's language.
 \end{definition}
 
-\subsubsection{Kripke Frames} 
+In classical logic, this definition simplifies to the one of forcing, and it's simplified again by the fact that p = q; in fact, we can define classical validity as: \cite{book1}
+
 \begin{definition}
-    Kripe 
+    \textbf{Truth}
+    A sentence is classically valid if it is intuitionistically valid in all single-sentenced Kripke frames of that sentence's language. 
 \end{definition}
 
 \subsection{Translation in classical logic}
-    We first define a slightly diferent version of a tableaux proof tree \cite{book1}, 
-    were each node is represented by a set of signed sentences. Intuitively, 
-    a node in the usal definiton is replaced by set of 
-    all nodes in the path that goes from the root to him. %[TODO "root to him" is a bit ugly]  
+    Here We first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, where each node is a signed sentence  / truth assertion . This will allow for a more implementation-oriented approach and the translation later on. 
+    
+    The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in figure [TODO].
+    
+    Generally speaking,
+    a node in the usual definition is replaced by a sequence of 
+    all nodes in the path that goes from the root to it. Afterwards, all nodes in this newly formed tableaux corresponding to nodes that are not leafs of the atomic tableaux that introduced it are removed by adjoining its son(s) and its parent.  (TODO)
 
-    A tree with a single node $\{F \phi \}$ is a tableaux development of $\phi$. 
-    Given a signed sentence $\sigma$ in a leaf $\{T \Gamma_1, T\Gamma_2, \ldots, F \Delta_1, F \Delta_2, \ldots\}$ of a
-    tableaux development $\tau$ of $\phi$, we define : 
-    $\f(\sigma,\tau)$:
+     Generally speaking,
+    a node in the usual definition is replaced by a sequence of 
+    all nodes in the path that goes from the root to it. Afterwards, some nodes are removed from the newly formed tableaux by adjoining its son(s) and its parent. A node should be removed if its corresponding node in the original tableaux was not a leaf of the atomic tableaux that introduced it.   
+    %[TODO "root to him" is a bit ugly]  
+
+\begin{definition}
+    \textbf{A Signed sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $
+\end{definition}
+
+\begin{definition}
+    \textbf{A Signed sentence list} is a list forcing assertions inside of a tableau proof. It looks like $F_{p_1} \phi_{1}, T_{q_1}, ... F_{p_1}, ..., $, it is only a construction (a notation) inside the tableau proof. For now, 
+    Intuitivelly we can provide the meaning "There exists a frame for witch $ \mathcal{C}(p_{1}) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \nvDash \phi_{2}$ " to it.
+\end{definition}
+ 
+    
+\begin{definition}
+    A tree with the single node $\{F \phi \}$ is a tableaux development of $\phi$. \\
+
+    if $\tau$ is a tableaux development of $\phi$ then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$.
+We define the function $\hookleftarrow$: 
+    
+    Given a signed sentence $\sigma$ and a tableaux development $\tau$ of $\phi$ :
+
+    
+   
+    (here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)
+
+    
     \begin{itemize}
-        \item $\hookrightarrow(T \neg \alpha,\tau) = \tau$ with $L \cup \{F \alpha\}$ 
-        added (adjoined?) to all leaves $L$ that contain $T \neg \alpha$.
-        \item $f(F \neg \alpha,\tau) = \tau$ with $L \cup \{T \alpha\}$ 
+        \item $\hookleftarrow(T \neg \alpha,\tau) = \tau$ with the node $t || F \alpha $ 
+        added to all leaves $h||t$ that contain $T\neg \alpha$.
+        \item $f(F \neg \alpha,\tau) = \tau$ with $L : \{T \alpha\}$ 
         added (adjoined?) to all leaves $L$ that contain $F \neg \alpha$.
-        \item $f(T (\alpha \land \beta),\tau) = \tau$ with $L \cup \{T \alpha, T \beta\}$ 
+        \item $f(T (\alpha \land \beta),\tau) = \tau$ with $L : \{T \alpha, T \beta\}$ 
         added to all leaves $L$ that contain $T (\alpha \land \beta)$.
-        \item $f(F (\alpha \land \beta),\tau) = \tau$ with $L \cup \{F \alpha\}$ and $L \cup \{F \beta\}$ 
+        \item $f(F (\alpha \land \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{F \beta\}$ 
         added to all leaves $L$ that contain $F (\alpha \land \beta)$.
-        \item $f(T (\alpha \lor \beta),\tau) = \tau$ with $L \cup \{T \alpha\}$ and $L \cup \{T \beta\}$ 
+        \item $f(T (\alpha \lor \beta),\tau) = \tau$ with $L : \{T \alpha\}$ and $L : \{T \beta\}$ 
         added to all leaves $L$ that contain $T (\alpha \lor \beta)$.
-        \item $f(F (\alpha \lor \beta),\tau) = \tau$ with $L \cup \{F \alpha, F \beta\}$ 
+        \item $f(F (\alpha \lor \beta),\tau) = \tau$ with $L : \{F \alpha, F \beta\}$ 
         added to all leaves $L$ that contain $F (\alpha \lor \beta)$.
-        \item $f(T (\alpha \to \beta),\tau) = \tau$ with $L \cup \{F \alpha\}$ and $L \cup \{T \beta\}$ 
+        \item $f(T (\alpha \to \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{T \beta\}$ 
         added to all leaves $L$ that contain $T (\alpha \to \beta)$.
-        \item $f(F (\alpha \to \beta),\tau) = \tau$ with $L \cup \{T \alpha, F \beta\}$ 
+        \item $f(F (\alpha \to \beta),\tau) = \tau$ with $L : \{T \alpha, F \beta\}$ 
         added to all leaves $L$ that contain $F (\alpha \to \beta)$.
      \end{itemize}
-
-
-     A tree with a single node $\{F \phi \}$ is a tableaux development of $\phi$. 
-    Given a signed sentence $\sigma$ in a leaf $\{T \Gamma_1, T\Gamma_2, \ldots, F \Delta_1, F \Delta_2, \ldots\}$ of a
-    tableaux development $\tau$ of $\phi$, we denote $\tau \hookrightarrow_{\sigma} \tau'$
-    as a function that takes a tableaux development of phi and gives another tree. 
-    \begin{center}
-        \begin{scriptsize}
-        \begin{tikzpicture}[scale=0.6
-            , level distance=1.5cm,
-            level 1/.style={sibling distance=3cm},
-            level 2/.style={sibling distance=2cm}]
-        \node {$\{F \phi\}$}
-            child {node {$\{\ldots\}$}
-                child {node {$\{L\}$}}
-                child {node {$\{T \neg \alpha, \ldots\}$}}
-                child {node {$\{T \neg \alpha, \ldots\}$}}
-            };
-        \end{tikzpicture}
-        \hspace{1.5cm} $\hookrightarrow$ \hspace{1.5cm}
-        \begin{tikzpicture}[scale=0.6, level distance=1.5cm,
-            level 1/.style={sibling distance=3cm},
-            level 2/.style={sibling distance=2cm}]
-        \node {$\{F \phi\}$}
-            child {node {$\{\ldots\}$}
-                child {node {$\{\ldots\}$}}
-                child {node {$\{\ldots\}$}}
-                child {node {$\{T \neg \alpha, \ldots\}$}
-                    child {node {$\{F \alpha, \ldots\}$}}}
-                child {node {$\{T \neg \alpha, \ldots\}$}
-                    child {node {$\{F \alpha, \ldots\}$}}}
-            };
-        \end{tikzpicture}
-        \end{scriptsize}
-    \end{center}
-
-
-    \begin{center}
-        \begin{tikzpicture}[level distance=2cm,
-            level 1/.style={sibling distance=4cm},
-        \node {$\{T \neg \alpha, \ldots\}$}
-
-        \end{tikzpicture}
-    \end{center}
-
-    \begin{center}
-    \begin{tikzpicture}[level distance=2cm,
-        level 1/.style={sibling distance=4cm},
-        level 2/.style={sibling distance=2cm}]
-    \node {$\{T \neg \alpha, \ldots\}$}
-            child {node {$\{F \alpha, \ldots\}$}};
-    \end{tikzpicture}
-    \end{center}
-
-
-
-    Definition: f($\tau$,$\phi$) is tableaux development of $\phi$.
- 
-
-
-\begin{table}
-\caption{Table captions should be placed above the
-tables.}\label{tab1}
-\begin{tabular}{|l|l|l|}
-\hline
-Heading level &  Example & Font size and style\\
-\hline
-Title (centered) &  {\Large\bfseries Lecture Notes} & 14 point, bold\\
-1st-level heading &  {\large\bfseries 1 Introduction} & 12 point, bold\\
-2nd-level heading & {\bfseries 2.1 Printing Area} & 10 point, bold\\
-3rd-level heading & {\bfseries Run-in Heading in Bold.} Text follows & 10 point, bold\\
-4th-level heading & {\itshape Lowest Level Heading.} Text follows & 10 point, italic\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\noindent Displayed equations are centered and set on a separate
-line.
-\begin{equation}
-x + y = z
-\end{equation}
-Please try to avoid rasterized images for line-art diagrams and
-schemas. Whenever possible, use vector graphics instead (see
-Fig.~\ref{fig1}).
-
-\begin{figure}
-\includegraphics[width=\textwidth]b.png}
-\caption{A figure caption is always placed below the illustration.
-Please note that short captions are centered, while long ones are
-justified by the macro package automatically.} \label{fig1}
-\end{figure}
+\end{definition}
 
 \begin{theorem}
-This is a sample theorem. The run-in heading is set in bold, while
-the following text appears in italics. Definitions, lemmas,
-propositions, and corollaries are styled the same way.
+    if the elements of the list $ \tau' = \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ 
+    are  $\{ T_{1}\phi_{p_1}, T_{2}\phi_{p_2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $, then the following is true: \\
+    if there exist a frame that does not force $\phi$ then there exists a frame $\phi$ such that :
+     $ \mathcal{C}(p_1) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \vDash \phi_{2}$ and ... $ \mathcal{C}(p_{i}) \nvDash \phi_{i}$  and $ \mathcal{C}(p_{i+1}) \nvDash \phi_{i+i}$
 \end{theorem}
-%
-% the environments 'definition', 'lemma', 'proposition', 'corollary',
-% 'remark', and 'example' are defined in the LLNCS documentclass as well.
-%
+
 \begin{proof}
-Proofs, examples, and remarks have the initial word in italics,
-while the following text appears in normal font.
+    The proof goes by induction, 
 \end{proof}
-For citations of references, we prefer the use of square brackets
-and consecutive numbers. Citations using labels or the author/year
-convention are also acceptable. The following bibliography provides
-a sample reference list with entries for journal
-articles~\cite{ref_article1}, an LNCS chapter~\cite{ref_lncs1}, a
-book~\cite{ref_book1}, proceedings without editors~\cite{ref_proc1},
-and a homepage~\cite{ref_url1}. Multiple citations are grouped
-\cite{ref_article1,ref_lncs1,ref_book1},
-\cite{ref_article1,ref_book1,ref_proc1,ref_url1}.
 
-\begin{credits}
-\subsubsection{\ackname} A bold run-in heading in small font size at the end of the paper is
-used for general acknowledgments, for example: This study was funded
-by X (grant number Y).
 
-\subsubsection{\discintname}
-It is now necessary to declare any competing interests or to specifically
-state that the authors have no competing interests. Please place the
-statement with a bold run-in heading in small font size beneath the
-(optional) acknowledgments\footnote{If EquinOCS, our proceedings submission
-system, is used, then the disclaimer can be provided directly in the system.},
-for example: The authors have no competing interests to declare that are
-relevant to the content of this article. Or: Author A has received research
-grants from Company W. Author B has received a speaker honorarium from
-Company X and owns stock in Company Y. Author C is a member of committee Z.
-\end{credits}
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{%
+\resizebox{0.95\textwidth}{!}{
+
+\begin{tikzpicture}[scale=0.9]
+\node {$F \phi$}
+    child {node {$\ldots$}
+        child {node {$\ldots$}}
+        child {node {$T \neg \alpha, ...$}
+            child {node {$F \alpha, ... T \neg \alpha$}}}
+        child {node {$\ldots$}}
+        child {node {$T \neg \alpha, ...$}
+            child {node {$F \alpha, ... T \neg \alpha$}}}};
+\end{tikzpicture}%
+
+
+
+\hspace{0.5cm} \raisebox{1.8cm}{$\hookleftarrow$} 
+\hspace{0.5cm}
+\raisebox{1.25cm}{
+\begin{tikzpicture}[scale=0.9]
+\node {$F \phi$}
+    child {node {$\ldots$}
+        child {node {$\ldots$}}
+        child {node {$T \neg \alpha, ...$}}
+        child {node {$\ldots$}}
+        child {node {$T \neg \alpha, ...$}}};
+\end{tikzpicture}
+}
+%
+}%
+}
+\caption{Example of $\hookleftarrow(T \neg \alpha ,\tau)$ and $\tau$ } 
+\label{fig:tree_expansion}
+\end{figure}
+
+
+
 %
 % ---- Bibliography ----
 %
@@ -277,7 +307,9 @@ Company X and owns stock in Company Y. Author C is a member of committee Z.
     
     \bibitem{book2}
     Dummett, M.: Elements of Intuitionism. Oxford Logic Guides. Clarendon Press (2000). \url{https://books.google.fr/books?id=JVFzknbGBVAC}
-    
+        \bibitem{kripke1965}
+    Kripke, S.A.: Semantical analysis of intuitionistic logic I. In: Studies in Logic and the Foundations of Mathematics. Elsevier (1965)
+
 
 \bibitem{ref_article1}
 Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)
@@ -297,6 +329,6 @@ on Proceedings, pp. 1--2. Publisher, Location (2010)
 
 
 \bibitem{ref_url1}
-LNCS Homepage, \url{http://www.springer.com/lncs}, last accessed 2023/10/25
+LNCS Homepage, \url{http://www.springer.coBm/lncs}, last accessed 2023/10/25
 \end{thebibliography}
 \end{document}
