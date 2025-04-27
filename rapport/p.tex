@@ -148,9 +148,9 @@ For simplicity, R will always be the set of sequences of integers, and $p \leq q
 
     \caption{R and a Kripke frame }
     \label{fig:enter-label}
-
     
 \end{figure}
+    \\Also, from now on, the constant elements of our language will be ordered $\{c_0, c_1, c_2 ...\}$
 
 
 \begin{definition}\textbf{Forcing}.
@@ -168,8 +168,11 @@ For simplicity, R will always be the set of sequences of integers, and $p \leq q
             \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
             \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
             \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
         \end{itemize}
 \end{definition}
+
+[TODO extended language ? ] 
 \begin{definition}
     \textbf{Truth}
     A sentence is Intuitionistically valid if it is forced in all structures of all Kripke
@@ -183,7 +186,9 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
     A sentence is classically valid if it is intuitionistically valid in all single-sentenced Kripke frames of that sentence's language. 
 \end{definition}
 
-\subsection{Translation in classical logic}
+\subsection{Classical tableaux}
+
+\subsubsection{Considerations}
     Here We first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, where each node is a signed sentence  / truth assertion . This will allow for a more implementation-oriented approach and the translation later on. 
     
     The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in figure [TODO].
@@ -192,66 +197,121 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
     a node in the usual definition is replaced by a sequence of 
     all nodes in the path that goes from the root to it. Afterwards, all nodes in this newly formed tableaux corresponding to nodes that are not leafs of the atomic tableaux that introduced it are removed by adjoining its son(s) and its parent.  (TODO)
 
-     Generally speaking,
+    Generally speaking,
     a node in the usual definition is replaced by a sequence of 
     all nodes in the path that goes from the root to it. Afterwards, some nodes are removed from the newly formed tableaux by adjoining its son(s) and its parent. A node should be removed if its corresponding node in the original tableaux was not a leaf of the atomic tableaux that introduced it.   
     %[TODO "root to him" is a bit ugly]  
 
-\begin{definition}
-    \textbf{A Signed sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $
-\end{definition}
 
+\subsubsection{Classical tableaux}
+The classical tableaux stands on pas mal de defintions, well try to justifiy them briefly:
 \begin{definition}
-    \textbf{A Signed sentence list} is a list forcing assertions inside of a tableau proof. It looks like $F_{p_1} \phi_{1}, T_{q_1}, ... F_{p_1}, ..., $, it is only a construction (a notation) inside the tableau proof. For now, 
-    Intuitivelly we can provide the meaning "There exists a frame for witch $ \mathcal{C}(p_{1}) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \nvDash \phi_{2}$ " to it.
+    \textbf{A Signed sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $ 
+    \textbf{A Signed sentence list} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions \\$\{ T_{1}\phi_{p_1}, T_{2}\phi_{p_2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $
+     is "valid" if there exists a frame for witch $ \mathcal{C}(p_1) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \vDash \phi_{2}$ and ... $ \mathcal{C}(p_{i}) \nvDash \phi_{i}$  and $ \mathcal{C}(p_{i+1}) \nvDash \phi_{i+i}$
 \end{definition}
  
-    
+
+A Signed sentence list will denote a existance assumption that may or may not be valid. We can infer other assumptions that are, by definition, 
+consequences and necessities (?) of a given assumption. The function f, defined bellow, is one of the ways we can do that: 
 \begin{definition}
-    A tree with the single node $\{F \phi \}$ is a tableaux development of $\phi$. \\
-
-    if $\tau$ is a tableaux development of $\phi$ then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$.
-We define the function $\hookleftarrow$: 
-    
-    Given a signed sentence $\sigma$ and a tableaux development $\tau$ of $\phi$ :
-
-    
-   
-    (here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)
-
-    
+    The function $f$ takes a signed sentence $\sigma$ and a signed sentence list $L$ and returns one or two signed sentence lists. It is defined as follows:
+    \\(here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)
     \begin{itemize}
-        \item $\hookleftarrow(T \neg \alpha,\tau) = \tau$ with the node $t || F \alpha $ 
-        added to all leaves $h||t$ that contain $T\neg \alpha$.
-        \item $f(F \neg \alpha,\tau) = \tau$ with $L : \{T \alpha\}$ 
-        added (adjoined?) to all leaves $L$ that contain $F \neg \alpha$.
-        \item $f(T (\alpha \land \beta),\tau) = \tau$ with $L : \{T \alpha, T \beta\}$ 
-        added to all leaves $L$ that contain $T (\alpha \land \beta)$.
-        \item $f(F (\alpha \land \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{F \beta\}$ 
-        added to all leaves $L$ that contain $F (\alpha \land \beta)$.
-        \item $f(T (\alpha \lor \beta),\tau) = \tau$ with $L : \{T \alpha\}$ and $L : \{T \beta\}$ 
-        added to all leaves $L$ that contain $T (\alpha \lor \beta)$.
-        \item $f(F (\alpha \lor \beta),\tau) = \tau$ with $L : \{F \alpha, F \beta\}$ 
-        added to all leaves $L$ that contain $F (\alpha \lor \beta)$.
-        \item $f(T (\alpha \to \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{T \beta\}$ 
-        added to all leaves $L$ that contain $T (\alpha \to \beta)$.
-        \item $f(F (\alpha \to \beta),\tau) = \tau$ with $L : \{T \alpha, F \beta\}$ 
-        added to all leaves $L$ that contain $F (\alpha \to \beta)$.
-     \end{itemize}
+        \item $f(T \neg \alpha, h||L) = \{L || h || F \alpha\}$.
+        \item $f(F \neg \alpha, h||L) = \{L || h || T \alpha\}$.
+        \item $f(T (\alpha \land \beta), h||L) = \{L || h || T \alpha || T \beta\}$.
+        \item $f(F (\alpha \land \beta), h||L) = \{L || h || F \alpha, L || h || F \beta\}$.
+        \item $f(T (\alpha \lor \beta), h||L) = \{L || h || T \alpha, L || h || T \beta\}$.
+        \item $f(F (\alpha \lor \beta), h||L) = \{L || h || F \alpha || F \beta\}$.
+        \item $f(T (\alpha \to \beta), h||L) = \{L || h || F \alpha, L || h || T \beta\}$.
+        \item $f(F (\alpha \to \beta), h||L) = \{L || h || T \alpha || F \beta\}$.
+        \item $f(T (\forall x) \phi(x), h||L) = \{L || h || T \phi(c_i) \}$ for the first constant $c_i$ for which $\phi(x)$ is not in L.
+        \item $f(F (\forall x) \phi(x), h||L) = \{L || h || F \phi(c_i) \}$ for the first constant $c_i$ not present in $h||L$.
+        \item $f(T (\exists x) \phi(x), h||L) = \{L || h || T \phi(c_i) \}$ for the first constant $c_i$ not present in $h||L$.
+        \item $f(F (\exists x) \phi(x), h||L) = \{L || h || F \phi(c_i) \}$ for the first constant $c_i$ for which $\phi(x)$ is not in L.
+    \end{itemize}
 \end{definition}
 
+Of course, this inference must be "well behaved":
 \begin{theorem}
-    if the elements of the list $ \tau' = \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ 
-    are  $\{ T_{1}\phi_{p_1}, T_{2}\phi_{p_2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $, then the following is true: \\
-    if there exist a frame that does not force $\phi$ then there exists a frame $\phi$ such that :
-     $ \mathcal{C}(p_1) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \vDash \phi_{2}$ and ... $ \mathcal{C}(p_{i}) \nvDash \phi_{i}$  and $ \mathcal{C}(p_{i+1}) \nvDash \phi_{i+i}$
+    Given a signed sentence list x, x is valid if and only if one of the sentence lists of f(x) is valid 
 \end{theorem}
-
 \begin{proof}
-    The proof goes by induction, 
+    It is truth directly by the definition of forcing. Some special attention must be given to the choice of varibles and structures: 
+    When chosing [TODO]
 \end{proof}
 
 
+\begin{definition}
+    \textbf{The Tableux development of a sentence } is defined inductivelly: 
+    \begin{itemize}
+        \item A tree with the single node $\{F \phi \}$ is a tableaux development of $\phi$. 
+        \item If $\tau$ is a tableaux development of $\phi$, then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$. Where:
+    \end{itemize}
+
+    $\hookleftarrow(\sigma,\tau) = $ $\tau$ with $f(\sigma, l) $added to all leaves l that contain $\sigma$
+
+\end{definition}
+
+
+    % \begin{definition} 
+    %     A tree with the single node $\{F \phi \}$ is a tableaux development of $\phi$. \\
+    % 
+    %     if $\tau$ is a tableaux development of $\phi$ then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$.
+    % We define the function $\hookleftarrow$: 
+    %     
+    %     Given a signed sentence $\sigma$ and a tableaux development $\tau$ of $\phi$ :
+    %     (here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)
+    %     \begin{itemize}
+    %         \item $\hookleftarrow(T \neg \alpha,\tau) = \tau$ with the node $t || h || F \alpha $ 
+    %         added to all leaves $h||t$ that contain $T\neg \alpha$.
+    %         \item $f(F \neg \alpha,\tau) = \tau$ with $L : \{T \alpha\}$ 
+    %         added (adjoined?) to all leaves $L$ that contain $F \neg \alpha$.
+    %         \item $f(T (\alpha \land \beta),\tau) = \tau$ with $L : \{T \alpha, T \beta\}$ 
+    %         added to all leaves $L$ that contain $T (\alpha \land \beta)$.
+    %         \item $f(F (\alpha \land \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{F \beta\}$ 
+    %         added to all leaves $L$ that contain $F (\alpha \land \beta)$.
+    %         \item $f(T (\alpha \lor \beta),\tau) = \tau$ with $L : \{T \alpha\}$ and $L : \{T \beta\}$ 
+    %         added to all leaves $L$ that contain $T (\alpha \lor \beta)$.
+    %         \item $f(F (\alpha \lor \beta),\tau) = \tau$ with $L : \{F \alpha, F \beta\}$ 
+    %         added to all leaves $L$ that contain $F (\alpha \lor \beta)$.
+    %         \item $f(T (\alpha \to \beta),\tau) = \tau$ with $L : \{F \alpha\}$ and $L : \{T \beta\}$ 
+    %         added to all leaves $L$ that contain $T (\alpha \to \beta)$.
+    %         \item $f(F (\alpha \to \beta),\tau) = \tau$ with $L : \{T \alpha, F \beta\}$ 
+    %         added to all leaves $L$ that contain $F (\alpha \to \beta)$.
+    %      \end{itemize}
+    % \end{definition}
+
+
+
+
+\begin{theorem}
+    "if there exists a frame that does not force $\phi$ then one of the leafs of $ \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ is valid."
+\end{theorem}
+
+\begin{proof}
+
+    The proof goes by induction:
+
+
+             The base case is true by definition. Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.
+             There are two cases to consider:
+            \begin{itemize}
+                \item If there does not exist a frame that does not force $\phi$, The theorem is valid for $\tau'$.
+                \item  If there exists a frame that does not force $\phi$:
+
+                         By the induction hypothesis, there exists a valid leaf $\sigma$ in $\tau$.
+                         \begin{itemize}
+                    \item If $\sigma$ is a leaf in $\tau$, then the theorem is valid for $\tau'$.
+                    \item If $\sigma$ is not a leaf in $\tau$, then:
+                         One or two nodes were added to $\sigma$ in $\tau'$ by the definition of $\hookleftarrow$.
+                         By the property [TODO] of $f$, one the added nodes are also valid.
+                         Consequently, the theorem is valid for $\tau'$.
+
+            \end{itemize}
+            \end{itemize}
+    \end{proof}
 \begin{figure}
 \centering
 \makebox[\textwidth][c]{%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  26 APR 2025 01:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  27 APR 2025 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -648,6 +648,13 @@ Overfull \hbox (5.76701pt too wide) in paragraph at lines 52--60
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (16.46407pt too wide) in paragraph at lines 86--154
+\T1/cmr/m/n/10 Also, from now on, the con-stant el-e-ments of our lan-guage wil
+l be or-dered $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 c[]; c[]; c[]:::\OMS/cmsy/m/n
+/10 g$ 
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 164--165
 
  []
@@ -677,12 +684,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 170--171
 
  []
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 211--212
-
- []
-
-[3] [4] (./p.aux)
+[2] [3] [4] [5] (./p.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -722,10 +724,10 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on p.pdf (4 pages, 230135 bytes).
+Output written on p.pdf (5 pages, 232148 bytes).
 PDF statistics:
- 446 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
+ 457 PDF objects out of 1000 (max. 8388607)
+ 108 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
