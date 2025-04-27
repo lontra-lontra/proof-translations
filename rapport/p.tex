@@ -158,8 +158,6 @@ For simplicity, R will always be the set of sequences of integers, and $p \leq q
         $ p \vDash_{\mathcal{C}} \phi$ \\
          Forcing is defined by induction: \cite{book1}
 
-
-
         \begin{itemize}
             \item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
             \item    $ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$
@@ -195,19 +193,15 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
     
     Generally speaking,
     a node in the usual definition is replaced by a sequence of 
-    all nodes in the path that goes from the root to it. Afterwards, all nodes in this newly formed tableaux corresponding to nodes that are not leafs of the atomic tableaux that introduced it are removed by adjoining its son(s) and its parent.  (TODO)
-
-    Generally speaking,
-    a node in the usual definition is replaced by a sequence of 
     all nodes in the path that goes from the root to it. Afterwards, some nodes are removed from the newly formed tableaux by adjoining its son(s) and its parent. A node should be removed if its corresponding node in the original tableaux was not a leaf of the atomic tableaux that introduced it.   
-    %[TODO "root to him" is a bit ugly]  
+    
 
 
 \subsubsection{Classical tableaux}
 The classical tableaux stands on pas mal de defintions, well try to justifiy them briefly:
 \begin{definition}
     \textbf{A Signed sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $ 
-    \textbf{A Signed sentence list} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions \\$\{ T_{1}\phi_{p_1}, T_{2}\phi_{p_2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $
+    \textbf{A Signed sentence list} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions \\$\{ T_{p_1}\phi_{1}, T_{p_2}\phi_{2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $
      is "valid" if there exists a frame for witch $ \mathcal{C}(p_1) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \vDash \phi_{2}$ and ... $ \mathcal{C}(p_{i}) \nvDash \phi_{i}$  and $ \mathcal{C}(p_{i+1}) \nvDash \phi_{i+i}$
 \end{definition}
  
@@ -287,7 +281,7 @@ Of course, this inference must be "well behaved":
 
 
 \begin{theorem}
-    "if there exists a frame that does not force $\phi$ then one of the leafs of $ \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ is valid."
+    "if there exists a frame that does not force $\phi$ then one of the leaves of $ \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ is valid."
 \end{theorem}
 
 \begin{proof}
@@ -312,6 +306,13 @@ Of course, this inference must be "well behaved":
             \end{itemize}
             \end{itemize}
     \end{proof}
+
+    \begin{theorem}
+        If all leaves of $ \hookleftarrow (\sigma_1,\hookleftarrow(\sigma_2(.....(\hookleftarrow(\sigma_n , F\phi)...)))) $ are contradictory, then 
+        $\phi$ is intuitionistically valid
+    \end{theorem}
+    \begin{proof}
+    If $\phi$ is not intuitionistically valid, there exists a Kripke frame $\mathcal{C}$ and a world $p$ such that $p \nvDash_{\mathcal{C}} \phi$. By the tableaux development process, at least one leaf remains valid. This contradicts the assumption that all leaves are contradictory. Hence, $\phi$ is intuitionistically valid.   \end{proof}
 \begin{figure}
 \centering
 \makebox[\textwidth][c]{%
@@ -349,6 +350,50 @@ Of course, this inference must be "well behaved":
 \label{fig:tree_expansion}
 \end{figure}
 
+\subsubsection{Sequent calculus}
+    Here we use the multi-conclusion sequent calculus defined by \cite{book2}. 
+    We also use a Kripke semantics oriented approach to multi-conclusion sequent calculus, presented in \cite{book3} [TODO].
+    
+\begin {definition}
+    \textbf{Sequent} A sequent is an expression of the form 
+    \[
+    \Gamma \vdash \Delta
+    \]
+    where $\Gamma = \{\Gamma_1, \Gamma_2, \Gamma_3,...\}$ and $\Delta = \{\Delta_1,\Delta_2,\Delta_3 ...\}$
+     are  finite sets of formulas. $\Gamma $ is called the antecedent, and 
+    $\Delta$ is called the succedent. [TODO cite]
+\end {definition}
+
+
+$\Gamma $ represents multiple necessary hipotesis, while $\Delta$ represents multiple possible conclusions. 
+
+\begin {definition}
+A sequent is non-valid if there exists a frame  
+that forces all sentences in $\Gamma$ and does not force any sentence in $\Delta$. A sequent is valid if not non-valid.
+\end {definition}
+
+
+
+Not a theorem neither a definition but maybe something:\\
+
+\begin{theorem}
+Given a valid signed sentence list $\{ T_{p_1}\phi_{1}, T_{p_2}\phi_{2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $ and a frame w, 
+if $\{ T_{q_1}\gamma_{1}, T_{q_2}\gamma_{2} , ... F_{s_1}\delta_{1}, F_{s_{2}}\delta_{2}...\}$ is the list obtained by filtering the truth assertions of type T extended by $w$ 
+filtering the truth assertions of type F with frames extended by w , then $\gamma_{1}, \gamma_{2}, ... \vdash \delta_1, \delta_2, ...$ is not valid
+\end{theorem}
+\begin{proof}
+A sequence of signed lists $\{ T_{p_1}\phi_{1}, T_{p_2}\phi_{2}, ... F_{p_i}\phi_{i}, F_{p_{i+1}}\phi_{i+1}...\} $ 
+inside a tableaux proof signifies an assumption of existance of a frame C 
+for witch
+ $ \mathcal{C}(p_1) \vDash \phi_{1}$ and $ \mathcal{C}(p_{2}) \vDash \phi_{2}$ and ... $ \mathcal{C}(p_{i}) \nvDash \phi_{i}$  and $ \mathcal{C}(p_{i+1}) \nvDash \phi_{i+i}$
+ witch implicitly means, by rules [TODO] of the definition of forcing: 
+
+ ($ \mathcal{C}(p) \vDash \phi_{1}$ for all $p \geq p_1$) and ($ \mathcal{C}(p) \vDash \phi_{2}$ for all $p \geq p_2$) and ... ($ \mathcal{C}(p) \nvDash \phi_{i}$ for all $p \leq p_{i}$) and ($ \mathcal{C}(p) \nvDash \phi_{i+1}$ for all $p \leq p_{i+1}$)
+ 
+ take a structure w inside of $\mathcal{C}$ for witch we can infer: $ w \vDash \gamma_{1}$ and $ w \vDash \gamma_{2}$ and ... $ w \nvDash \delta_1$  and $ w \nvDash \delta_2 ...$.
+ w is a counterexample proving the non-validity of 
+$\gamma_{1}, \gamma_{2}, ... \vdash \delta_1, \delta_2, ...$
+\end{proof}
 
 
 %
@@ -370,6 +415,9 @@ Of course, this inference must be "well behaved":
         \bibitem{kripke1965}
     Kripke, S.A.: Semantical analysis of intuitionistic logic I. In: Studies in Logic and the Foundations of Mathematics. Elsevier (1965)
 
+
+    \bibitem{book3}
+    Svejdar, V.: On Sequent Calculi for Intuitionistic Propositional Logic. CMUC (2005). \url{https://www.muni.cz/en/research/publications/1234567}
 
 \bibitem{ref_article1}
 Author, F.: Article title. Journal \textbf{2}(5), 99--110 (2016)

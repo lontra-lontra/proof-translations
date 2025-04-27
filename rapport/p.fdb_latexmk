@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1745764995.39692 "p.tex" "p.pdf" "p" 1745764996.78309 0
+["pdflatex"] 1745797540.19218 "p.tex" "p.pdf" "p" 1745797541.46064 0
   "/etc/texmf/web2c/texmf.cnf" 1743552946.75707 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600pk" 1745396039.33262 34088 1c1f98067c20e6ff3649f54d3a28d9f8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1745349782.05811 22480 f6210946047d5a5b6282bc9cdb95625d ""
@@ -162,8 +162,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743553475.7315 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743553713 6831075 d8bee8942bb66e5040967664c2067bd5 ""
   "llncs.cls" 1745349440.3231 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "p.aux" 1745764996.44676 1562 693bcfe2631435bcf0a64582b0adad50 "pdflatex"
-  "p.tex" 1745764993.76173 18569 3c3c9d01e4e537f6775827a6b0a52ab9 ""
+  "p.aux" 1745797541.14757 1710 55308f23639a8a3cb981bc8cd426066d "pdflatex"
+  "p.tex" 1745797538.90757 21459 cbfef2fce1de848df95f03caf8da60c2 ""
   (generated)
   "p.aux"
   "p.log"
