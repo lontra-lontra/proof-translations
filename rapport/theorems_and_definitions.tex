@@ -1,0 +1,50 @@
+
+\def\structureDefinition{
+\begin{definition}
+    \textbf{A Structure of a Language} consists of a domain and:
+    \begin{itemize}
+        \item An assignment from the constant symbols of the language to the domain.
+        \item An assignment from the predicate symbols of the language to predicates in the domain.
+    \end{itemize}
+\end{definition}
+}
+
+\def\kripkeFrameDefinition{
+\begin{definition}
+    \textbf{A Kripke Frame} of a Language \(\mathcal{L}\), \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of a partially ordered set \(R\), and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). Furthermore, in a Kripke Frame, if \(p \leq q\), then \(C(q)\) extends \(C(p)\):
+    \begin{itemize}
+        \item All sentences that are true in \(C(p)\) are true in \(C(q)\).
+        \item The domain of \(C(p)\) is included in the domain of \(C(q)\).
+        \item The assignments in \(C(p)\) are the same as in \(C(q)\) for the domain in common.
+    \end{itemize}
+\end{definition}
+}
+
+\def\forcingDefinition{
+\begin{definition}
+    \textbf{Forcing}. When a sentence \(\phi\) of a language \(\mathcal{L}\) is \textbf{forced} by a structure \(C(p)\) of a frame \(\mathcal{C}\), we denote:
+    \(p \Vdash_{\mathcal{C}} \phi\) \\
+    Forcing is defined by induction: \cite{book1}
+    \begin{itemize}
+        \item \(p \Vdash_{\mathcal{C}} \phi \Leftrightarrow \phi \text{ is true in } C(p)\) (if \(\phi\) is an atomic sentence).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \to \psi) \Leftrightarrow\) for all \(q \geq p\), if \(q \Vdash_{\mathcal{C}} \phi\), then \(q \Vdash_{\mathcal{C}} \psi\).
+        \item \(p \Vdash_{\mathcal{C}} \neg \phi \Leftrightarrow\) for all \(q \geq p\), \(q\) does not force \(\phi\).
+        \item \(p \Vdash_{\mathcal{C}} (\forall x) \phi(x) \Leftrightarrow\) for all \(q \geq p\) and \(d\) in \(\mathcal{L}_{C(q)}\), \(q \Vdash_{\mathcal{C}} \phi(d)\).
+        \item \(p \Vdash_{\mathcal{C}} (\exists x) \phi(x) \Leftrightarrow\) there exists a \(d\) in \(\mathcal{L}_{C(q)}\), such that \(p \Vdash_{\mathcal{C}} \phi(d)\).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \land \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ and } p \Vdash_{\mathcal{C}} \psi\).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \lor \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ or } p \Vdash_{\mathcal{C}} \psi\).
+    \end{itemize}
+\end{definition}
+}
+
+\def\intuitionisticValidityDefinition{
+\begin{definition}
+    \textbf{Intuitionistic Validity}. A sentence of a language \(\mathcal{L}\) is Intuitionistically valid if it is forced in all structures of all Kripke frames of \(\mathcal{L}\).
+\end{definition}
+}
+
+\def\classicalValidityDefinition{
+\begin{definition}
+    \textbf{Classical Validity}. A sentence of a language \(\mathcal{L}\) is classically valid if it is forced by all single-structure Kripke frames of that sentence's language.
+\end{definition}
+}
