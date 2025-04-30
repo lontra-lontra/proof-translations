@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TeXtidote analysis</title>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+}
+.highlight, .highlight-sh, .highlight-spelling {
+  padding: 2pt;
+  border-radius: 4pt;
+  cursor: help;
+  opacity: 0.7;
+  border: dashed 1px;
+}
+.highlight {
+  background-color: orange;
+  color: black;
+}
+.highlight-sh {
+  background-color: yellow;
+  color: black;
+}
+.highlight-spelling {
+  background-color: red;
+  color: white;
+}
+div.original-file {
+  font-family: monospace;
+  font-size: 11pt;
+  background-color: #f8f8ff;
+  padding: 20pt;
+  border-radius: 6pt;
+}
+.textidote {
+  	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgd2lkdGg9IjEwMC4wOTEwNW1tIiAgIGhlaWdodD0iMTguMjA5MDk5bW0iICAgdmlld0JveD0iMCAwIDEwMC4wOTEwNSAxOC4yMDkwOTkiICAgdmVyc2lvbj0iMS4xIiAgIGlkPSJzdmc4IiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTEgcjEzNzI1IiAgIHNvZGlwb2RpOmRvY25hbWU9InRleHRpZG90ZS5zdmciPiAgPGRlZnMgICAgIGlkPSJkZWZzMiIgLz4gIDxzb2RpcG9kaTpuYW1lZHZpZXcgICAgIGlkPSJiYXNlIiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiICAgICBib3JkZXJvcGFjaXR5PSIxLjAiICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIgICAgIGlua3NjYXBlOnpvb209IjEiICAgICBpbmtzY2FwZTpjeD0iLTI1NC4yNTMwOSIgICAgIGlua3NjYXBlOmN5PSItMjc4LjM3NTkxIiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9Im1tIiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIiAgICAgc2hvd2dyaWQ9ImZhbHNlIiAgICAgZml0LW1hcmdpbi10b3A9IjAiICAgICBmaXQtbWFyZ2luLWxlZnQ9IjAiICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIiAgICAgZml0LW1hcmdpbi1ib3R0b209IjAiICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIxIiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjAiICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMjY1IiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNSI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZSAvPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIgICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiICAgICBpZD0ibGF5ZXIxIiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI5LjczODA5NSwtNzAuNTc3NzUxKSI+ICAgIDxnICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjIwLjkyODk0NTU0cHg7bGluZS1oZWlnaHQ6MS4yNTtmb250LWZhbWlseTpzYW5zLXNlcmlmO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O2ZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgaWQ9InRleHQ4MzYiPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSAzMC43MjY4NjQsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzODYiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDQyLjMzNTg4OCw3NS43NzU1NjQgMTEuMDQ1ODMyLDAgMCw3LjgxMzQ3MyAtNS44MTM1OTYsMCAwLDAuNjA0NjE0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw0LjIwOTA0MyAwLjU4MTM2LDAgMCwtMC42MDQ2MTQgLTAuNTgxMzYsMCAwLDAuNjA0NjE0IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzg4IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA1My45NDQ5MTIsNzUuNzc1NTY0IDUuMjMyMjM2LDAgMCwzLjYwNDQyOSAtNS4yMzIyMzYsMCAwLC0zLjYwNDQyOSB6IG0gNS44MTM1OTYsMCA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIC01LjgxMzU5Niw4LjQxODA4NyA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIDUuODEzNTk2LDAgNS4yMzIyMzYsMCAwLDMuNjA0NDI5IC01LjIzMjIzNiwwIDAsLTMuNjA0NDI5IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzkwIiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA2NS41NTM5MzYsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzOTIiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDc3LjE2Mjk2LDc1Ljc3NTU2NCA1LjIzMjIzNiwwIDAsMTIuMDIyNTE2IC01LjIzMjIzNiwwIDAsLTEyLjAyMjUxNiB6IG0gMCwtNC4yMDkwNDQgNS4yMzIyMzYsMCAwLDMuNjA0NDMgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MyB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5NCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gODIuOTY3NDcyLDc1Ljc3NTU2NCA1LjgxMzU5NiwwIDAsLTQuMjA5MDQ0IDUuMjMyMjM2LDAgMCwxNi4yMzE1NiAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw4LjQxODA4NyAwLjU4MTM2LDAgMCwtNC44MTM2NTggLTAuNTgxMzYsMCAwLDQuODEzNjU4IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzk2IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA5NC41NzY0OTYsNzUuNzc1NTY0IDExLjA0NTgzNCwwIDAsMTIuMDIyNTE2IC0xMS4wNDU4MzQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjM3LDguNDE4MDg3IDAuNTgxMzU3LDAgMCwtNC44MTM2NTggLTAuNTgxMzU3LDAgMCw0LjgxMzY1OCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5OCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTA2LjE4NTUyLDcxLjU2NjUyIDUuMjMyMjQsMCAwLDQuMjA5MDQ0IDUuODEzNTksMCAwLDMuNjA0NDI5IC01LjgxMzU5LDAgMCw0LjgxMzY1OCA1LjgxMzU5LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMsMCAwLC0xNi4yMzE1NiB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTE3Ljc5NDU0LDc1Ljc3NTU2NCAxMS4wNDU4NCwwIDAsNy44MTM0NzMgLTUuODEzNiwwIDAsMC42MDQ2MTQgNS44MTM2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjQsNC4yMDkwNDMgMC41ODEzNiwwIDAsLTAuNjA0NjE0IC0wLjU4MTM2LDAgMCwwLjYwNDYxNCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMiIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+}
+h2.filename {
+  font-family: monospace;
+}
+h1.textidote {
+  width: 378px;
+  height: 68px;
+  display: block;
+}
+.keyword1 {
+  font-weight: bold;
+  color: green;
+}
+.keyword2 {
+  font-weight: bold;
+  color: darkblue;
+}
+.comment, .comment * {
+  color: darkred;
+  font-weight: normal;
+}
+.linenb {
+  font-style: italic;
+  color: lightgrey;
+  width: 30pt;
+  float: left;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.codeline {
+  margin-left: -30pt;
+  padding-left: 60pt;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+}
+.no-text {
+  display: none;
+}
+.clear {
+  clear: both;
+}
+</style>
+</head>
+<body>
+<a href="https://sylvainhalle.github.io/textidote"><h1 class="textidote"><span class="no-text">Results of TeXtidote analysis</span></h1></a>
+<p>Here is the result of analyzing your file(s) with TeXtidote. Hover the mouse over highlighted portions of the document to read a tooltip that gives you some writing advice.</p>
+<p>Found 7 warning(s)</p>
+<div class="original-file">
+<div class="linenb">&nbsp;&nbsp;1</div><div class="codeline">\def\figureRandFrame{</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;2</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;3</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;4</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;5</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;6</div><div class="codeline">\scriptsize{</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;7</div><div class="codeline"><span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;8</div><div class="codeline">            <span class="comment">% Root node</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;9</div><div class="codeline">            \node (root) at (0,0) {$\emptyset$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;10</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;11</div><div class="codeline">            <span class="comment">% Second stage nodes</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;12</div><div class="codeline">            \node (n1) at (-1,-1.5) {$0$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;13</div><div class="codeline">            \node (n2) at (0,-1.5) {$1$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;14</div><div class="codeline">            \node (n3) at (1,-1.5) {$...$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;15</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;16</div><div class="codeline">            <span class="comment">% Edges</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;17</div><div class="codeline">            \draw[-&gt;] (root) -- (n1) node[midway, sloped, above] {$\geq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;18</div><div class="codeline">            \draw[-&gt;] (root) -- (n2) node[midway, sloped, above] {$\leq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;19</div><div class="codeline">            \draw[-&gt;] (root) -- (n3) node[midway, sloped, above] {$\leq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;20</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">&nbsp;21</div><div class="codeline">            <span class="comment">% Third stage nodes</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;22</div><div class="codeline">            \node (n00) at (-2,-3) {$00$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;23</div><div class="codeline">            \node (n01) at (-1,-3) {$01$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;24</div><div class="codeline">            \node (n02) at (0,-3) {$...$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;25</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;26</div><div class="codeline">            <span class="comment">% Edges</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;27</div><div class="codeline">            \draw[-&gt;] (n1) -- (n00) node[midway, sloped, above] {$\geq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;28</div><div class="codeline">            \draw[-&gt;] (n1) -- (n01) node[midway, sloped, above] {$\leq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;29</div><div class="codeline">            \draw[-&gt;] (n1) -- (n02) node[midway, sloped, above] {$\leq$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;30</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;31</div><div class="codeline">        <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;32</div><div class="codeline">        \hspace{30pt}</div><div class="clear"></div>
+<div class="linenb">&nbsp;33</div><div class="codeline">        <span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;34</div><div class="codeline">            <span class="comment">% Root node</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;35</div><div class="codeline">            \node (root) at (0,0) {C($\emptyset$)};</div><div class="clear"></div>
+<div class="linenb">&nbsp;36</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;37</div><div class="codeline">            <span class="comment">% Second stage nodes</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;38</div><div class="codeline">            \node (n1) at (-1,-1.5) {$C(0)$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;39</div><div class="codeline">            \node (n2) at (0,-1.5) {$C(1)$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;40</div><div class="codeline">            \node (n3) at (1,-1.5) {$...$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;41</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;42</div><div class="codeline">            <span class="comment">% Edges</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;43</div><div class="codeline">            \draw[-&gt;] (root) -- (n1) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;44</div><div class="codeline">            \draw[-&gt;] (root) -- (n2) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;45</div><div class="codeline">            \draw[-&gt;] (root) -- (n3) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;46</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">&nbsp;47</div><div class="codeline">            <span class="comment">% Third stage nodes</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;48</div><div class="codeline">            \node (n00) at (-2,-3) {$C(00)$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;49</div><div class="codeline">            \node (n01) at (-1,-3) {$C(01)$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;50</div><div class="codeline">            \node (n02) at (0,-3) {$...$};</div><div class="clear"></div>
+<div class="linenb">&nbsp;51</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">&nbsp;52</div><div class="codeline">            <span class="comment">% Edges</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;53</div><div class="codeline">            \draw[-&gt;] (n1) -- (n00) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;54</div><div class="codeline">            \draw[-&gt;] (n1) -- (n01) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;55</div><div class="codeline">            \draw[-&gt;] (n1) -- (n02) node[midway, sloped, above] {\tiny{extends}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;56</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;57</div><div class="codeline">        <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;58</div><div class="codeline">  </div><div class="clear"></div>
+<div class="linenb">&nbsp;59</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;60</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;61</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;62</div><div class="codeline">    <span class="keyword1">\caption</span>{R and a Kripke frame. }</div><div class="clear"></div>
+<div class="linenb">&nbsp;63</div><div class="codeline">    <span class="keyword1">\label</span>{<span class="highlight-sh" title="Figure fig:enter-label is never referenced in the text [sh:figref]">f</span>ig:enter-label}</div><div class="clear"></div>
+<div class="linenb">&nbsp;64</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;65</div><div class="codeline"><span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;66</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;67</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;68</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;69</div><div class="codeline">\def\TableauxDevelopmentExampleFigure{</div><div class="clear"></div>
+<div class="linenb">&nbsp;70</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;71</div><div class="codeline"><span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;72</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">&nbsp;73</div><div class="codeline">    \makebox[\textwidth][c]{<span class="comment">%</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;74</div><div class="codeline">    \resizebox{0.95\textwidth}{!}{</div><div class="clear"></div>
+<div class="linenb">&nbsp;75</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;76</div><div class="codeline">    <span class="keyword2">\begin{tikzpicture}</span>[scale=0.9]</div><div class="clear"></div>
+<div class="linenb">&nbsp;77</div><div class="codeline">    \node {$F_{\emptyset}\phi$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;78</div><div class="codeline">        child {node {$\ldots$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;79</div><div class="codeline">            child {node {$\ldots$}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;80</div><div class="codeline">            child {node {$T_{p} \neg \alpha, ...$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;81</div><div class="codeline">                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;82</div><div class="codeline">            child {node {$\ldots$}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;83</div><div class="codeline">            child {node {$T_{p} \neg \alpha, ...$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;84</div><div class="codeline">                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;85</div><div class="codeline">    <span class="keyword2">\end{tikzpicture}</span><span class="comment">%</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;86</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;87</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;88</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">&nbsp;89</div><div class="codeline">    \hspace{0.5cm} \raisebox{1.8cm}{$\hookleftarrow$} </div><div class="clear"></div>
+<div class="linenb">&nbsp;90</div><div class="codeline">    \hspace{0.5cm}</div><div class="clear"></div>
+<div class="linenb">&nbsp;91</div><div class="codeline">    \raisebox{1.25cm}{</div><div class="clear"></div>
+<div class="linenb">&nbsp;92</div><div class="codeline">    <span class="keyword2">\begin{tikzpicture}</span>[scale=0.9]</div><div class="clear"></div>
+<div class="linenb">&nbsp;93</div><div class="codeline">    \node {$F_{\emptyset}\phi$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;94</div><div class="codeline">        child {node {$\ldots$}</div><div class="clear"></div>
+<div class="linenb">&nbsp;95</div><div class="codeline">            child {node {$\ldots$}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;96</div><div class="codeline">            child {node {$T_{p} \neg \alpha, ...$}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;97</div><div class="codeline">            child {node {$\ldots$}}</div><div class="clear"></div>
+<div class="linenb">&nbsp;98</div><div class="codeline">            child {node {$T_{p} \neg \alpha, ...$}}};</div><div class="clear"></div>
+<div class="linenb">&nbsp;99</div><div class="codeline">    <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">100</div><div class="codeline">    }</div><div class="clear"></div>
+<div class="linenb">101</div><div class="codeline">    <span class="comment">%</span></div><div class="clear"></div>
+<div class="linenb">102</div><div class="codeline">    }<span class="comment">%</span></div><div class="clear"></div>
+<div class="linenb">103</div><div class="codeline">    }</div><div class="clear"></div>
+<div class="linenb">104</div><div class="codeline">    <span class="keyword1">\caption</span>{Example of $\hookleftarrow(T \neg \alpha ,\tau)$ and $\tau$. } </div><div class="clear"></div>
+<div class="linenb">105</div><div class="codeline">    <span class="keyword1">\label</span>{<span class="highlight-sh" title="Figure fig:tree_expansion is never referenced in the text [sh:figref]">f</span>ig:tree_expansion}</div><div class="clear"></div>
+<div class="linenb">106</div><div class="codeline">    <span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">107</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">108</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">109</div><div class="codeline">\def\tableauxCumulativeAndNonCumulativeExampleFigure{</div><div class="clear"></div>
+<div class="linenb">110</div><div class="codeline">    <span class="keyword2">\begin{figure}</span></div><div class="clear"></div>
+<div class="linenb">111</div><div class="codeline">        \centering</div><div class="clear"></div>
+<div class="linenb">112</div><div class="codeline">        \scriptsize{</div><div class="clear"></div>
+<div class="linenb">113</div><div class="codeline">        \makebox[\textwidth][c]{<span class="comment">%</span></div><div class="clear"></div>
+<div class="linenb">114</div><div class="codeline">        \resizebox{1\textwidth}{!}{</div><div class="clear"></div>
+<div class="linenb">115</div><div class="codeline">        <span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">116</div><div class="codeline">            <span class="comment">% Root node</span></div><div class="clear"></div>
+<div class="linenb">117</div><div class="codeline">            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">118</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">119</div><div class="codeline">            <span class="comment">% Second stage nodes</span></div><div class="clear"></div>
+<div class="linenb">120</div><div class="codeline">            \node (n1) at (0,-1.5) {$T_{0} \alpha$};</div><div class="clear"></div>
+<div class="linenb">121</div><div class="codeline">            \draw[-&gt;] (root) -- (n1);</div><div class="clear"></div>
+<div class="linenb">122</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">123</div><div class="codeline">            <span class="comment">% Third stage nodes</span></div><div class="clear"></div>
+<div class="linenb">124</div><div class="codeline">            \node (n2) at (0,-3) {$F_{0} \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">125</div><div class="codeline">            \draw[-&gt;] (n1) -- (n2);</div><div class="clear"></div>
+<div class="linenb">126</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">127</div><div class="codeline">            <span class="comment">% Fourth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">128</div><div class="codeline">            \node (n3) at (0,-4.5) {$T_{00} \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">129</div><div class="codeline">            \draw[-&gt;] (n2) -- (n3);</div><div class="clear"></div>
+<div class="linenb">130</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">131</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">132</div><div class="codeline">            <span class="comment">% Fifth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">133</div><div class="codeline">            \node (n4) at (0,-6) {$F_{00} \alpha$};</div><div class="clear"></div>
+<div class="linenb">134</div><div class="codeline">            \draw[-&gt;] (n3) -- (n4);</div><div class="clear"></div>
+<div class="linenb">135</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">136</div><div class="codeline">            \node (n5) at (0,-7.5) {X};</div><div class="clear"></div>
+<div class="linenb">137</div><div class="codeline">            \draw[-&gt;] (n4) -- (n5);</div><div class="clear"></div>
+<div class="linenb">138</div><div class="codeline">        <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">139</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">140</div><div class="codeline">        \hspace{1cm}</div><div class="clear"></div>
+<div class="linenb">141</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">142</div><div class="codeline">        <span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">143</div><div class="codeline">            <span class="comment">% Root node</span></div><div class="clear"></div>
+<div class="linenb">144</div><div class="codeline">            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">145</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">146</div><div class="codeline">            <span class="comment">% Second stage nodes</span></div><div class="clear"></div>
+<div class="linenb">147</div><div class="codeline">            \node (n1) at (0,-1.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha$};</div><div class="clear"></div>
+<div class="linenb">148</div><div class="codeline">            \draw[-&gt;] (root) -- (n1);</div><div class="clear"></div>
+<div class="linenb">149</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">150</div><div class="codeline">            <span class="comment">% Third stage nodes</span></div><div class="clear"></div>
+<div class="linenb">151</div><div class="codeline">            \node (n2) at (0,-3) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">152</div><div class="codeline">            \draw[-&gt;] (n1) -- (n2);</div><div class="clear"></div>
+<div class="linenb">153</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">154</div><div class="codeline">            <span class="comment">% Fourth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">155</div><div class="codeline">            \node (n3) at (0,-4.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">156</div><div class="codeline">            \draw[-&gt;] (n2) -- (n3);</div><div class="clear"></div>
+<div class="linenb">157</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">158</div><div class="codeline">            <span class="comment">% Fifth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">159</div><div class="codeline">            \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha$};</div><div class="clear"></div>
+<div class="linenb">160</div><div class="codeline">            \draw[-&gt;] (n3) -- (n4);</div><div class="clear"></div>
+<div class="linenb">161</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">162</div><div class="codeline">            \node (n5) at (0,-7.5) {X};</div><div class="clear"></div>
+<div class="linenb">163</div><div class="codeline">            \draw[-&gt;] (n4) -- (n5);</div><div class="clear"></div>
+<div class="linenb">164</div><div class="codeline">        <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">165</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">166</div><div class="codeline">        \hspace{1cm}</div><div class="clear"></div>
+<div class="linenb">167</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">168</div><div class="codeline">        <span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">169</div><div class="codeline">            <span class="comment">% Root node</span></div><div class="clear"></div>
+<div class="linenb">170</div><div class="codeline">            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">171</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">172</div><div class="codeline">            <span class="comment">% Second stage nodes</span></div><div class="clear"></div>
+<div class="linenb">173</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">174</div><div class="codeline">            <span class="comment">% Third stage nodes</span></div><div class="clear"></div>
+<div class="linenb">175</div><div class="codeline">            \node (n2) at (0,-3) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">176</div><div class="codeline">            \draw[-&gt;] (root) -- (n2);</div><div class="clear"></div>
+<div class="linenb">177</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">178</div><div class="codeline">            <span class="comment">% Fourth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">179</div><div class="codeline">            \node (n3) at (0,-4.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha$};</div><div class="clear"></div>
+<div class="linenb">180</div><div class="codeline">            \draw[-&gt;] (n2) -- (n3);</div><div class="clear"></div>
+<div class="linenb">181</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">182</div><div class="codeline">            <span class="comment">% Fifth stage nodes</span></div><div class="clear"></div>
+<div class="linenb">183</div><div class="codeline">            \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha$};</div><div class="clear"></div>
+<div class="linenb">184</div><div class="codeline">            \draw[-&gt;] (n3) -- (n4);</div><div class="clear"></div>
+<div class="linenb">185</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">186</div><div class="codeline">            \node (n5) at (0,-7.5) {X};</div><div class="clear"></div>
+<div class="linenb">187</div><div class="codeline">            \draw[-&gt;] (n4) -- (n5);</div><div class="clear"></div>
+<div class="linenb">188</div><div class="codeline">        <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">189</div><div class="codeline">        }</div><div class="clear"></div>
+<div class="linenb">190</div><div class="codeline">        }</div><div class="clear"></div>
+<div class="linenb">191</div><div class="codeline">        }</div><div class="clear"></div>
+<div class="linenb">192</div><div class="codeline">        <span class="keyword1">\caption</span>{Example of a destructive tableaux proof tree <span class="highlight-sh" title="Do not use 'from [X]': the syntax of a sentence should not be changed by the removal of a citation. [sh:c:noin]">from \cite{</span>book1}, the intermediary structure and the non-destructive tableaux proof tree.}</div><div class="clear"></div>
+<div class="linenb">193</div><div class="codeline">        <span class="keyword1">\label</span>{<span class="highlight-sh" title="Figure fig:destructive_tableaux is never referenced in the text [sh:figref]">f</span>ig:destructive_tableaux}</div><div class="clear"></div>
+<div class="linenb">194</div><div class="codeline">    <span class="keyword2">\end{figure}</span></div><div class="clear"></div>
+<div class="linenb">195</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">196</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">197</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">198</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">199</div><div class="codeline">\def\RulesIntuitionisticSequentCalculus{</div><div class="clear"></div>
+<div class="linenb">200</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">201</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">202</div><div class="codeline"><span class="keyword2">\begin{table}</span>[h!]</div><div class="clear"></div>
+<div class="linenb">203</div><div class="codeline">    <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{Rules for L's classical multi-consequence sequent calculus.}<span class="keyword1">\label</span>{tab:intuitionistic</span>}</div><div class="clear"></div>
+<div class="linenb">204</div><div class="codeline">\centering</div><div class="clear"></div>
+<div class="linenb">205</div><div class="codeline">\renewcommand{\arraystretch}{3} <span class="comment">% Adjust row height</span></div><div class="clear"></div>
+<div class="linenb">206</div><div class="codeline"><span class="keyword2">\begin{tabular}</span>{|c|c|}</div><div class="clear"></div>
+<div class="linenb">207</div><div class="codeline">\hline</div><div class="clear"></div>
+<div class="linenb">208</div><div class="codeline"><span class="keyword1">\textbf</span>{Rule} &amp; <span class="keyword1">\textbf</span>{Inference} \\ \hline</div><div class="clear"></div>
+<div class="linenb">209</div><div class="codeline">Axiom  &amp; $\AxiomC{}\UnaryInfC{$\alpha \vdash \alpha$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">210</div><div class="codeline">Weakening &amp; $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">211</div><div class="codeline">$\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">212</div><div class="codeline">Negation &amp; </div><div class="clear"></div>
+<div class="linenb">213</div><div class="codeline">$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">214</div><div class="codeline">$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash $}\UnaryInfC{$\Gamma \vdash \neg \alpha$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">215</div><div class="codeline">Conjunction &amp; </div><div class="clear"></div>
+<div class="linenb">216</div><div class="codeline">$\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">217</div><div class="codeline">$\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">218</div><div class="codeline">Disjunction &amp; </div><div class="clear"></div>
+<div class="linenb">219</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">220</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">221</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">222</div><div class="codeline">Implication &amp; </div><div class="clear"></div>
+<div class="linenb">223</div><div class="codeline">$\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">224</div><div class="codeline">$\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">225</div><div class="codeline">Quantifiers &amp; </div><div class="clear"></div>
+<div class="linenb">226</div><div class="codeline">$\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">227</div><div class="codeline">$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y)$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x)$}\DisplayProof$ \\ </div><div class="clear"></div>
+<div class="linenb">228</div><div class="codeline">&amp; </div><div class="clear"></div>
+<div class="linenb">229</div><div class="codeline">$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">230</div><div class="codeline">$\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">231</div><div class="codeline">Contraction &amp; </div><div class="clear"></div>
+<div class="linenb">232</div><div class="codeline">$\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">233</div><div class="codeline">$\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">234</div><div class="codeline"><span class="keyword2">\end{tabular}</span></div><div class="clear"></div>
+<div class="linenb">235</div><div class="codeline"><span class="keyword2">\end{table}</span></div><div class="clear"></div>
+<div class="linenb">236</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">237</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">238</div><div class="codeline">\def\RulesCumulativeClassicalSequentCalculus{</div><div class="clear"></div>
+<div class="linenb">239</div><div class="codeline"><span class="keyword2">\begin{table}</span>[h!]</div><div class="clear"></div>
+<div class="linenb">240</div><div class="codeline">    <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{Cumulative Sequent Calculus Rules (Multi-Consequence).}<span class="keyword1">\label</span>{tab:cumulative</span>}</div><div class="clear"></div>
+<div class="linenb">241</div><div class="codeline">    \centering</div><div class="clear"></div>
+<div class="linenb">242</div><div class="codeline">    \renewcommand{\arraystretch}{3}</div><div class="clear"></div>
+<div class="linenb">243</div><div class="codeline">    <span class="keyword2">\begin{tabular}</span>{|c|c|}</div><div class="clear"></div>
+<div class="linenb">244</div><div class="codeline">        \hline</div><div class="clear"></div>
+<div class="linenb">245</div><div class="codeline">        <span class="keyword1">\textbf</span>{Rule} &amp; <span class="keyword1">\textbf</span>{Inference} \\ \hline</div><div class="clear"></div>
+<div class="linenb">246</div><div class="codeline">        Axiom &amp; $\AxiomC{}\UnaryInfC{$\Gamma, \phi \vdash \phi, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">247</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">248</div><div class="codeline">        Weakening &amp; </div><div class="clear"></div>
+<div class="linenb">249</div><div class="codeline">        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">250</div><div class="codeline">        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \phi$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">251</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">252</div><div class="codeline">        Negation &amp; </div><div class="clear"></div>
+<div class="linenb">253</div><div class="codeline">        $\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma , \neg \phi \vdash \phi, \Delta$}\UnaryInfC{$\Gamma, \neg \phi \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">254</div><div class="codeline">        $\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma, \phi \vdash \Delta, \neg \phi $}\UnaryInfC{$\Gamma \vdash  \Delta, \neg \phi $}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">255</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">256</div><div class="codeline">        Conjunction &amp; </div><div class="clear"></div>
+<div class="linenb">257</div><div class="codeline">        $\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma, \phi, \psi, \phi \land \psi \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \land \psi \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">258</div><div class="codeline">        $\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma \vdash \phi, \phi \land \psi,\Delta$}\AxiomC{$\Gamma \vdash \psi, \phi \land \psi,\Delta$}\BinaryInfC{$\Gamma \vdash \phi \land \psi, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">259</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">260</div><div class="codeline">        Disjunction &amp; </div><div class="clear"></div>
+<div class="linenb">261</div><div class="codeline">        $\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma, \phi \lor \psi,\phi \vdash \Delta$}\AxiomC{$\Gamma, \phi \lor \psi,\psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \lor \psi \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">262</div><div class="codeline">        $\RightLabel{\scriptsize{$\lor$R}} \AxiomC{$\Gamma \vdash \phi \lor \psi, \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \lor \psi, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">263</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">264</div><div class="codeline">        Implication &amp; </div><div class="clear"></div>
+<div class="linenb">265</div><div class="codeline">        $\RightLabel{\scriptsize{$\to$L}} \AxiomC{$\Gamma, \phi \to \psi \vdash \phi, \Delta$}\AxiomC{$\Gamma, \phi \to \psi, \psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \to \psi \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">266</div><div class="codeline">        $\RightLabel{\scriptsize{$\to$R}} \AxiomC{$\Gamma, \phi \vdash \psi, \phi \to \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \to \psi, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">267</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">268</div><div class="codeline">        Quantifiers &amp; </div><div class="clear"></div>
+<div class="linenb">269</div><div class="codeline">        $\RightLabel{\scriptsize{$\forall$L}} \AxiomC{$\Gamma, \forall x \phi(x), \phi(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \phi(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">270</div><div class="codeline">        $\RightLabel{\scriptsize{$\forall$R}} \AxiomC{$\Gamma \vdash \phi(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \phi(x), \Delta$}\DisplayProof$ \\</div><div class="clear"></div>
+<div class="linenb">271</div><div class="codeline">        &amp; </div><div class="clear"></div>
+<div class="linenb">272</div><div class="codeline">        $\RightLabel{\scriptsize{$\exists$L}} \AxiomC{$\Gamma, \phi(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \phi(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">273</div><div class="codeline">        $\RightLabel{\scriptsize{$\exists$R}} \AxiomC{$\Gamma \vdash \phi(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \phi(x), \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">274</div><div class="codeline">    <span class="keyword2">\end{tabular}</span></div><div class="clear"></div>
+<div class="linenb">275</div><div class="codeline"><span class="keyword2">\end{table}</span></div><div class="clear"></div>
+<div class="linenb">276</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">277</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">278</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">279</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">280</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">281</div><div class="codeline">\def\RulesClassicalSequentCalculus{</div><div class="clear"></div>
+<div class="linenb">282</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">283</div><div class="codeline"><span class="keyword2">\begin{table}</span>[h!]</div><div class="clear"></div>
+<div class="linenb">284</div><div class="codeline">    <span class="highlight-sh" title="A caption should end with a period [sh:capperiod]"><span class="keyword1">\caption</span>{Rules for L's classical multi-consequence sequent calculus.}<span class="keyword1">\label</span>{tab:classical</span>}</div><div class="clear"></div>
+<div class="linenb">285</div><div class="codeline">\centering</div><div class="clear"></div>
+<div class="linenb">286</div><div class="codeline">\renewcommand{\arraystretch}{3} <span class="comment">% Adjust row height</span></div><div class="clear"></div>
+<div class="linenb">287</div><div class="codeline"><span class="keyword2">\begin{tabular}</span>{|c|c|}</div><div class="clear"></div>
+<div class="linenb">288</div><div class="codeline">\hline</div><div class="clear"></div>
+<div class="linenb">289</div><div class="codeline"><span class="keyword1">\textbf</span>{Rule} &amp; <span class="keyword1">\textbf</span>{Inference} \\ \hline</div><div class="clear"></div>
+<div class="linenb">290</div><div class="codeline">Axiom  &amp; $\AxiomC{}\UnaryInfC{$\alpha \vdash \alpha$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">291</div><div class="codeline">Weakening &amp; $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">292</div><div class="codeline">$\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">293</div><div class="codeline">Negation &amp; </div><div class="clear"></div>
+<div class="linenb">294</div><div class="codeline">$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">295</div><div class="codeline">$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">296</div><div class="codeline">Conjunction &amp; </div><div class="clear"></div>
+<div class="linenb">297</div><div class="codeline">$\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">298</div><div class="codeline">$\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">299</div><div class="codeline">Disjunction &amp; </div><div class="clear"></div>
+<div class="linenb">300</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">301</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">302</div><div class="codeline">$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">303</div><div class="codeline">Implication &amp; </div><div class="clear"></div>
+<div class="linenb">304</div><div class="codeline">$\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">305</div><div class="codeline">$\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">306</div><div class="codeline">Quantifiers &amp; </div><div class="clear"></div>
+<div class="linenb">307</div><div class="codeline">$\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">308</div><div class="codeline">$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ \\ </div><div class="clear"></div>
+<div class="linenb">309</div><div class="codeline">&amp; </div><div class="clear"></div>
+<div class="linenb">310</div><div class="codeline">$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">311</div><div class="codeline">$\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">312</div><div class="codeline">Contraction &amp; </div><div class="clear"></div>
+<div class="linenb">313</div><div class="codeline">$\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad</div><div class="clear"></div>
+<div class="linenb">314</div><div class="codeline">$\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ \hline</div><div class="clear"></div>
+<div class="linenb">315</div><div class="codeline"><span class="keyword2">\end{tabular}</span></div><div class="clear"></div>
+<div class="linenb">316</div><div class="codeline"><span class="keyword2">\end{table}</span></div><div class="clear"></div>
+<div class="linenb">317</div><div class="codeline">}</div><div class="clear"></div>
+</div>
+<hr/>
+Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>
+See the <a href="https://sylvainhalle.github.io/textidote">TeXtidote website</a> for more information.
+</body>
+</html>

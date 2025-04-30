@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1746034800.63705 "p.tex" "p.pdf" "p" 1746034802.12944 0
+["pdflatex"] 1746056552.66484 "p.tex" "p.pdf" "p" 1746056554.37791 0
   "/etc/texmf/web2c/texmf.cnf" 1743552946.75707 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600pk" 1745396039.33262 34088 1c1f98067c20e6ff3649f54d3a28d9f8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1745349782.05811 22480 f6210946047d5a5b6282bc9cdb95625d ""
@@ -56,6 +56,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1248133631 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1248133631 32442 c975af247b6702f7ca0c299af3616b80 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
@@ -184,12 +185,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743553475.7315 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743553713 6831075 d8bee8942bb66e5040967664c2067bd5 ""
-  "figures_and_tables.tex" 1746034773.80779 5475 6f2c1ca327d50933adf07958e42746cc ""
+  "figures_and_tables.tex" 1746054809.18785 16148 043980f7c216748d38e11bdf2b2cca9b ""
   "llncs.cls" 1745349440.3231 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "p.aux" 1746034801.84169 4516 8be8a702ae89b408de1bae964c43f349 "pdflatex"
-  "p.out" 1746034801.84269 526 be7c3b8aa9a32f7c2c3711419a7c7846 "pdflatex"
-  "p.tex" 1746034796.36971 42777 f1c07413a4f759dba7e1f400d52cae20 ""
-  "theorems_and_definitions.tex" 1746034427.96558 2907 5d8be6102de3faf25f7549ae76ebdfc4 ""
+  "p.aux" 1746056554.06458 4145 82b4a005e7e99ff18d51ce26a7c05f9b "pdflatex"
+  "p.out" 1746056554.06558 498 067ea7a7f7fce476c20e77f96558308c "pdflatex"
+  "p.tex" 1746056547.63658 9366 638b1c187541fdaeccb256e7439b6490 ""
+  "theorems_and_definitions.tex" 1746056300.28673 26827 4448c96754eed324e4773ef27698d1cd ""
   (generated)
   "p.aux"
   "p.log"

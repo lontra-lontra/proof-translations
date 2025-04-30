@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  30 APR 2025 19:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  1 MAY 2025 01:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -718,11 +718,7 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count338
 \l__pdf_internal_box=\box118
 )
-(./p.aux
-
-LaTeX Warning: Label `tab2' multiply defined.
-
-)
+(./p.aux)
 \openout1 = `p.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
@@ -793,9 +789,6 @@ a shorter form with \titlerunning prior to \maketitle
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5] [6]
-
-LaTeX Warning: Reference `tab1' on page 7 undefined on input line 380.
-
 \myBox1=\box120
 \myScoreStart1=\dimen302
 \myCenter1=\dimen303
@@ -805,81 +798,32 @@ LaTeX Warning: Reference `tab1' on page 7 undefined on input line 380.
 \myCenter2=\dimen306
 \myScoreEnd2=\dimen307
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (65.9527pt too wide) in paragraph at lines 425--454
+Overfull \hbox (65.9527pt too wide) in paragraph at lines 207--207
  [][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (67.4651pt too wide) in paragraph at lines 472--498
+[7] [8]
+Overfull \hbox (65.9527pt too wide) in paragraph at lines 215--215
  [][] 
  []
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[7] [8] [9]
-Overfull \hbox (12.39427pt too wide) in paragraph at lines 574--579
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
+[9]
+Overfull \hbox (7.88725pt too wide) in paragraph at lines 231--231
+[]$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
 
-Overfull \hbox (15.6368pt too wide) in paragraph at lines 579--584
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
+Overfull \hbox (7.02635pt too wide) in paragraph at lines 231--231
+[]$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
 
-Overfull \hbox (86.96574pt too wide) in paragraph at lines 589--594
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$
+Overfull \hbox (26.05403pt too wide) in paragraph at lines 231--231
+[]$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
 [10]
-Overfull \hbox (85.43558pt too wide) in paragraph at lines 594--599
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$
- []
-
-
-Overfull \hbox (102.54883pt too wide) in paragraph at lines 599--604
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
- []
-
-
-Overfull \hbox (98.27888pt too wide) in paragraph at lines 605--609
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$
- []
-
-
-Overfull \hbox (27.57713pt too wide) in paragraph at lines 611--615
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$
- []
-
-
-Overfull \hbox (82.76675pt too wide) in paragraph at lines 617--621
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
- []
-
-
-Overfull \hbox (86.70331pt too wide) in paragraph at lines 624--628
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
- []
-
-
-Overfull \hbox (82.76675pt too wide) in paragraph at lines 630--634
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
- []
-
-
-Overfull \hbox (86.70331pt too wide) in paragraph at lines 637--641
-[]$[]$ $\OT1/cmr/m/n/9 = []$ $= []$ $= []$ 
- []
-
-
-Overfull \hbox (11.70164pt too wide) in paragraph at lines 655--657
+Overfull \hbox (11.70164pt too wide) in paragraph at lines 238--238
 \T1/cmr/m/it/10 by def-i-ni-tion the last the-o-rem ex-its a sen-tence $\OML/cm
 m/m/it/10 ^^[$ \T1/cmr/m/it/10 such that $\OML/cmm/m/it/10 f\OT1/cmr/m/n/10 (\O
 ML/cmm/m/it/10 ^^[; r\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\
@@ -891,24 +835,17 @@ OML/cmm/m/it/10 ^^[; r\OT1/cmr/m/n/10 ) =
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `p.out' has not changed.
-(rerunfilecheck)             Checksum: BE7C3B8AA9A32F7C2C3711419A7C7846;526.
+(rerunfilecheck)             Checksum: 067EA7A7F7FCE476C20E77F96558308C;498.
  ) 
 Here is how much of TeX's memory you used:
- 21244 strings out of 476106
- 387533 string characters out of 5793934
- 1958975 words of memory out of 5000000
- 42830 multiletter control sequences out of 15000+600000
+ 21253 strings out of 476106
+ 387981 string characters out of 5793934
+ 1952975 words of memory out of 5000000
+ 42847 multiletter control sequences out of 15000+600000
  573978 words of font info for 72 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 102i,17n,107p,598b,1255s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,17n,107p,574b,1255s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0700.600pk
 > </home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0500.600pk>
  </home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk> 
@@ -932,14 +869,15 @@ fonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on p.pdf (12 pages, 295951 bytes).
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on p.pdf (12 pages, 301203 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
- 237 compressed objects within 3 object streams
- 69 named destinations out of 1000 (max. 500000)
+ 695 PDF objects out of 1000 (max. 8388607)
+ 229 compressed objects within 3 object streams
+ 61 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

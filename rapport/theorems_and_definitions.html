@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TeXtidote analysis</title>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+}
+.highlight, .highlight-sh, .highlight-spelling {
+  padding: 2pt;
+  border-radius: 4pt;
+  cursor: help;
+  opacity: 0.7;
+  border: dashed 1px;
+}
+.highlight {
+  background-color: orange;
+  color: black;
+}
+.highlight-sh {
+  background-color: yellow;
+  color: black;
+}
+.highlight-spelling {
+  background-color: red;
+  color: white;
+}
+div.original-file {
+  font-family: monospace;
+  font-size: 11pt;
+  background-color: #f8f8ff;
+  padding: 20pt;
+  border-radius: 6pt;
+}
+.textidote {
+  	background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiICAgeG1sbnM6aW5rc2NhcGU9Imh0dHA6Ly93d3cuaW5rc2NhcGUub3JnL25hbWVzcGFjZXMvaW5rc2NhcGUiICAgd2lkdGg9IjEwMC4wOTEwNW1tIiAgIGhlaWdodD0iMTguMjA5MDk5bW0iICAgdmlld0JveD0iMCAwIDEwMC4wOTEwNSAxOC4yMDkwOTkiICAgdmVyc2lvbj0iMS4xIiAgIGlkPSJzdmc4IiAgIGlua3NjYXBlOnZlcnNpb249IjAuOTEgcjEzNzI1IiAgIHNvZGlwb2RpOmRvY25hbWU9InRleHRpZG90ZS5zdmciPiAgPGRlZnMgICAgIGlkPSJkZWZzMiIgLz4gIDxzb2RpcG9kaTpuYW1lZHZpZXcgICAgIGlkPSJiYXNlIiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIiAgICAgYm9yZGVyY29sb3I9IiM2NjY2NjYiICAgICBib3JkZXJvcGFjaXR5PSIxLjAiICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIiAgICAgaW5rc2NhcGU6cGFnZXNoYWRvdz0iMiIgICAgIGlua3NjYXBlOnpvb209IjEiICAgICBpbmtzY2FwZTpjeD0iLTI1NC4yNTMwOSIgICAgIGlua3NjYXBlOmN5PSItMjc4LjM3NTkxIiAgICAgaW5rc2NhcGU6ZG9jdW1lbnQtdW5pdHM9Im1tIiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIiAgICAgc2hvd2dyaWQ9ImZhbHNlIiAgICAgZml0LW1hcmdpbi10b3A9IjAiICAgICBmaXQtbWFyZ2luLWxlZnQ9IjAiICAgICBmaXQtbWFyZ2luLXJpZ2h0PSIwIiAgICAgZml0LW1hcmdpbi1ib3R0b209IjAiICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiICAgICBpbmtzY2FwZTp3aW5kb3ctaGVpZ2h0PSIxMDIxIiAgICAgaW5rc2NhcGU6d2luZG93LXg9IjAiICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMjY1IiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNSI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZSAvPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICBpbmtzY2FwZTpsYWJlbD0iTGF5ZXIgMSIgICAgIGlua3NjYXBlOmdyb3VwbW9kZT0ibGF5ZXIiICAgICBpZD0ibGF5ZXIxIiAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTI5LjczODA5NSwtNzAuNTc3NzUxKSI+ICAgIDxnICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zaXplOjIwLjkyODk0NTU0cHg7bGluZS1oZWlnaHQ6MS4yNTtmb250LWZhbWlseTpzYW5zLXNlcmlmO2xldHRlci1zcGFjaW5nOjBweDt3b3JkLXNwYWNpbmc6MHB4O2ZpbGw6I2ZmZmZmZjtmaWxsLW9wYWNpdHk6MTtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgaWQ9InRleHQ4MzYiPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSAzMC43MjY4NjQsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzODYiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDQyLjMzNTg4OCw3NS43NzU1NjQgMTEuMDQ1ODMyLDAgMCw3LjgxMzQ3MyAtNS44MTM1OTYsMCAwLDAuNjA0NjE0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw0LjIwOTA0MyAwLjU4MTM2LDAgMCwtMC42MDQ2MTQgLTAuNTgxMzYsMCAwLDAuNjA0NjE0IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzg4IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA1My45NDQ5MTIsNzUuNzc1NTY0IDUuMjMyMjM2LDAgMCwzLjYwNDQyOSAtNS4yMzIyMzYsMCAwLC0zLjYwNDQyOSB6IG0gNS44MTM1OTYsMCA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIC01LjgxMzU5Niw4LjQxODA4NyA1LjIzMjIzNiwwIDAsMy42MDQ0MjkgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MjkgeiBtIDUuODEzNTk2LDAgNS4yMzIyMzYsMCAwLDMuNjA0NDI5IC01LjIzMjIzNiwwIDAsLTMuNjA0NDI5IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzkwIiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA2NS41NTM5MzYsNzEuNTY2NTIgNS4yMzIyMzYsMCAwLDQuMjA5MDQ0IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtNS44MTM1OTYsMCAwLDQuODEzNjU4IDUuODEzNTk2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMyLDAgMCwtMTYuMjMxNTYgeiIgICAgICAgICBzdHlsZT0iZm9udC1zdHlsZTpub3JtYWw7Zm9udC12YXJpYW50Om5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7Zm9udC1zdHJldGNoOm5vcm1hbDtmb250LWZhbWlseTpUdXRvcjstaW5rc2NhcGUtZm9udC1zcGVjaWZpY2F0aW9uOlR1dG9yO2ZpbGw6I2ZmZmZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MS45Nzc1MzgyMztzdHJva2UtbWl0ZXJsaW1pdDo0O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIgICAgICAgICBpZD0icGF0aDMzOTIiIC8+ICAgICAgPHBhdGggICAgICAgICBkPSJtIDc3LjE2Mjk2LDc1Ljc3NTU2NCA1LjIzMjIzNiwwIDAsMTIuMDIyNTE2IC01LjIzMjIzNiwwIDAsLTEyLjAyMjUxNiB6IG0gMCwtNC4yMDkwNDQgNS4yMzIyMzYsMCAwLDMuNjA0NDMgLTUuMjMyMjM2LDAgMCwtMy42MDQ0MyB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5NCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gODIuOTY3NDcyLDc1Ljc3NTU2NCA1LjgxMzU5NiwwIDAsLTQuMjA5MDQ0IDUuMjMyMjM2LDAgMCwxNi4yMzE1NiAtMTEuMDQ1ODMyLDAgMCwtMTIuMDIyNTE2IHogbSA1LjIzMjIzNiw4LjQxODA4NyAwLjU4MTM2LDAgMCwtNC44MTM2NTggLTAuNTgxMzYsMCAwLDQuODEzNjU4IHoiICAgICAgICAgc3R5bGU9ImZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtdmFyaWFudDpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZvbnQtc3RyZXRjaDpub3JtYWw7Zm9udC1mYW1pbHk6VHV0b3I7LWlua3NjYXBlLWZvbnQtc3BlY2lmaWNhdGlvbjpUdXRvcjtmaWxsOiNmZmZmZmY7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjEuOTc3NTM4MjM7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmUiICAgICAgICAgaWQ9InBhdGgzMzk2IiAvPiAgICAgIDxwYXRoICAgICAgICAgZD0ibSA5NC41NzY0OTYsNzUuNzc1NTY0IDExLjA0NTgzNCwwIDAsMTIuMDIyNTE2IC0xMS4wNDU4MzQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjM3LDguNDE4MDg3IDAuNTgxMzU3LDAgMCwtNC44MTM2NTggLTAuNTgxMzU3LDAgMCw0LjgxMzY1OCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzM5OCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTA2LjE4NTUyLDcxLjU2NjUyIDUuMjMyMjQsMCAwLDQuMjA5MDQ0IDUuODEzNTksMCAwLDMuNjA0NDI5IC01LjgxMzU5LDAgMCw0LjgxMzY1OCA1LjgxMzU5LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODMsMCAwLC0xNi4yMzE1NiB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMCIgLz4gICAgICA8cGF0aCAgICAgICAgIGQ9Im0gMTE3Ljc5NDU0LDc1Ljc3NTU2NCAxMS4wNDU4NCwwIDAsNy44MTM0NzMgLTUuODEzNiwwIDAsMC42MDQ2MTQgNS44MTM2LDAgMCwzLjYwNDQyOSAtMTEuMDQ1ODQsMCAwLC0xMi4wMjI1MTYgeiBtIDUuMjMyMjQsNC4yMDkwNDMgMC41ODEzNiwwIDAsLTAuNjA0NjE0IC0wLjU4MTM2LDAgMCwwLjYwNDYxNCB6IiAgICAgICAgIHN0eWxlPSJmb250LXN0eWxlOm5vcm1hbDtmb250LXZhcmlhbnQ6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmb250LXN0cmV0Y2g6bm9ybWFsO2ZvbnQtZmFtaWx5OlR1dG9yOy1pbmtzY2FwZS1mb250LXNwZWNpZmljYXRpb246VHV0b3I7ZmlsbDojZmZmZmZmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoxLjk3NzUzODIzO3N0cm9rZS1taXRlcmxpbWl0OjQ7c3Ryb2tlLWRhc2hhcnJheTpub25lIiAgICAgICAgIGlkPSJwYXRoMzQwMiIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+}
+h2.filename {
+  font-family: monospace;
+}
+h1.textidote {
+  width: 378px;
+  height: 68px;
+  display: block;
+}
+.keyword1 {
+  font-weight: bold;
+  color: green;
+}
+.keyword2 {
+  font-weight: bold;
+  color: darkblue;
+}
+.comment, .comment * {
+  color: darkred;
+  font-weight: normal;
+}
+.linenb {
+  font-style: italic;
+  color: lightgrey;
+  width: 30pt;
+  float: left;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.codeline {
+  margin-left: -30pt;
+  padding-left: 60pt;
+  margin-top: 1pt;
+  margin-bottom: 1pt;
+}
+.no-text {
+  display: none;
+}
+.clear {
+  clear: both;
+}
+</style>
+</head>
+<body>
+<a href="https://sylvainhalle.github.io/textidote"><h1 class="textidote"><span class="no-text">Results of TeXtidote analysis</span></h1></a>
+<p>Here is the result of analyzing your file(s) with TeXtidote. Hover the mouse over highlighted portions of the document to read a tooltip that gives you some writing advice.</p>
+<p>Found 36 warning(s)</p>
+<div class="original-file">
+<div class="linenb">&nbsp;&nbsp;1</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;2</div><div class="codeline">\def\structureDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;3</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;4</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Structure of a Language} consists of a domain and:</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;5</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;6</div><div class="codeline">        <span class="keyword1">\item</span> An assignment from the constant symbols of the language to the domain.</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;7</div><div class="codeline">        <span class="keyword1">\item</span> An assignment from the predicate symbols of the language to predicates in the domain.</div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;8</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;&nbsp;9</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;10</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;11</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;12</div><div class="codeline">\def\kripkeFrameDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;13</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;14</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Kripke Frame} of a Language \(\mathcal{L}\), \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of a partially ordered set \(R\), and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). Furthermore, in a Kripke Frame, if \(p \leq q\), then \(C(q)\) extends \(C(p)\):</div><div class="clear"></div>
+<div class="linenb">&nbsp;15</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;16</div><div class="codeline">        <span class="keyword1">\item</span> All sentences that are true in \(C(p)\) are true in \(C(q)\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;17</div><div class="codeline">        <span class="keyword1">\item</span> The domain of \(C(p)\) is included in the domain of \(C(q)\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;18</div><div class="codeline">        <span class="keyword1">\item</span> The assignments in \(C(p)\) are the same as in \(C(q)\) for the domain in common.</div><div class="clear"></div>
+<div class="linenb">&nbsp;19</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;20</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;21</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;22</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;23</div><div class="codeline">\def\forcingDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;24</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;25</div><div class="codeline">    <span class="keyword1">\textbf</span>{Forcing}. When a sentence \(\phi\) of a language \(\mathcal{L}\) is <span class="keyword1">\textbf</span>{forced} by a structure \(C(p)\) of a \(\mathcal{L}\)-frame \(\mathcal{C}\), we denote:</div><div class="clear"></div>
+<div class="linenb">&nbsp;26</div><div class="codeline">    \(p \Vdash_{\mathcal{C}} \phi\) <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">&nbsp;27</div><div class="codeline">    Forcing is defined by induction: \cite{book1}</div><div class="clear"></div>
+<div class="linenb">&nbsp;28</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;29</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} \phi \Leftrightarrow \phi \text{ is true in } C(p)\) (if \(\phi\) is an atomic sentence).</div><div class="clear"></div>
+<div class="linenb">&nbsp;30</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} (\phi \to \psi) \Leftrightarrow\) for all \(q \geq p\), if \(q \Vdash_{\mathcal{C}} \phi\), then \(q \Vdash_{\mathcal{C}} \psi\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;31</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} \neg \phi \Leftrightarrow\) for all \(q \geq p\), \(q\) does not force \(\phi\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;32</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} (\forall x) \phi(x) \Leftrightarrow\) for all \(q \geq p\) and \(d\) in \(\mathcal{L}_{C(q)}\), \(q \Vdash_{\mathcal{C}} \phi(d)\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;33</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} (\exists x) \phi(x) \Leftrightarrow\) there exists a \(d\) in \(\mathcal{L}_{C(q)}\), such that \(p \Vdash_{\mathcal{C}} \phi(d)\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;34</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} (\phi \land \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ and } p \Vdash_{\mathcal{C}} \psi\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;35</div><div class="codeline">        <span class="keyword1">\item</span> \(p \Vdash_{\mathcal{C}} (\phi \lor \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ or } p \Vdash_{\mathcal{C}} \psi\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;36</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;37</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;38</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;39</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;40</div><div class="codeline">\def\intuitionisticValidityDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;41</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;42</div><div class="codeline">    <span class="keyword1">\textbf</span>{Intuitionistic Validity}. A sentence of a language \(\mathcal{L}\) is Intuitionistically valid if it is forced in all structures of all Kripke frames of \(\mathcal{L}\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;43</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;44</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;45</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;46</div><div class="codeline">\def\classicalValidityDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;47</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;48</div><div class="codeline">    <span class="keyword1">\textbf</span>{Classical Validity}. A sentence of a language \(\mathcal{L}\) is classically valid if it is forced by all single-structure Kripke frames of \(\mathcal{L}\).</div><div class="clear"></div>
+<div class="linenb">&nbsp;49</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;50</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;51</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;52</div><div class="codeline">\def\signedSentenceIntuitionisticDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;53</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;54</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">&nbsp;55</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Signed Sentence List} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions having sentences $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$</div><div class="clear"></div>
+<div class="linenb">&nbsp;56</div><div class="codeline">  and $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\} $</div><div class="clear"></div>
+<div class="linenb">&nbsp;57</div><div class="codeline">     is "intuitionistically valid" (Question 2: maybe use a term != valid?)if there exists a frame $\mathcal{C}$ for which $ \mathcal{C}(p_1) \Vdash \gamma_{1}$ and $ \mathcal{C}(p_{2}) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(q_{1}) \nvDash \delta_{1}$  and $ \mathcal{C}(q_{2}) \nvDash \delta_{2}$</div><div class="clear"></div>
+<div class="linenb">&nbsp;58</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;59</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;60</div><div class="codeline">\def\fIntuitionisticDefinition{</div><div class="clear"></div>
+<div class="linenb">&nbsp;61</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;62</div><div class="codeline">    The function $f$ takes a signed sentence $\sigma$ and a signed sentence list $L$ and returns one or two signed sentence lists.  <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>$f(\sigma,L)$ is defined as follows:</div><div class="clear"></div>
+<div class="linenb">&nbsp;63</div><div class="codeline">    <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>(here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)</div><div class="clear"></div>
+<div class="linenb">&nbsp;64</div><div class="codeline">    <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>if $\sigma \in L$:</div><div class="clear"></div>
+<div class="linenb">&nbsp;65</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;66</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} \neg \alpha,L) = [L - \sigma|| \sigma || F_{p'}\alpha] $ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a minimal $p' \geq p$ present in $h||L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;67</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} \neg \alpha,L) = [L - \sigma || \sigma || T \alpha]$  <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a new $p' \geq p$ </div><div class="clear"></div>
+<div class="linenb">&nbsp;68</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\alpha \land \beta), L) = [L - \sigma|| \sigma || T_{p} \alpha || T_{p} \beta]$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;69</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\alpha \land \beta), L) = [L - \sigma|| \sigma || F_{p} \alpha],[ L - \sigma|| h || F_{p} \beta]$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;70</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\alpha \lor \beta), L) = [L - \sigma|| \sigma || T_{p} \alpha],[ L - \sigma|| h || T_{p} \beta]$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;71</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\alpha \lor \beta), L) = [L - \sigma|| \sigma || F_{p} \alpha || F_{p} \beta]$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;72</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\alpha \to \beta), L) = [L - \sigma|| \sigma || F_{p'} \alpha],[ L - \sigma || h || T_{p'} \beta]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a new $p' \geq p$ </div><div class="clear"></div>
+<div class="linenb">&nbsp;73</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\alpha \to \beta), L) = [L - \sigma|| \sigma || T_{p'} \alpha || F_{p'} \beta]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a minimal $p' \geq p$ present in $h||L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;74</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\forall x) \phi(x), L) = [L - \sigma|| \sigma || T_{p} \phi(c_i) ]$<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ for which $T_{p} \phi(c_i)$ is not in $L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;75</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\forall x) \phi(x), L) = [L - \sigma|| \sigma || F_{p} \phi(c_i) ]$<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ not present in $h||L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;76</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\exists x) \phi(x), L) = [L - \sigma|| \sigma || T_{p} \phi(c_i) ]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for the first constant $c_i$ not present in $h||L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;77</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\exists x) \phi(x), L) = [L - \sigma|| \sigma || F_{p} \phi(c_i) ]$<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ such that $F_{p} \phi(c_i)$ is not in $L$.</div><div class="clear"></div>
+<div class="linenb">&nbsp;78</div><div class="codeline">        <span class="keyword2">\end{itemize}</span> [TODO revise: a stronger criterium for contradiction makes some of these useless. in any case, this "simetric" form is  more easy to implement ]<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">&nbsp;79</div><div class="codeline">    if $\sigma \notin L$:</div><div class="clear"></div>
+<div class="linenb">&nbsp;80</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;81</div><div class="codeline">         <span class="keyword1">\item</span> $f(\sigma,L) = L $</div><div class="clear"></div>
+<div class="linenb">&nbsp;82</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;83</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;84</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">&nbsp;85</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;86</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;87</div><div class="codeline">\def\wellBehavedTheorem{</div><div class="clear"></div>
+<div class="linenb">&nbsp;88</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;89</div><div class="codeline">        Given a signed sentence list x, if x is intuitionistically valid then f(x) is intuitionistically valid </div><div class="clear"></div>
+<div class="linenb">&nbsp;90</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;91</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;92</div><div class="codeline">        \cite{book1} proves this by using the definition of forcing. The choices of $p'$ and $c_i$ garantes the completnees of the tableaux.</div><div class="clear"></div>
+<div class="linenb">&nbsp;93</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">&nbsp;94</div><div class="codeline">        Case: if $L \ni F_{p} (\forall x) \phi(x) $ is intuitionistically valid, then there exists frame $\mathcal{C}$ that "respects" it. We take </div><div class="clear"></div>
+<div class="linenb">&nbsp;95</div><div class="codeline">        a frame $\mathcal{C}'$ that is exactly like $\mathcal{C}$ with adition of a frame $p' \geq p$ such that $\mathcal{C}'(p') \nVdash \phi(c_i)$ for a new $c_i$. We now that </div><div class="clear"></div>
+<div class="linenb">&nbsp;96</div><div class="codeline">        $\mathcal{C}'$ exists by the defintion of forcing for $\forall$. Also $\mathcal{C}'$ is a frame that "respects"</div><div class="clear"></div>
+<div class="linenb">&nbsp;97</div><div class="codeline">        $f(\forall x \phi(x), L) = [L - \sigma|| \sigma || T_{p} \phi(c_i) ]$</div><div class="clear"></div>
+<div class="linenb">&nbsp;98</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">&nbsp;99</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">100</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">101</div><div class="codeline">\def\TableauxDevelopmentDefinition{</div><div class="clear"></div>
+<div class="linenb">102</div><div class="codeline">    <span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">103</div><div class="codeline">        <span class="keyword1">\textbf</span>{The Tableux Development of a Sentence } is defined inductivelly: </div><div class="clear"></div>
+<div class="linenb">104</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">105</div><div class="codeline">            <span class="keyword1">\item</span> A tree with the single node $F_{\emptyset}\phi$ is a tableaux development of $\phi$. </div><div class="clear"></div>
+<div class="linenb">106</div><div class="codeline">            <span class="keyword1">\item</span> If $\tau$ is a tableaux development of $\phi$, then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$. Where:</div><div class="clear"></div>
+<div class="linenb">107</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">108</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">109</div><div class="codeline">        $\hookleftarrow(\sigma,\tau) = $ $\tau$ with $f(\sigma, l) $added to all leaves l that contain $\sigma$</div><div class="clear"></div>
+<div class="linenb">110</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">111</div><div class="codeline">    <span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">112</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">113</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">114</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">115</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">116</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">117</div><div class="codeline">\def\soundnessTheorem {</div><div class="clear"></div>
+<div class="linenb">118</div><div class="codeline"><span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">119</div><div class="codeline">    If $F_{\emptyset}\phi$ is intuitionistically valid then one of the leaves of $ \hookleftarrow (\sigma_n,\hookleftarrow(\sigma_{n-1}(.....(\hookleftarrow(\sigma_1 ,F_{\emptyset}\phi )...)))) $ is intuitionistically valid.</div><div class="clear"></div>
+<div class="linenb">120</div><div class="codeline"><span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">121</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">122</div><div class="codeline"><span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">123</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">124</div><div class="codeline">    The proof goes by induction:</div><div class="clear"></div>
+<div class="linenb">125</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">126</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">127</div><div class="codeline">             The base case is true by definition: either the root $F_{\emptyset}\phi$ is a intuitionistically valid leaf or the premisse is false.  Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.</div><div class="clear"></div>
+<div class="linenb">128</div><div class="codeline">             There are two cases to consider:</div><div class="clear"></div>
+<div class="linenb">129</div><div class="codeline">            <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">130</div><div class="codeline">                <span class="keyword1">\item</span> If there does not exist a frame that does not force $\phi$, $F\phi$ is not intuitionistically valid and the theorem holds for $\tau'$.</div><div class="clear"></div>
+<div class="linenb">131</div><div class="codeline">                <span class="keyword1">\item</span>  If there exists a frame that does not force $\phi$:</div><div class="clear"></div>
+<div class="linenb">132</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">133</div><div class="codeline">                         By the induction hypothesis, there exists a intuitionistically valid leaf $\sigma$ in $\tau$.</div><div class="clear"></div>
+<div class="linenb">134</div><div class="codeline">                         <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">135</div><div class="codeline">                    <span class="keyword1">\item</span> If $\sigma$ is a leaf in $\tau$, then $F_{\emptyset}\phi$ the theorem holds for $\tau'$.</div><div class="clear"></div>
+<div class="linenb">136</div><div class="codeline">                    <span class="keyword1">\item</span> If $\sigma$ is not a leaf in $\tau$, then:</div><div class="clear"></div>
+<div class="linenb">137</div><div class="codeline">                         One or two nodes were added to $\sigma$ in $\tau'$ by the definition of $\hookleftarrow$.</div><div class="clear"></div>
+<div class="linenb">138</div><div class="codeline">                         By the theorem 1, one of the added nodes is also intuitionistically valid.</div><div class="clear"></div>
+<div class="linenb">139</div><div class="codeline">                         Consequently, the theorem holds for $\tau'$.</div><div class="clear"></div>
+<div class="linenb">140</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">141</div><div class="codeline">            <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">142</div><div class="codeline">            <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">143</div><div class="codeline"><span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">144</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">145</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">146</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">147</div><div class="codeline">\def\completeiteratordefinition{</div><div class="clear"></div>
+<div class="linenb">148</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">149</div><div class="codeline">    $\hookleftarrow_c(\tau) = \tau$ with $f(h,l)$ added to all leaves l that contain $\sigma$. h is the first signed sentence of the shalowest (and after that leftmost) non-contradictory leaf. </div><div class="clear"></div>
+<div class="linenb">150</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">151</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">152</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">153</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">154</div><div class="codeline">\def\signedSentenceClassicalDefinition{</div><div class="clear"></div>
+<div class="linenb">155</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">156</div><div class="codeline"><span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">157</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It looks like $T \phi $ or $F \phi $ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">158</div><div class="codeline">    <span class="keyword1">\textbf</span>{A Signed Sentence List} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions having sentences $\{ T\gamma_{1}, T\gamma_{2}, ...\}$</div><div class="clear"></div>
+<div class="linenb">159</div><div class="codeline">  and $ \{F\delta_{1}, F\delta_{2}...\} $</div><div class="clear"></div>
+<div class="linenb">160</div><div class="codeline">     is "classically valid" (Question 2: maybe use a term != valid?)if there exists a single-structured frame  $\mathcal{C}$ such that $ \mathcal{C}(\emptyset) \Vdash \gamma_{1}$ and $ \mathcal{C}(\emptyset) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(\emptyset) \nvDash \delta_{1}$  and $ \mathcal{C}(\emptyset) \nvDash \delta_{2}$</div><div class="clear"></div>
+<div class="linenb">161</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">162</div><div class="codeline"> </div><div class="clear"></div>
+<div class="linenb">163</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">164</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">165</div><div class="codeline">\def\fClassicalDefinition{</div><div class="clear"></div>
+<div class="linenb">166</div><div class="codeline">    <span class="keyword2">\begin{definition}</span></div><div class="clear"></div>
+<div class="linenb">167</div><div class="codeline">        The function $f$ takes a signed sentence $\sigma$ and a signed sentence list $L$ and returns one or two signed sentence lists.  <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>$f(\sigma,L)$ is defined as follows:</div><div class="clear"></div>
+<div class="linenb">168</div><div class="codeline">        <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>(here we denote $l||l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)</div><div class="clear"></div>
+<div class="linenb">169</div><div class="codeline">        <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>if $\sigma \in L$:</div><div class="clear"></div>
+<div class="linenb">170</div><div class="codeline">            <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">171</div><div class="codeline">                <span class="keyword1">\item</span> $f(T \neg \alpha,L) = [L - \sigma|| \sigma || F \alpha]$.</div><div class="clear"></div>
+<div class="linenb">172</div><div class="codeline">                <span class="keyword1">\item</span> $f(F \neg \alpha,L) = [L - \sigma || \sigma || T \alpha]$.</div><div class="clear"></div>
+<div class="linenb">173</div><div class="codeline">                <span class="keyword1">\item</span> $f(T (\alpha \land \beta), L) = [L - \sigma|| \sigma || T \alpha || T \beta]$.</div><div class="clear"></div>
+<div class="linenb">174</div><div class="codeline">                <span class="keyword1">\item</span> $f(F (\alpha \land \beta), L) = [L - \sigma|| \sigma || F \alpha],[ L || \sigma || F \beta]$.</div><div class="clear"></div>
+<div class="linenb">175</div><div class="codeline">                <span class="keyword1">\item</span> $f(T (\alpha \lor \beta), L) = [L - \sigma|| \sigma || T \alpha],[ L || \sigma || T \beta]$.</div><div class="clear"></div>
+<div class="linenb">176</div><div class="codeline">                <span class="keyword1">\item</span> $f(F (\alpha \lor \beta), L) = [L - \sigma|| \sigma || F \alpha || F \beta]$.</div><div class="clear"></div>
+<div class="linenb">177</div><div class="codeline">                <span class="keyword1">\item</span> $f(T (\alpha \to \beta), L) = [L - \sigma|| \sigma || F \alpha],[ L || \sigma || T \beta]$.</div><div class="clear"></div>
+<div class="linenb">178</div><div class="codeline">                <span class="keyword1">\item</span> $f(F (\alpha \to \beta), L) = [L - \sigma|| \sigma || T \alpha || F \beta]$.</div><div class="clear"></div>
+<div class="linenb">179</div><div class="codeline">                <span class="keyword1">\item</span> $f(T (\forall x) \phi(x), L) = [L - \sigma|| \sigma || T \phi(c_i)]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ for which $T \phi(c_i)$ is not in $L$.</div><div class="clear"></div>
+<div class="linenb">180</div><div class="codeline">                <span class="keyword1">\item</span> $f(F (\forall x) \phi(x), L) = [L - \sigma|| \sigma || F \phi(c_i)]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ not present in $L$.</div><div class="clear"></div>
+<div class="linenb">181</div><div class="codeline">                <span class="keyword1">\item</span> $f(T (\exists x) \phi(x), L) = [L - \sigma|| \sigma || T \phi(c_i)]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ not present in $L$.</div><div class="clear"></div>
+<div class="linenb">182</div><div class="codeline">                <span class="keyword1">\item</span> $f(F (\exists x) \phi(x), L) = [L - \sigma|| \sigma || F \phi(c_i)]$ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> for the first constant $c_i$ for which $F \phi(c_i)$ is not in $L$.</div><div class="clear"></div>
+<div class="linenb">183</div><div class="codeline">            <span class="keyword2">\end{itemize}</span> [TODO revise] <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">184</div><div class="codeline">        if $\sigma \notin L$:</div><div class="clear"></div>
+<div class="linenb">185</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">186</div><div class="codeline">             <span class="keyword1">\item</span> $f(\sigma,L) = L $</div><div class="clear"></div>
+<div class="linenb">187</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">188</div><div class="codeline">    <span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">189</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">190</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">191</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">192</div><div class="codeline">\def\sequentDefinition{    </div><div class="clear"></div>
+<div class="linenb">193</div><div class="codeline">\begin {definition}</div><div class="clear"></div>
+<div class="linenb">194</div><div class="codeline">    <span class="keyword1">\textbf</span>{Sequent} A sequent is an expression of the form </div><div class="clear"></div>
+<div class="linenb">195</div><div class="codeline">    \[</div><div class="clear"></div>
+<div class="linenb">196</div><div class="codeline">    \Gamma \vdash \Delta</div><div class="clear"></div>
+<div class="linenb">197</div><div class="codeline">    \]</div><div class="clear"></div>
+<div class="linenb">198</div><div class="codeline">    where $\Gamma = \{\Gamma_1, \Gamma_2, \Gamma_3,...\}$ and $\Delta = \{\Delta_1,\Delta_2,\Delta_3 ...\}$</div><div class="clear"></div>
+<div class="linenb">199</div><div class="codeline">     are  finite sets of formulas. $\Gamma $ is called the antecedent, and </div><div class="clear"></div>
+<div class="linenb">200</div><div class="codeline">    $\Delta$ is called the succedent. </div><div class="clear"></div>
+<div class="linenb">201</div><div class="codeline">\end {definition}</div><div class="clear"></div>
+<div class="linenb">202</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">203</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">204</div><div class="codeline">\def\sequentProofDefinition{    </div><div class="clear"></div>
+<div class="linenb">205</div><div class="codeline">\begin {definition}</div><div class="clear"></div>
+<div class="linenb">206</div><div class="codeline">    <span class="keyword1">\textbf</span>{Sequent} A sequent is an expression of the form </div><div class="clear"></div>
+<div class="linenb">207</div><div class="codeline">    \[</div><div class="clear"></div>
+<div class="linenb">208</div><div class="codeline">    \Gamma \vdash \Delta</div><div class="clear"></div>
+<div class="linenb">209</div><div class="codeline">    \]</div><div class="clear"></div>
+<div class="linenb">210</div><div class="codeline">    where $\Gamma = \{\Gamma_1, \Gamma_2, \Gamma_3,...\}$ and $\Delta = \{\Delta_1,\Delta_2,\Delta_3 ...\}$</div><div class="clear"></div>
+<div class="linenb">211</div><div class="codeline">     are  finite sets of formulas. $\Gamma $ is called the antecedent, and </div><div class="clear"></div>
+<div class="linenb">212</div><div class="codeline">    $\Delta$ is called the succedent. </div><div class="clear"></div>
+<div class="linenb">213</div><div class="codeline">\end {definition}</div><div class="clear"></div>
+<div class="linenb">214</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">215</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">216</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">217</div><div class="codeline">\def\sequentValidityDefinition{</div><div class="clear"></div>
+<div class="linenb">218</div><div class="codeline">    \begin {definition}</div><div class="clear"></div>
+<div class="linenb">219</div><div class="codeline">A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are forced, then at least one of $\Delta$ is forced.</div><div class="clear"></div>
+<div class="linenb">220</div><div class="codeline">\end {definition}</div><div class="clear"></div>
+<div class="linenb">221</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">222</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">223</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">224</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">225</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">226</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">227</div><div class="codeline">\def\developmentSequentIntuitionisticDefinition{</div><div class="clear"></div>
+<div class="linenb">228</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">229</div><div class="codeline">\begin {definition}</div><div class="clear"></div>
+<div class="linenb">230</div><div class="codeline">    A single sequent is a intuitionistic sequent proof tree development<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">231</div><div class="codeline">    Any of the rules of the <span class="highlight-sh" title="Do not refer to tables using hard-coded numbers. Use \ref instead. [sh:hctab]">table 1</span> aplied to a intuitionistic sequent proof tree development is a sequent proof tree development<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">232</div><div class="codeline">    A intuitionistic squent proof tree is a intuitionistic sequent proof tree development with axioms on all leafs.</div><div class="clear"></div>
+<div class="linenb">233</div><div class="codeline">\end {definition} </div><div class="clear"></div>
+<div class="linenb">234</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">235</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">236</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">237</div><div class="codeline">\def\developmentSequentClassicalDefinition{</div><div class="clear"></div>
+<div class="linenb">238</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">239</div><div class="codeline">\begin {definition}</div><div class="clear"></div>
+<div class="linenb">240</div><div class="codeline">    A single sequent is a classical sequent proof tree development<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">241</div><div class="codeline">    Any of the rules of the <span class="highlight-sh" title="Do not refer to tables using hard-coded numbers. Use \ref instead. [sh:hctab]">table 1</span> applied to a classical sequent proof tree development is a sequent proof tree development<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\</span>\</div><div class="clear"></div>
+<div class="linenb">242</div><div class="codeline">    A classical sequent proof tree is a classical sequent proof tree development with axioms on all leaves.</div><div class="clear"></div>
+<div class="linenb">243</div><div class="codeline">\end {definition} </div><div class="clear"></div>
+<div class="linenb">244</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">245</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">246</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">247</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">248</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">249</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">250</div><div class="codeline">\def\nodeTranslationFunction{</div><div class="clear"></div>
+<div class="linenb">251</div><div class="codeline">    <span class="keyword2">\begin{definition}</span> <span class="keyword1">\textbf</span>{node translating function $\mathcal{T}$}</div><div class="clear"></div>
+<div class="linenb">252</div><div class="codeline">        Given a signed sentence list L with sentences</div><div class="clear"></div>
+<div class="linenb">253</div><div class="codeline">         $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$</div><div class="clear"></div>
+<div class="linenb">254</div><div class="codeline">        and </div><div class="clear"></div>
+<div class="linenb">255</div><div class="codeline">            $ \{F_{q_1}\delta{i}, F_{q_2}\delta{i+1}...\}$ and a $w \in \{p_1,p_2,...\} \cup \{q_1,q_2,...\}$ </div><div class="clear"></div>
+<div class="linenb">256</div><div class="codeline">        then: <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>  $ \mathcal{T} (L,w$) = $\Gamma_{1}, \Gamma_{2}, ... \vdash \Delta_1, \Delta_2, ...$, were: \\</div><div class="clear"></div>
+<div class="linenb">257</div><div class="codeline">        $\{ T_{q_1}\Gamma_{1}, T_{q_2}\Gamma_{2} , ...\}$    are the elements of $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$ such that  $p \geq w$ </div><div class="clear"></div>
+<div class="linenb">258</div><div class="codeline">        and </div><div class="clear"></div>
+<div class="linenb">259</div><div class="codeline">        $\{ F_{q_1}\Delta_{1}, F_{q_2}\Delta_{2} , ...\}$ are the elements of $\{ F_{q_1}\delta_{1}, F_{q_2}\delta_{2}, ...\}$ such that  $q \leq w$ </div><div class="clear"></div>
+<div class="linenb">260</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">261</div><div class="codeline">        <span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">262</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">263</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">264</div><div class="codeline">\def\uselessTheoremss{</div><div class="clear"></div>
+<div class="linenb">265</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">266</div><div class="codeline">        Given signed sentence list $L$ and a $w$,  </div><div class="clear"></div>
+<div class="linenb">267</div><div class="codeline">        if L is intuitionistically valid then the sequent $\mathcal{T}(L, w)$ is not intuitionistically valid.</div><div class="clear"></div>
+<div class="linenb">268</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">269</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">270</div><div class="codeline">        <span class="keyword2">\begin{proof}</span> </div><div class="clear"></div>
+<div class="linenb">271</div><div class="codeline">        If L has the sentences</div><div class="clear"></div>
+<div class="linenb">272</div><div class="codeline">        $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$</div><div class="clear"></div>
+<div class="linenb">273</div><div class="codeline">       and </div><div class="clear"></div>
+<div class="linenb">274</div><div class="codeline">           $ \{F_{q_1}\delta{i}, F_{q_2}\delta{i+1}...\}$ </div><div class="clear"></div>
+<div class="linenb">275</div><div class="codeline">        , that signifies an assumption of existance of a frame $ \mathcal{C}$</div><div class="clear"></div>
+<div class="linenb">276</div><div class="codeline">        such that: </div><div class="clear"></div>
+<div class="linenb">277</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">278</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">279</div><div class="codeline">        $ \mathcal{C}(p_1) \Vdash \gamma_{1}$ and $ \mathcal{C}(p_{2}) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(q_{1}) \nvDash \delta_{1}$  and $ \mathcal{C}(q_{2}) \nvDash \delta_{2}$ </div><div class="clear"></div>
+<div class="linenb">280</div><div class="codeline">       <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>  which implicitly means, by the definition of extension: </div><div class="clear"></div>
+<div class="linenb">281</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">282</div><div class="codeline">       ($ \mathcal{C}(p) \Vdash \gamma_{1}$ for all $p \geq p_1$) and ($ \mathcal{C}(p) \Vdash \gamma_{2}$ for all $p \geq p_2$) and ... ($ \mathcal{C}(p) \nvDash \delta_{1}$ for all $p \leq q_{1}$) and ($ \mathcal{C}(p) \nvDash \delta_{2}$ for all $p \leq q_{2}$)...</div><div class="clear"></div>
+<div class="linenb">283</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">284</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">285</div><div class="codeline">       Take the structure $\mathcal{C}(w)$ inside of $\mathcal{C}$. We can infer:</div><div class="clear"></div>
+<div class="linenb">286</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">287</div><div class="codeline">       $ \mathcal{C}(w) \Vdash \Gamma_{1}$ and $ \mathcal{C}(w) \Vdash \Gamma_{2}$ and ... $ \mathcal{C}(w) \nvDash \Delta_1$  and $ \mathcal{C}(w) \nvDash \Delta_2 ...$.</div><div class="clear"></div>
+<div class="linenb">288</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">289</div><div class="codeline">       $\mathcal{C}(w)$ is a counterexample proving the non-validity of </div><div class="clear"></div>
+<div class="linenb">290</div><div class="codeline">        $\Gamma_{1}, \Gamma_{2}, ... \vdash \Delta_1, \Delta_2, ...$</div><div class="clear"></div>
+<div class="linenb">291</div><div class="codeline">        <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">292</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">293</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">294</div><div class="codeline">\def\otheruselesstheorem{</div><div class="clear"></div>
+<div class="linenb">295</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span> </div><div class="clear"></div>
+<div class="linenb">296</div><div class="codeline">        L is valid if and only if $\mathcal{T}(L,\emptyset)$ is not valid </div><div class="clear"></div>
+<div class="linenb">297</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">298</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">299</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">300</div><div class="codeline">        It goes directly from the definiton:</div><div class="clear"></div>
+<div class="linenb">301</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">302</div><div class="codeline">    <span class="keyword1">\item</span> If the signed sentence list is valid, then the sequent is invalid by corolary of [TODO]</div><div class="clear"></div>
+<div class="linenb">303</div><div class="codeline">    <span class="keyword1">\item</span> If the signed sentence list is not valid, it does not exist a counterexample for $\mathcal{T}$(L). (Note that </div><div class="clear"></div>
+<div class="linenb">304</div><div class="codeline">    we can not say the same for the intuitionistic case)</div><div class="clear"></div>
+<div class="linenb">305</div><div class="codeline">       <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">306</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">307</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">308</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">309</div><div class="codeline">\def\localTranslationValidityTheorem{</div><div class="clear"></div>
+<div class="linenb">310</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">311</div><div class="codeline">        Given a signed sentence list l with $\sigma \in l$ , then </div><div class="clear"></div>
+<div class="linenb">312</div><div class="codeline">       $\RightLabel{rule}\AxiomC{$\mathcal{T}( f(\sigma,l))$}\UnaryInfC{$\mathcal{T}(l)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">313</div><div class="codeline">       is a valid rule.</div><div class="clear"></div>
+<div class="linenb">314</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">315</div><div class="codeline">   <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">316</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">317</div><div class="codeline">   <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">318</div><div class="codeline">       Here will show the implicit quantifier rule being used:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> </div><div class="clear"></div>
+<div class="linenb">319</div><div class="codeline">       if $L-\sigma$ has sentences $\{ T\Gamma_{1}, T\Gamma_{2}, ...\}$ and  $ \{F\Delta_1, F\Delta_2 ...\} $, then: </div><div class="clear"></div>
+<div class="linenb">320</div><div class="codeline">       \small{</div><div class="clear"></div>
+<div class="linenb">321</div><div class="codeline">       \begin {itemize}</div><div class="clear"></div>
+<div class="linenb">322</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">323</div><div class="codeline">       <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">324</div><div class="codeline">       $\AxiomC{$\mathcal{T}( f(T\neg \alpha,l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">325</div><div class="codeline">       $=\AxiomC{$\mathcal{T}( (L-T\neg \alpha)||T \neg \alpha||F \alpha)$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">326</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">327</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">328</div><div class="codeline">       $=\AxiomC{$\Gamma ,\neg \alpha \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">329</div><div class="codeline">       $=\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma ,\neg \alpha \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha , \neg \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">330</div><div class="codeline">       <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">331</div><div class="codeline">       $\AxiomC{$\mathcal{T}( f(F\neg \alpha,l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">332</div><div class="codeline">       $=\AxiomC{$\mathcal{T}( (L-F\neg \alpha)||F \neg \alpha||T \alpha)$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">333</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">334</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">335</div><div class="codeline">       $=\AxiomC{$\Gamma ,\neg \alpha \vdash \neg \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash , \neg \alpha \Delta$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">336</div><div class="codeline">       $=\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma , \alpha \vdash \neg \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha , \neg \alpha \Delta$}\UnaryInfC{$\Gamma,  \vdash  \neg \alpha \Delta$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">337</div><div class="codeline">       <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">338</div><div class="codeline">       $\AxiomC{$\mathcal{T}( f(T(\alpha \land \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">339</div><div class="codeline">       $=\AxiomC{$\mathcal{T}( (L-T(\alpha \land \beta))||\alpha \land \beta||T \alpha||T \beta)$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">340</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">341</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">342</div><div class="codeline">       $=\AxiomC{$\Gamma ,\alpha, \beta, \alpha \land \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">343</div><div class="codeline">       $=\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma ,\alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha, \beta, \alpha \land \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">344</div><div class="codeline">       <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">345</div><div class="codeline">       $\AxiomC{$\mathcal{T}( f(F(\alpha \land \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">346</div><div class="codeline">       $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || F \alpha) $}\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || F \beta) $}\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">347</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">348</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">349</div><div class="codeline">       $=\AxiomC{$\Gamma ,\alpha, \alpha \land \beta \vdash \Delta$}\AxiomC{$\Gamma , \beta, \alpha \land \beta \vdash \Delta$}\BinaryInfC{$\Gamma,\vdash  \alpha \land \beta  ,\Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">350</div><div class="codeline">       $=\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma ,\alpha, \alpha \land \beta \vdash \Delta$}\AxiomC{$\Gamma , \beta, \alpha \land \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \land \beta ,\alpha \land \beta, \Delta$}\UnaryInfC{$\Gamma,\vdash  \alpha \land \beta  ,\Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">351</div><div class="codeline">       <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">352</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(T(\alpha \lor \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">353</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || T \alpha)$}\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || T \beta)$}\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">354</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">355</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">356</div><div class="codeline">   $=\AxiomC{$\Gamma ,\alpha , \alpha \lor \beta \vdash \Delta$}\AxiomC{$\Gamma ,\beta, \alpha \lor \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">357</div><div class="codeline">   $=\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma ,\alpha \vdash  \alpha \lor \beta,\Delta$}\AxiomC{$\Gamma , \beta, \alpha \lor \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \lor \beta,\alpha \lor \beta ,\Delta$}\UnaryInfC{$\Gamma \vdash  \alpha \lor \beta ,\Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">358</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">359</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(F(\alpha \lor \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">360</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( (L-F(\alpha \lor \beta))||F \alpha||F \beta)$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">361</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">362</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">363</div><div class="codeline">   $=\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">364</div><div class="codeline">   $=\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta,\alpha \lor \beta,\alpha,\beta,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">365</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">366</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">367</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(T(\alpha \rightarrow \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">368</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || F \alpha )$}\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || T \beta ) $}\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">369</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">370</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">371</div><div class="codeline">   $=\AxiomC{$\Gamma, \alpha, \alpha \rightarrow \beta \vdash \Delta$}\AxiomC{$\Gamma, \alpha \rightarrow \beta \vdash  \beta, \Delta$}\BinaryInfC{$\Gamma, \alpha \rightarrow \beta \vdash \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">372</div><div class="codeline">   $=\RightLabel{\scriptsize{$\rightarrow$L}}\AxiomC{$\Gamma, \alpha, \alpha \rightarrow \beta \vdash \Delta$}\AxiomC{$\Gamma, \alpha \rightarrow \beta \vdash  \beta, \Delta$}\BinaryInfC{$\Gamma, \alpha \rightarrow \beta,\alpha \rightarrow \beta  \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \rightarrow \beta \vdash \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">373</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">374</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">375</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(F(\alpha \rightarrow \beta),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">376</div><div class="codeline">   $=\AxiomC{$\mathcal{T}((L - F(\alpha \rightarrow \beta)) || F(\alpha \rightarrow \beta) || T \alpha || F \beta)$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">377</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">378</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">379</div><div class="codeline">   $=\AxiomC{$\Gamma , \alpha \vdash \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">380</div><div class="codeline">   $=\RightLabel{\scriptsize{$\rightarrow$R}}\AxiomC{$\Gamma , \alpha \vdash \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">381</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">382</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">383</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(T(\forall x \, \phi(x)),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">384</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || T \phi(c_i) )$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">385</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">386</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">387</div><div class="codeline">   $=\AxiomC{$\Gamma, \forall x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x) \vdash \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">388</div><div class="codeline">   $=\RightLabel{\scriptsize{$\forall$L}}\AxiomC{$\Gamma, \forall x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x), \forall x \, \phi(x) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x) \vdash \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">389</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">390</div><div class="codeline">   and $c_i$ does not occour in $\Gamma$ or $\Delta$, as it is a new one.</div><div class="clear"></div>
+<div class="linenb">391</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">392</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(F(\forall x \, \phi(x)),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">393</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || F \phi(c_i) )$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">394</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">395</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">396</div><div class="codeline">   $=\AxiomC{$\Gamma \vdash \phi(c_i), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">397</div><div class="codeline">   $=\RightLabel{\scriptsize{$\forall$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">398</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">399</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">400</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(T(\exists x \, \phi(x)),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">401</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || T \phi(c_i) )$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">402</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">403</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">404</div><div class="codeline">   $=\AxiomC{$\Gamma, \exists x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x) \vdash \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">405</div><div class="codeline">   $=\RightLabel{\scriptsize{$\exists$L}}\AxiomC{$\Gamma, \exists x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x), \exists x \, \phi(x) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x) \vdash \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">406</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">407</div><div class="codeline">   and $c_i$ does not occour in $\Gamma$ or $\Delta$, as it is a new one.</div><div class="clear"></div>
+<div class="linenb">408</div><div class="codeline">   <span class="keyword1">\item</span> </div><div class="clear"></div>
+<div class="linenb">409</div><div class="codeline">   $\AxiomC{$\mathcal{T}( f(F(\exists x \, \phi(x)),l))$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">410</div><div class="codeline">   $=\AxiomC{$\mathcal{T}( L - \sigma|| \sigma || F \phi(c_i) )$}\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">411</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">412</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">413</div><div class="codeline">   $=\AxiomC{$\Gamma \vdash \phi(c_i), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \Delta$}\DisplayProof$  </div><div class="clear"></div>
+<div class="linenb">414</div><div class="codeline">   $=\RightLabel{\scriptsize{$\exists$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \Delta$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">415</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">416</div><div class="codeline">   \end  {itemize}</div><div class="clear"></div>
+<div class="linenb">417</div><div class="codeline">   }</div><div class="clear"></div>
+<div class="linenb">418</div><div class="codeline">       </div><div class="clear"></div>
+<div class="linenb">419</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">420</div><div class="codeline">   <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">421</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">422</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">423</div><div class="codeline">\def\TranslationClassical{</div><div class="clear"></div>
+<div class="linenb">424</div><div class="codeline"><span class="keyword2">\begin{definition}</span> <span class="keyword1">\textbf</span>{Translation in classical logic}</div><div class="clear"></div>
+<div class="linenb">425</div><div class="codeline">    given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:</div><div class="clear"></div>
+<div class="linenb">426</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">427</div><div class="codeline">        <span class="keyword1">\item</span> if $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>$\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">428</div><div class="codeline">        <span class="keyword1">\item</span> if $\tau$ = r and there is no $\sigma$ such that $T \sigma $ and $F \sigma $ are on r: <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> $\mathcal{T}_p(\tau) = \mathcal{T}(\tau) $</div><div class="clear"></div>
+<div class="linenb">429</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">430</div><div class="codeline">        <span class="keyword1">\item</span> if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>by definition the last theorem exits a sentence $\sigma$ such that  </div><div class="clear"></div>
+<div class="linenb">431</div><div class="codeline">        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0=r_0$, and so  $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">432</div><div class="codeline">        <span class="keyword1">\item</span> if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> by the last theorem there exists a sentence $\sigma$  such that</div><div class="clear"></div>
+<div class="linenb">433</div><div class="codeline">            $f(\sigma, r) = f_{Rule}(\sigma, r) = \{r_1, r_2\}$, and so  </div><div class="clear"></div>
+<div class="linenb">434</div><div class="codeline">            $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">435</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">436</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">437</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">438</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">439</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">440</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">441</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+</div>
+<hr/>
+Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>
+See the <a href="https://sylvainhalle.github.io/textidote">TeXtidote website</a> for more information.
+</body>
+</html>

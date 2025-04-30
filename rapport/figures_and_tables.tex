@@ -59,10 +59,51 @@
 
 }
 
-    \caption{R and a Kripke frame }
+    \caption{R and a Kripke frame. }
     \label{fig:enter-label}
     
 \end{figure}
+}
+
+
+\def\TableauxDevelopmentExampleFigure{
+    
+\begin{figure}
+    \centering
+    \makebox[\textwidth][c]{%
+    \resizebox{0.95\textwidth}{!}{
+    
+    \begin{tikzpicture}[scale=0.9]
+    \node {$F_{\emptyset}\phi$}
+        child {node {$\ldots$}
+            child {node {$\ldots$}}
+            child {node {$T_{p} \neg \alpha, ...$}
+                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}
+            child {node {$\ldots$}}
+            child {node {$T_{p} \neg \alpha, ...$}
+                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}};
+    \end{tikzpicture}%
+    
+    
+    
+    \hspace{0.5cm} \raisebox{1.8cm}{$\hookleftarrow$} 
+    \hspace{0.5cm}
+    \raisebox{1.25cm}{
+    \begin{tikzpicture}[scale=0.9]
+    \node {$F_{\emptyset}\phi$}
+        child {node {$\ldots$}
+            child {node {$\ldots$}}
+            child {node {$T_{p} \neg \alpha, ...$}}
+            child {node {$\ldots$}}
+            child {node {$T_{p} \neg \alpha, ...$}}};
+    \end{tikzpicture}
+    }
+    %
+    }%
+    }
+    \caption{Example of $\hookleftarrow(T \neg \alpha ,\tau)$ and $\tau$. } 
+    \label{fig:tree_expansion}
+    \end{figure}
 }
 
 \def\tableauxCumulativeAndNonCumulativeExampleFigure{
@@ -154,3 +195,123 @@
 }
 
 
+
+\def\RulesIntuitionisticSequentCalculus{
+
+
+\begin{table}[h!]
+    \caption{Rules for L's classical multi-consequence sequent calculus.}\label{tab:intuitionistic}
+\centering
+\renewcommand{\arraystretch}{3} % Adjust row height
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Rule} & \textbf{Inference} \\ \hline
+Axiom  & $\AxiomC{}\UnaryInfC{$\alpha \vdash \alpha$}\DisplayProof$ \\ \hline
+Weakening & $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline
+Negation & 
+$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash $}\UnaryInfC{$\Gamma \vdash \neg \alpha$}\DisplayProof$ \\ \hline
+Conjunction & 
+$\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
+Disjunction & 
+$\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
+Implication & 
+$\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ \hline
+Quantifiers & 
+$\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y)$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x)$}\DisplayProof$ \\ 
+& 
+$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline
+Contraction & 
+$\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ \hline
+\end{tabular}
+\end{table}
+}
+
+\def\RulesCumulativeClassicalSequentCalculus{
+\begin{table}[h!]
+    \caption{Cumulative Sequent Calculus Rules (Multi-Consequence).}\label{tab:cumulative}
+    \centering
+    \renewcommand{\arraystretch}{3}
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Rule} & \textbf{Inference} \\ \hline
+        Axiom & $\AxiomC{}\UnaryInfC{$\Gamma, \phi \vdash \phi, \Delta$}\DisplayProof$ \\ \hline
+        
+        Weakening & 
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \phi$}\DisplayProof$ \\ \hline
+        
+        Negation & 
+        $\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma , \neg \phi \vdash \phi, \Delta$}\UnaryInfC{$\Gamma, \neg \phi \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma, \phi \vdash \Delta, \neg \phi $}\UnaryInfC{$\Gamma \vdash  \Delta, \neg \phi $}\DisplayProof$ \\ \hline
+        
+        Conjunction & 
+        $\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma, \phi, \psi, \phi \land \psi \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \land \psi \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma \vdash \phi, \phi \land \psi,\Delta$}\AxiomC{$\Gamma \vdash \psi, \phi \land \psi,\Delta$}\BinaryInfC{$\Gamma \vdash \phi \land \psi, \Delta$}\DisplayProof$ \\ \hline
+        
+        Disjunction & 
+        $\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma, \phi \lor \psi,\phi \vdash \Delta$}\AxiomC{$\Gamma, \phi \lor \psi,\psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \lor \psi \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\lor$R}} \AxiomC{$\Gamma \vdash \phi \lor \psi, \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \lor \psi, \Delta$}\DisplayProof$ \\ \hline
+        
+        Implication & 
+        $\RightLabel{\scriptsize{$\to$L}} \AxiomC{$\Gamma, \phi \to \psi \vdash \phi, \Delta$}\AxiomC{$\Gamma, \phi \to \psi, \psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \to \psi \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\to$R}} \AxiomC{$\Gamma, \phi \vdash \psi, \phi \to \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \to \psi, \Delta$}\DisplayProof$ \\ \hline
+        
+        Quantifiers & 
+        $\RightLabel{\scriptsize{$\forall$L}} \AxiomC{$\Gamma, \forall x \phi(x), \phi(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \phi(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\forall$R}} \AxiomC{$\Gamma \vdash \phi(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \phi(x), \Delta$}\DisplayProof$ \\
+        & 
+        $\RightLabel{\scriptsize{$\exists$L}} \AxiomC{$\Gamma, \phi(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \phi(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\exists$R}} \AxiomC{$\Gamma \vdash \phi(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \phi(x), \Delta$}\DisplayProof$ \\ \hline
+    \end{tabular}
+\end{table}
+}
+
+
+
+
+\def\RulesClassicalSequentCalculus{
+
+\begin{table}[h!]
+    \caption{Rules for L's classical multi-consequence sequent calculus.}\label{tab:classical}
+\centering
+\renewcommand{\arraystretch}{3} % Adjust row height
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Rule} & \textbf{Inference} \\ \hline
+Axiom  & $\AxiomC{}\UnaryInfC{$\alpha \vdash \alpha$}\DisplayProof$ \\ \hline
+Weakening & $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline
+Negation & 
+$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha, \Delta$}\DisplayProof$ \\ \hline
+Conjunction & 
+$\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
+Disjunction & 
+$\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
+Implication & 
+$\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ \hline
+Quantifiers & 
+$\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ \\ 
+& 
+$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline
+Contraction & 
+$\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ \hline
+\end{tabular}
+\end{table}
+}
