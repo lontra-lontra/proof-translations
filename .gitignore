@@ -1,8 +1,9 @@
 *.log
 
 .gitignore
+vscode/tasks.json
 
-.vscode/
+vscode/extensions.json
 rapport/p.aux
 rapport/p.aux
 rapport/p.aux

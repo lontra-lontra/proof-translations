@@ -191,7 +191,7 @@
 
 \def\sequentDefinition{    
 \begin {definition}
-    \textbf{Sequent} A sequent is an expression of the form 
+    \textbf{A Sequent}  is an expression of the form 
     \[
     \Gamma \vdash \Delta
     \]
@@ -215,7 +215,7 @@
 
 
 \def\sequentValidityDefinition{
-    \begin {definition}
+    \begin {definition} \textbf{Intuitionistical Validity of a Sequent}
 A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are forced, then at least one of $\Delta$ is forced.
 \end {definition}
 
@@ -248,7 +248,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 \def\nodeTranslationFunction{
-    \begin{definition} \textbf{node translating function $\mathcal{T}$}
+    \begin{definition} \textbf{Node Translating Function $\mathcal{T}$}
         Given a signed sentence list L with sentences
          $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
         and 
@@ -261,7 +261,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
         \end{definition}
 }
 
-\def\uselessTheoremss{
+\def\uselessTheorem{
     \begin{theorem}
         Given signed sentence list $L$ and a $w$,  
         if L is intuitionistically valid then the sequent $\mathcal{T}(L, w)$ is not intuitionistically valid.
@@ -315,7 +315,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
    \end{theorem}
    
    \begin{proof}
-       Here will show the implicit quantifier rule being used:\\ 
+       Here will show the implicit contradiction rule being used:\\ 
        if $L-\sigma$ has sentences $\{ T\Gamma_{1}, T\Gamma_{2}, ...\}$ and  $ \{F\Delta_1, F\Delta_2 ...\} $, then: 
        \small{
        \begin {itemize}
@@ -422,16 +422,18 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\TranslationClassical{
 \begin{definition} \textbf{Translation in classical logic}
-    given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:
+    Given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:
     \begin{itemize}
         \item if $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:\\$\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$
         \item if $\tau$ = r and there is no $\sigma$ such that $T \sigma $ and $F \sigma $ are on r: \\ $\mathcal{T}_p(\tau) = \mathcal{T}(\tau) $
 
-        \item if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition the last theorem exits a sentence $\sigma$ such that  
-        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0=r_0$, and so  $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$
-        \item if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:\\ by the last theorem there exists a sentence $\sigma$  such that
+        \item if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition, it exits a sentence $\sigma$ such that  
+        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$, and so  $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$, and we know it to be a valid one 
+        by the last theorem
+        \item if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:\\ by definition there exists a sentence $\sigma$  such that
             $f(\sigma, r) = f_{Rule}(\sigma, r) = \{r_1, r_2\}$, and so  
-            $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$
+            $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ , and we know it to be a valid one 
+            by the last theorem
     \end{itemize}
 \end{definition}
 }

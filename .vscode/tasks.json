@@ -1,0 +1,29 @@
+{
+    // See https://code.visualstudio.com/docs/editor/tasks for more information
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run pdflatex",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "cd rapport; latexmk -pdf p.tex -f;textidote --output html --check en p.tex > p.html; textidote --output html --check en figures_and_tables.tex > figures_and_tables.html; textidote --output html --check en theorems_and_definitions.tex > theorems_and_definitions.html"//"rm -f p.aux && pdflatex p.tex"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true // This makes it the default build task
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true // Clears the terminal before running the task
+            },
+            "runOptions": {
+                "runOn": "default",
+                "reevaluateOnRerun": true // Automatically restarts the task if already active
+            }
+        }
+    ]
+}
