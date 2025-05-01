@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  1 MAY 2025 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.2)  1 MAY 2025 20:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -799,31 +799,61 @@ a shorter form with \titlerunning prior to \maketitle
 \myCenter2=\dimen306
 \myScoreEnd2=\dimen307
 
-Overfull \hbox (65.9527pt too wide) in paragraph at lines 207--207
+Overfull \hbox (65.9527pt too wide) in paragraph at lines 206--206
  [][] 
  []
 
 [8]
-Overfull \hbox (65.9527pt too wide) in paragraph at lines 215--215
+Overfull \hbox (65.9527pt too wide) in paragraph at lines 214--214
  [][] 
  []
 
+
+Overfull \hbox (26.08766pt too wide) in paragraph at lines 219--219
+[]\T1/cmr/m/it/10 Given a signed sen-tence list L with sen-tences $\OMS/cmsy/m/
+n/10 f\OML/cmm/m/it/10 T[]^^M[]; T[]^^M[]; :::\OMS/cmsy/m/n/10 g$ \T1/cmr/m/it/
+10 and $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 F[]^^N[]; F[]^^N[]:::\OMS/cmsy/m/n/1
+0 g$
+ []
+
 [9]
-Overfull \hbox (7.88725pt too wide) in paragraph at lines 228--228
+Overfull \hbox (7.34825pt too wide) in paragraph at lines 221--221
+[]$\OMS/cmsy/m/n/10 C\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )$ \T1/
+cmr/m/n/10 is thus a coun-terex-am-ple prov-ing the non-validity of $\OML/cmm/m
+/it/10 ^^@[]; ^^@[]; ::: \OMS/cmsy/m/n/10 ` \OML/cmm/m/it/10 ^^A[]; ^^A[]; :::$
+ 
+ []
+
+
+Overfull \hbox (3.4134pt too wide) in paragraph at lines 227--227
+[]\T1/cmr/m/it/10 Given a clas-si-cal signed sen-tence list l with $\OML/cmm/m/
+it/10 ^^[ \OMS/cmsy/m/n/10 2 \OML/cmm/m/it/10 l$ \T1/cmr/m/it/10 , then $[]$
+ []
+
+
+Overfull \hbox (7.88725pt too wide) in paragraph at lines 227--227
 []$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
 
-Overfull \hbox (7.02635pt too wide) in paragraph at lines 228--228
+Overfull \hbox (7.02635pt too wide) in paragraph at lines 227--227
 []$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
 [10]
-Overfull \hbox (26.05403pt too wide) in paragraph at lines 228--228
+Overfull \hbox (26.05403pt too wide) in paragraph at lines 227--227
 []$\OT1/cmr/m/n/9 = []$ $= []$ 
  []
 
-[11] [12] (./p.aux)
+[11]
+Overfull \hbox (18.81686pt too wide) in paragraph at lines 233--233
+[]\T1/cmr/m/n/10 if $\OML/cmm/m/it/10 r$ \T1/cmr/m/n/10 has a sin-gle child $\O
+ML/cmm/m/it/10 r[]$ \T1/cmr/m/n/10 with a cor-re-spond-ing sub-tree $\OML/cmm/m
+/it/10 ^^\[]$\T1/cmr/m/n/10 : $\OMS/cmsy/m/n/10 T[]\OT1/cmr/m/n/10 (\OML/cmm/m/
+it/10 ^^\\OT1/cmr/m/n/10 ) = []$
+ []
+
+[12] (./p.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -832,10 +862,10 @@ Package rerunfilecheck Info: File `p.out' has not changed.
 (rerunfilecheck)             Checksum: 067EA7A7F7FCE476C20E77F96558308C;498.
  ) 
 Here is how much of TeX's memory you used:
- 21253 strings out of 476106
- 387978 string characters out of 5793934
+ 21256 strings out of 476106
+ 388049 string characters out of 5793934
  1951975 words of memory out of 5000000
- 42846 multiletter control sequences out of 15000+600000
+ 42848 multiletter control sequences out of 15000+600000
  573978 words of font info for 72 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  102i,17n,107p,574b,1255s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -867,10 +897,10 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on p.pdf (12 pages, 303361 bytes).
+Output written on p.pdf (12 pages, 305992 bytes).
 PDF statistics:
- 697 PDF objects out of 1000 (max. 8388607)
- 230 compressed objects within 3 object streams
- 62 named destinations out of 1000 (max. 500000)
+ 706 PDF objects out of 1000 (max. 8388607)
+ 231 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

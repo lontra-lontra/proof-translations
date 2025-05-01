@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1746108506.65686 "p.tex" "p.pdf" "p" 1746108507.99713 0
+["pdflatex"] 1746124648.2098 "p.tex" "p.pdf" "p" 1746124649.7487 0
   "/etc/texmf/web2c/texmf.cnf" 1743552946.75707 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600pk" 1745396039.33262 34088 1c1f98067c20e6ff3649f54d3a28d9f8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1745349782.05811 22480 f6210946047d5a5b6282bc9cdb95625d ""
@@ -185,12 +185,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743553475.7315 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743553713 6831075 d8bee8942bb66e5040967664c2067bd5 ""
-  "figures_and_tables.tex" 1746105486.61352 16150 1681342694bdfc7d836c3bf9410f6543 ""
+  "figures_and_tables.tex" 1746115714.83744 16134 d4625bf030402cd5caefcfe1873175b9 ""
   "llncs.cls" 1745349440.3231 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "p.aux" 1746108507.74896 4145 fa289163bfeac5b6b97b2a5f0022d70e "pdflatex"
-  "p.out" 1746108507.74996 498 067ea7a7f7fce476c20e77f96558308c "pdflatex"
-  "p.tex" 1746105636.39002 9321 8f5a8e67947c6957af527f84ae1d830a ""
-  "theorems_and_definitions.tex" 1746108505.79598 26977 552e6336d1ae3bb3c8199838b4aa67dd ""
+  "p.aux" 1746124649.46641 4145 fa289163bfeac5b6b97b2a5f0022d70e "pdflatex"
+  "p.out" 1746124649.46741 498 067ea7a7f7fce476c20e77f96558308c "pdflatex"
+  "p.tex" 1746123936.06024 9380 db1d2d9a973f399b0d19b914153e0807 ""
+  "theorems_and_definitions.tex" 1746124645.56438 28977 06e410be81c8fe6b65ed211202b33bc3 ""
   (generated)
   "p.aux"
   "p.log"
