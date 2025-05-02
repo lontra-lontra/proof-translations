@@ -531,12 +531,71 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 
+
 \def\nFProof{
     \begin{theorem}
-       (proof/search for a counter ex) If $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences $F$  
+        Given a tableaux proof $\tau$, the root $r'$ of $\mathcal{F}(\tau)$ is intuitionistically invalid 
     \end{theorem}
     \begin{proof}
 
+        The proof goes by induction on the size of $\tau$:
+        \begin{itemize}
+            \item If $\tau$ = r, $\mathcal{F}(\tau) = [T_f \sigma   , F_f \sigma ]$.  The theorem holds
+     
+    
+            \item If $r$ has a single child $f(\sigma,r)$ :
+            
+            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
+    
+    
+            \begin{itemize}
+            \item
+             If $f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:
+             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma))||\sigma$ connected to the child $r'_0 ||(f(\sigma,\sigma)-\sigma)$,  that has as a child the subtree $\mathcal{F}(\tau_0)$
+   
+             
+             By induction hipotesis, we know $r'_0$ to be intuitionistically invalid. We also know that the intuitionistic validity of $\sigma$ 
+             implies the intuitionistic validity of  $f(\sigma,\sigma)$:
+
+
+             
+             Assume $r'$ to be valid, then $f(\sigma,r')$  should be valid then $r'_0 \supseteq  f(\sigma,r')$ should be also valid 
+             
+
+             \item
+             If $f(\sigma,r) - r) \cap r'_0 = \emptyset $ 
+
+             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$
+
+             And, by induction hipotesis, we know $r'_0$ to be intuitionistically invalid
+             \end{itemize}
+         \item if $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ :
+         
+        
+    
+        \end{itemize}
+    
+    \end{proof}
+}
+
+
+
+
+
+\def\nnFProof{
+    \begin{theorem}
+       (proof/search for a counter ex) If $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 1 signed sentences $F$  
+    \end{theorem}
+    \begin{proof}
+
+
+        by induction on the size of $\tau$: $\mathcal{F}(\tau)$  has not more than 2 signed sentences
+
+
+        by induction on the size of $\tau$: $\mathcal{F}(\tau)$ $r'$ is intuitionistically invalid
+
+
+        assume that $\tau$: $\mathcal{F}(\tau)$ = 2 signed sentences F . $\tau$: $\mathcal{F}(\tau)$ is invalid 
         
         
         The proof goes by induction on the size of $\tau$:
@@ -563,9 +622,9 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
              
              
              $\sigma$ = $F_p\neg \alpha$. This would mean that $f(\sigma,\sigma) = T_{p'} \alpha$ for a new $p'$.  As $p'$ is 'new' it can not be $\leq q$ 
-             so 
+     
             
-             $$
+             [Question: ]
 
              \item
              If $f(\sigma,r) - r) \cap r'_0 = \emptyset $
@@ -579,11 +638,6 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     
     \end{proof}
 }
-
-
-
-
-
 
 
 

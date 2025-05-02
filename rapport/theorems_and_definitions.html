@@ -622,12 +622,12 @@ h1.textidote {
 <div class="linenb">531</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">532</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">533</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">534</div><div class="codeline">\def\nFProof{</div><div class="clear"></div>
-<div class="linenb">535</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
-<div class="linenb">536</div><div class="codeline">       (proof/search for a counter ex) If $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences $F$  </div><div class="clear"></div>
-<div class="linenb">537</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
-<div class="linenb">538</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
-<div class="linenb">539</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">534</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">535</div><div class="codeline">\def\nFProof{</div><div class="clear"></div>
+<div class="linenb">536</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">537</div><div class="codeline">        Given a tableaux proof $\tau$, the root $r'$ of $\mathcal{F}(\tau)$ is intuitionistically invalid </div><div class="clear"></div>
+<div class="linenb">538</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">539</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
 <div class="linenb">540</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">541</div><div class="codeline">        The proof goes by induction on the size of $\tau$:</div><div class="clear"></div>
 <div class="linenb">542</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
@@ -642,40 +642,99 @@ h1.textidote {
 <div class="linenb">551</div><div class="codeline">            <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
 <div class="linenb">552</div><div class="codeline">            <span class="keyword1">\item</span></div><div class="clear"></div>
 <div class="linenb">553</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:</div><div class="clear"></div>
-<div class="linenb">554</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">555</div><div class="codeline">             the root of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,\sigma))||\sigma$ </div><div class="clear"></div>
-<div class="linenb">556</div><div class="codeline">             $r'_0$ has at most one $F$, so the only way for $(r'_0 - f(\sigma,\sigma))||\sigma$ to have more than 1 signed sentence of type is :</div><div class="clear"></div>
-<div class="linenb">557</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">558</div><div class="codeline">             if the other signed sentence in $r'$ is of type F (we denote $F_{q} B$) </div><div class="clear"></div>
-<div class="linenb">559</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">560</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">561</div><div class="codeline">             and  $f = f_{F \neg } (or f_{F \to })$ that is, </div><div class="clear"></div>
-<div class="linenb">562</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">554</div><div class="codeline">             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma))||\sigma$ connected to the child $r'_0 ||(f(\sigma,\sigma)-\sigma)$,  that has as a child the subtree $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">555</div><div class="codeline">   </div><div class="clear"></div>
+<div class="linenb">556</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">557</div><div class="codeline">             By induction hipotesis, we know $r'_0$ to be intuitionistically invalid. We also know that the intuitionistic validity of $\sigma$ </div><div class="clear"></div>
+<div class="linenb">558</div><div class="codeline">             implies the intuitionistic validity of  $f(\sigma,\sigma)$:</div><div class="clear"></div>
+<div class="linenb">559</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">560</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">561</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">562</div><div class="codeline">             Assume $r'$ to be valid, then $f(\sigma,r')$  should be valid then $r'_0 \supseteq  f(\sigma,r')$ should be also valid </div><div class="clear"></div>
 <div class="linenb">563</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">564</div><div class="codeline">             $\sigma$ = $F_p\neg \alpha$. This would mean that $f(\sigma,\sigma) = T_{p'} \alpha$ for a new $p'$. By definition, $p'$ can not be $\leq q$ </div><div class="clear"></div>
+<div class="linenb">564</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">565</div><div class="codeline">             <span class="keyword1">\item</span></div><div class="clear"></div>
-<div class="linenb">566</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 = \emptyset $</div><div class="clear"></div>
-<div class="linenb">567</div><div class="codeline">    </div><div class="clear"></div>
-<div class="linenb">568</div><div class="codeline">             </div><div class="clear"></div>
-<div class="linenb">569</div><div class="codeline">             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
-<div class="linenb">570</div><div class="codeline">             <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
-<div class="linenb">571</div><div class="codeline">        </div><div class="clear"></div>
-<div class="linenb">572</div><div class="codeline">    </div><div class="clear"></div>
-<div class="linenb">573</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
-<div class="linenb">574</div><div class="codeline">    </div><div class="clear"></div>
-<div class="linenb">575</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
-<div class="linenb">576</div><div class="codeline">}</div><div class="clear"></div>
-<div class="linenb">577</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">578</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">579</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">566</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 = \emptyset $ </div><div class="clear"></div>
+<div class="linenb">567</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">568</div><div class="codeline">             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">569</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">570</div><div class="codeline">             And, by induction hipotesis, we know $r'_0$ to be intuitionistically invalid</div><div class="clear"></div>
+<div class="linenb">571</div><div class="codeline">             <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">572</div><div class="codeline">         <span class="keyword1">\item</span> if $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ :</div><div class="clear"></div>
+<div class="linenb">573</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">574</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">575</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">576</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">577</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">578</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">579</div><div class="codeline">}</div><div class="clear"></div>
 <div class="linenb">580</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">581</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">582</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">583</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">584</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">585</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">586</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">587</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">585</div><div class="codeline">\def\nnFProof{</div><div class="clear"></div>
+<div class="linenb">586</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">587</div><div class="codeline">       (proof/search for a counter ex) If $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 1 signed sentences $F$  </div><div class="clear"></div>
+<div class="linenb">588</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">589</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">590</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">591</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">592</div><div class="codeline">        by induction on the size of $\tau$: $\mathcal{F}(\tau)$  has not more than 2 signed sentences</div><div class="clear"></div>
+<div class="linenb">593</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">594</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">595</div><div class="codeline">        by induction on the size of $\tau$: $\mathcal{F}(\tau)$ $r'$ is intuitionistically invalid</div><div class="clear"></div>
+<div class="linenb">596</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">597</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">598</div><div class="codeline">        assume that $\tau$: $\mathcal{F}(\tau)$ = 2 signed sentences F . $\tau$: $\mathcal{F}(\tau)$ is invalid </div><div class="clear"></div>
+<div class="linenb">599</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">600</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">601</div><div class="codeline">        The proof goes by induction on the size of $\tau$:</div><div class="clear"></div>
+<div class="linenb">602</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">603</div><div class="codeline">            <span class="keyword1">\item</span> If $\tau$ = r, $\mathcal{F}(\tau) = [T_f \sigma   , F_f \sigma ]$.  The theorem holds</div><div class="clear"></div>
+<div class="linenb">604</div><div class="codeline">     </div><div class="clear"></div>
+<div class="linenb">605</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">606</div><div class="codeline">            <span class="keyword1">\item</span> If $r$ has a single child $f(\sigma,r)$ :</div><div class="clear"></div>
+<div class="linenb">607</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">608</div><div class="codeline">            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:</div><div class="clear"></div>
+<div class="linenb">609</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">610</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">611</div><div class="codeline">            <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">612</div><div class="codeline">            <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">613</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:</div><div class="clear"></div>
+<div class="linenb">614</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">615</div><div class="codeline">             the root of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,\sigma))||\sigma$ </div><div class="clear"></div>
+<div class="linenb">616</div><div class="codeline">             $r'_0$ has at most one $F$, so the only way for $(r'_0 - f(\sigma,\sigma))||\sigma$ to have more than 1 signed sentence of type is :</div><div class="clear"></div>
+<div class="linenb">617</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">618</div><div class="codeline">             if the other signed sentence in $r'$ is of type F (we denote $F_{q} B$) </div><div class="clear"></div>
+<div class="linenb">619</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">620</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">621</div><div class="codeline">             and  $f = f_{F \neg } (or f_{F \to })$ that is, </div><div class="clear"></div>
+<div class="linenb">622</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">623</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">624</div><div class="codeline">             $\sigma$ = $F_p\neg \alpha$. This would mean that $f(\sigma,\sigma) = T_{p'} \alpha$ for a new $p'$.  As $p'$ is 'new' it can not be $\leq q$ </div><div class="clear"></div>
+<div class="linenb">625</div><div class="codeline">     </div><div class="clear"></div>
+<div class="linenb">626</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">627</div><div class="codeline">             [Question: ]</div><div class="clear"></div>
+<div class="linenb">628</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">629</div><div class="codeline">             <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">630</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 = \emptyset $</div><div class="clear"></div>
+<div class="linenb">631</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">632</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">633</div><div class="codeline">             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">634</div><div class="codeline">             <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">635</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">636</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">637</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">638</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">639</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">640</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">641</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">642</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">643</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">644</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">645</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">646</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 </div>
 <hr/>
 Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>
