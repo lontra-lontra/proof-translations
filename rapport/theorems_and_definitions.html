@@ -155,7 +155,7 @@ h1.textidote {
 <div class="linenb">&nbsp;64</div><div class="codeline">    <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>if $\sigma \in L$:</div><div class="clear"></div>
 <div class="linenb">&nbsp;65</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
 <div class="linenb">&nbsp;66</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} \neg \alpha,L) = [L - \sigma|| \sigma || F_{p'}\alpha] $ <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a minimal $p' \geq p$ present in $h||L$.</div><div class="clear"></div>
-<div class="linenb">&nbsp;67</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} \neg \alpha,L) = [L - \sigma || \sigma || T \alpha]$  <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a new $p' \geq p$ </div><div class="clear"></div>
+<div class="linenb">&nbsp;67</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} \neg \alpha,L) = [L - \sigma || \sigma || T_p' \alpha]$  <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>for a new $p' \geq p$ </div><div class="clear"></div>
 <div class="linenb">&nbsp;68</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\alpha \land \beta), L) = [L - \sigma|| \sigma || T_{p} \alpha || T_{p} \beta]$.</div><div class="clear"></div>
 <div class="linenb">&nbsp;69</div><div class="codeline">            <span class="keyword1">\item</span> $f(F_{p} (\alpha \land \beta), L) = [L - \sigma|| \sigma || F_{p} \alpha],[ L - \sigma|| h || F_{p} \beta]$.</div><div class="clear"></div>
 <div class="linenb">&nbsp;70</div><div class="codeline">            <span class="keyword1">\item</span> $f(T_{p} (\alpha \lor \beta), L) = [L - \sigma|| \sigma || T_{p} \alpha],[ L - \sigma|| h || T_{p} \beta]$.</div><div class="clear"></div>
@@ -524,7 +524,7 @@ h1.textidote {
 <div class="linenb">433</div><div class="codeline">}</div><div class="clear"></div>
 <div class="linenb">434</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">435</div><div class="codeline">\def\TranslationClassical{</div><div class="clear"></div>
-<div class="linenb">436</div><div class="codeline"><span class="keyword2">\begin{definition}</span> <span class="keyword1">\textbf</span>{Translation in classical logic}</div><div class="clear"></div>
+<div class="linenb">436</div><div class="codeline"><span class="keyword2">\begin{definition}</span> <span class="keyword1">\textbf</span>{Tree Translating Function}</div><div class="clear"></div>
 <div class="linenb">437</div><div class="codeline">    Given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:</div><div class="clear"></div>
 <div class="linenb">438</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
 <div class="linenb">439</div><div class="codeline">        <span class="keyword1">\item</span> if $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:</div><div class="clear"></div>
@@ -535,42 +535,147 @@ h1.textidote {
 <div class="linenb">444</div><div class="codeline">        $\mathcal{T}_p(\tau) = \mathcal{T}(\tau) $</div><div class="clear"></div>
 <div class="linenb">445</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">446</div><div class="codeline">        <span class="keyword1">\item</span> if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: <span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span>by definition, it exits a sentence $\sigma$ such that  </div><div class="clear"></div>
-<div class="linenb">447</div><div class="codeline">        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$, and so  $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$. </div><div class="clear"></div>
-<div class="linenb">448</div><div class="codeline">        <span class="keyword1">\item</span> if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> by definition there exists a sentence $\sigma$  such that</div><div class="clear"></div>
-<div class="linenb">449</div><div class="codeline">            $f(\sigma, r) = f_{Rule}(\sigma, r) = \{r_1, r_2\}$, and so:</div><div class="clear"></div>
-<div class="linenb">450</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">451</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">452</div><div class="codeline">            $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ </div><div class="clear"></div>
-<div class="linenb">453</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
-<div class="linenb">454</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
-<div class="linenb">455</div><div class="codeline">}</div><div class="clear"></div>
-<div class="linenb">456</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">457</div><div class="codeline">\def\TranslationClassicalProof{</div><div class="clear"></div>
-<div class="linenb">458</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
-<div class="linenb">459</div><div class="codeline">        given a classical tableaux development $\tau$, $\mathcal{T}_p(\tau)$ is a valid sequent proof </div><div class="clear"></div>
-<div class="linenb">460</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
-<div class="linenb">461</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
-<div class="linenb">462</div><div class="codeline">        The proof goes by induction on the size of $\tau$:</div><div class="clear"></div>
-<div class="linenb">463</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
-<div class="linenb">464</div><div class="codeline">            <span class="keyword1">\item</span> if $\tau$ = r then there are $T \sigma $ and $F \sigma $ on r, $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$ is a valid sequent proof.</div><div class="clear"></div>
-<div class="linenb">465</div><div class="codeline">            <span class="keyword1">\item</span> if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: </div><div class="clear"></div>
-<div class="linenb">466</div><div class="codeline">             $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$</div><div class="clear"></div>
-<div class="linenb">467</div><div class="codeline">              is a valid sequent proof since $\mathcal{T}_p(\tau_0)$ is valid by induction and the rule is valid by the last theorem.</div><div class="clear"></div>
-<div class="linenb">468</div><div class="codeline">            <span class="keyword1">\item</span> if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> </div><div class="clear"></div>
-<div class="linenb">469</div><div class="codeline">                $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ </div><div class="clear"></div>
-<div class="linenb">470</div><div class="codeline">                is a valid sequent proof since $\mathcal{T}_p(\tau_0)$ is valid by induction and the rule is valid by the last theorem.</div><div class="clear"></div>
-<div class="linenb">471</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">472</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
-<div class="linenb">473</div><div class="codeline">    </div><div class="clear"></div>
-<div class="linenb">474</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
-<div class="linenb">475</div><div class="codeline">}</div><div class="clear"></div>
-<div class="linenb">476</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">477</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">478</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">447</div><div class="codeline">        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$, and so </div><div class="clear"></div>
+<div class="linenb">448</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">449</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">450</div><div class="codeline">        $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$. </div><div class="clear"></div>
+<div class="linenb">451</div><div class="codeline">        <span class="keyword1">\item</span> if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> by definition there exists a sentence $\sigma$  such that</div><div class="clear"></div>
+<div class="linenb">452</div><div class="codeline">            $f(\sigma, r) = f_{Rule}(\sigma, r) = \{r_1, r_2\}$, and so:</div><div class="clear"></div>
+<div class="linenb">453</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">454</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">455</div><div class="codeline">            $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">456</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">457</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">458</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">459</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">460</div><div class="codeline">\def\TranslationClassicalProof{</div><div class="clear"></div>
+<div class="linenb">461</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">462</div><div class="codeline">        given a classical tableaux development $\tau$, $\mathcal{T}_p(\tau)$ is a valid sequent proof </div><div class="clear"></div>
+<div class="linenb">463</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">464</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">465</div><div class="codeline">        The proof goes by induction on the size of $\tau$:</div><div class="clear"></div>
+<div class="linenb">466</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">467</div><div class="codeline">            <span class="keyword1">\item</span> if $\tau$ = r then there are $T \sigma $ and $F \sigma $ on r, $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$ is a valid sequent proof.</div><div class="clear"></div>
+<div class="linenb">468</div><div class="codeline">            <span class="keyword1">\item</span> if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: </div><div class="clear"></div>
+<div class="linenb">469</div><div class="codeline">             $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$</div><div class="clear"></div>
+<div class="linenb">470</div><div class="codeline">              is a valid sequent proof since $\mathcal{T}_p(\tau_0)$ is valid by induction hypothesis and the rule is valid by the last theorem.</div><div class="clear"></div>
+<div class="linenb">471</div><div class="codeline">            <span class="keyword1">\item</span> if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:<span class="highlight-sh" title="You should not break lines manually in a paragraph. Either start a new paragraph or stay in the current one. [sh:nobreak]">\\</span> </div><div class="clear"></div>
+<div class="linenb">472</div><div class="codeline">                $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ </div><div class="clear"></div>
+<div class="linenb">473</div><div class="codeline">                is a valid sequent proof since $\mathcal{T}_p(\tau_1)$ and $\mathcal{T}_p(\tau_2)$ are valid by induction hypothesis and the rule is valid by the last theorem.</div><div class="clear"></div>
+<div class="linenb">474</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">475</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">476</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">477</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">478</div><div class="codeline">}</div><div class="clear"></div>
 <div class="linenb">479</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 <div class="linenb">480</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">481</div><div class="codeline">&nbsp;</div><div class="clear"></div>
-<div class="linenb">482</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">481</div><div class="codeline">\def\ThinningFunctionDefinition{</div><div class="clear"></div>
+<div class="linenb">482</div><div class="codeline"><span class="keyword2">\begin{definition}</span> <span class="keyword1">\textbf</span>{Tree Thinning Function}</div><div class="clear"></div>
+<div class="linenb">483</div><div class="codeline">    Given a tableaux proof tree development and its root r , we define $\mathcal{F}(\tau)$:</div><div class="clear"></div>
+<div class="linenb">484</div><div class="codeline">    <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">485</div><div class="codeline">        <span class="keyword1">\item</span> If $\tau$ = r and there are $T_f \sigma $ and $F_f \sigma $ on r:</div><div class="clear"></div>
+<div class="linenb">486</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">487</div><div class="codeline">        $\mathcal{F}(\tau) = [T_f \sigma   , F_f \sigma ]$</div><div class="clear"></div>
+<div class="linenb">488</div><div class="codeline"> </div><div class="clear"></div>
+<div class="linenb">489</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">490</div><div class="codeline">        <span class="keyword1">\item</span> If $r$ has a single child $f(\sigma,r)$ :</div><div class="clear"></div>
+<div class="linenb">491</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">492</div><div class="codeline">        with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:</div><div class="clear"></div>
+<div class="linenb">493</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">494</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">495</div><div class="codeline">         $(f(\sigma,r) - r) \cap r'_0 $ are the elements generated by the inference f that are necessary to prove the non-existance of a frame that respects $f(\sigma,r)$. In this case:</div><div class="clear"></div>
+<div class="linenb">496</div><div class="codeline">         <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">497</div><div class="codeline">        <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">498</div><div class="codeline">         If $f(\sigma,r) - r) \cap r'_0 \neq \emptyset $</div><div class="clear"></div>
+<div class="linenb">499</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">500</div><div class="codeline">         $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma))||\sigma$ connected to the child $r'_0 ||(f(\sigma,\sigma)-\sigma)$,  that has as a child the subtree $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">501</div><div class="codeline">         <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">502</div><div class="codeline">         If $f(\sigma,r) - r) \cap r'_0 = \emptyset $</div><div class="clear"></div>
+<div class="linenb">503</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">504</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">505</div><div class="codeline">         $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">506</div><div class="codeline">         <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">507</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">508</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">509</div><div class="codeline">         <span class="keyword1">\item</span> if $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ :</div><div class="clear"></div>
+<div class="linenb">510</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">511</div><div class="codeline">         with the corresponding subtrees $\tau_1$ and $\tau_2$,  $r'_1$ is the root of $\mathcal{F}(\tau_1)$ and $r'_2$ is the root of $\mathcal{F}(\tau_2)$, </div><div class="clear"></div>
+<div class="linenb">512</div><div class="codeline">         then $(f(\sigma,r) - r) \cap (r'_1 \cup r'_2) )$ also defines if f was "usefull":</div><div class="clear"></div>
+<div class="linenb">513</div><div class="codeline">         </div><div class="clear"></div>
+<div class="linenb">514</div><div class="codeline">         <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">515</div><div class="codeline">            <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">516</div><div class="codeline">             If $(f(\sigma,r) - r) \cap (r'_1 \cup r'_2 ) \neq \emptyset $:</div><div class="clear"></div>
+<div class="linenb">517</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">518</div><div class="codeline">             $\mathcal{F}(\tau) $ = a tree with root $r'_0||\sigma$ connected to the children $r'_1 ||(f(\sigma,\sigma)[1]-r)$  $r'_2 ||(f(\sigma,\sigma)[2]-r)$, each having </div><div class="clear"></div>
+<div class="linenb">519</div><div class="codeline">             $\mathcal{F}(\tau_1)$ and $\mathcal{F}(\tau_2)$, respectivelly, bellow them. </div><div class="clear"></div>
+<div class="linenb">520</div><div class="codeline">             <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">521</div><div class="codeline">             If $(f(\sigma,r) - r) \cap (\mathcal{F}(r'_1) \cup \mathcal{F}(r'_2) ) = \emptyset $:</div><div class="clear"></div>
+<div class="linenb">522</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">523</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">524</div><div class="codeline">             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_1) = \mathcal{F}(\tau_1)$</div><div class="clear"></div>
+<div class="linenb">525</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">526</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">527</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">528</div><div class="codeline">    <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">529</div><div class="codeline"><span class="keyword2">\end{definition}</span></div><div class="clear"></div>
+<div class="linenb">530</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">531</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">532</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">533</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">534</div><div class="codeline">\def\nFProof{</div><div class="clear"></div>
+<div class="linenb">535</div><div class="codeline">    <span class="keyword2">\begin{theorem}</span></div><div class="clear"></div>
+<div class="linenb">536</div><div class="codeline">       (proof/search for a counter ex) If $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences $F$  </div><div class="clear"></div>
+<div class="linenb">537</div><div class="codeline">    <span class="keyword2">\end{theorem}</span></div><div class="clear"></div>
+<div class="linenb">538</div><div class="codeline">    <span class="keyword2">\begin{proof}</span></div><div class="clear"></div>
+<div class="linenb">539</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">540</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">541</div><div class="codeline">        The proof goes by induction on the size of $\tau$:</div><div class="clear"></div>
+<div class="linenb">542</div><div class="codeline">        <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">543</div><div class="codeline">            <span class="keyword1">\item</span> If $\tau$ = r, $\mathcal{F}(\tau) = [T_f \sigma   , F_f \sigma ]$.  The theorem holds</div><div class="clear"></div>
+<div class="linenb">544</div><div class="codeline">     </div><div class="clear"></div>
+<div class="linenb">545</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">546</div><div class="codeline">            <span class="keyword1">\item</span> If $r$ has a single child $f(\sigma,r)$ :</div><div class="clear"></div>
+<div class="linenb">547</div><div class="codeline">            </div><div class="clear"></div>
+<div class="linenb">548</div><div class="codeline">            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:</div><div class="clear"></div>
+<div class="linenb">549</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">550</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">551</div><div class="codeline">            <span class="keyword2">\begin{itemize}</span></div><div class="clear"></div>
+<div class="linenb">552</div><div class="codeline">            <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">553</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:</div><div class="clear"></div>
+<div class="linenb">554</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">555</div><div class="codeline">             the root of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,\sigma))||\sigma$ </div><div class="clear"></div>
+<div class="linenb">556</div><div class="codeline">             $r'_0$ has at most one $F$, so the only way for $(r'_0 - f(\sigma,\sigma))||\sigma$ to have more than 1 signed sentence of type is :</div><div class="clear"></div>
+<div class="linenb">557</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">558</div><div class="codeline">             if the other signed sentence in $r'$ is of type F (we denote $F_{q} B$) </div><div class="clear"></div>
+<div class="linenb">559</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">560</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">561</div><div class="codeline">             and  $f = f_{F \neg } (or f_{F \to })$ that is, </div><div class="clear"></div>
+<div class="linenb">562</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">563</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">564</div><div class="codeline">             $\sigma$ = $F_p\neg \alpha$. This would mean that $f(\sigma,\sigma) = T_{p'} \alpha$ for a new $p'$. By definition, $p'$ can not be $\leq q$ </div><div class="clear"></div>
+<div class="linenb">565</div><div class="codeline">             <span class="keyword1">\item</span></div><div class="clear"></div>
+<div class="linenb">566</div><div class="codeline">             If $f(\sigma,r) - r) \cap r'_0 = \emptyset $</div><div class="clear"></div>
+<div class="linenb">567</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">568</div><div class="codeline">             </div><div class="clear"></div>
+<div class="linenb">569</div><div class="codeline">             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$</div><div class="clear"></div>
+<div class="linenb">570</div><div class="codeline">             <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">571</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">572</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">573</div><div class="codeline">        <span class="keyword2">\end{itemize}</span></div><div class="clear"></div>
+<div class="linenb">574</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">575</div><div class="codeline">    <span class="keyword2">\end{proof}</span></div><div class="clear"></div>
+<div class="linenb">576</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">577</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">578</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">579</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">580</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">581</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">582</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">583</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">584</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">585</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">586</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">587</div><div class="codeline">&nbsp;</div><div class="clear"></div>
 </div>
 <hr/>
 Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>

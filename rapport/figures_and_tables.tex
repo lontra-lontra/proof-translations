@@ -210,8 +210,8 @@ Axiom  & $\AxiomC{}\UnaryInfC{$\alpha \vdash \alpha$}\DisplayProof$ \\ \hline
 Weakening & $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
 $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline
 Negation & 
-$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash $}\UnaryInfC{$\Gamma \vdash \neg \alpha$}\DisplayProof$ \\ \hline
+$\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash $}\UnaryInfC{$\Gamma \vdash \neg \alpha$}\DisplayProof$ \\ \hline
 Conjunction & 
 $\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
 $\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
@@ -250,8 +250,8 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
         $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \phi$}\DisplayProof$ \\ \hline
         
         Negation & 
-        $\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma , \neg \phi \vdash \phi, \Delta$}\UnaryInfC{$\Gamma, \neg \phi \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma, \phi \vdash \Delta, \neg \phi $}\UnaryInfC{$\Gamma \vdash  \Delta, \neg \phi $}\DisplayProof$ \\ \hline
+        $\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma , \neg \phi \vdash \phi, \Delta$}\UnaryInfC{$\Gamma, \neg \phi \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma, \phi \vdash \Delta, \neg \phi $}\UnaryInfC{$\Gamma \vdash  \Delta, \neg \phi $}\DisplayProof$ \\ \hline
         
         Conjunction & 
         $\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma, \phi, \psi, \phi \land \psi \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \land \psi \vdash \Delta$}\DisplayProof$ \quad

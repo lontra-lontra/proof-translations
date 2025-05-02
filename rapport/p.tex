@@ -235,9 +235,12 @@ Rules for L's intuitionistic multi-consequence sequent calculus are given in \re
 
 
 \subsection{Intuitionistic Translation}
-
-A first approach would be to f
-
+When looking at the tableaux proof of $\neg (A \land \neg A) \land (\neg X \land \neg Y)$ and trying to chose 
+proper w's for Translating like we did for classical logic we find a problem with the $\neg R$ rule:
+"useless" terms from our acumulative tableaux method can "overcrowd" the right side of the sequent equation. One naive solution would be 
+to remove all useless terms: (Another way of seeing is that sequent calculus has a Weakening rule that we are not using yet) 
+\ThinningFunctionDefinition
+\nFProof
 
 %
 % ---- Bibliography ----
