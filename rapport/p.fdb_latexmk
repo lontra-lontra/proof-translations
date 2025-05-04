@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1746185495.63934 "p.tex" "p.pdf" "p" 1746185497.18218 0
+["pdflatex"] 1746364826.11958 "p.tex" "p.pdf" "p" 1746364828.13716 0
   "/etc/texmf/web2c/texmf.cnf" 1743552946.75707 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600pk" 1745396039.33262 34088 1c1f98067c20e6ff3649f54d3a28d9f8 ""
   "/home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0900.600pk" 1745349782.05811 22480 f6210946047d5a5b6282bc9cdb95625d ""
@@ -93,6 +93,7 @@
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex" 1601326656 8893 e851de2175338fdf7c17f3e091d94618 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex" 1608933718 11518 738408f795261b70ce8dd47459171309 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex" 1673816307 186782 af500404a9edec4d362912fe762ded92 ""
+  "/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex" 1601326656 58801 1e750fb0692eb99aaac45698bbec96b1 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex" 1601326656 32995 ac577023e12c0e4bd8aa420b2e852d1a ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex" 1557692582 3063 8c415c68a0f3394e45cfeca0b65f6ee6 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex" 1673816307 949 cea70942e7b7eddabfb3186befada2e6 ""
@@ -185,12 +186,12 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743553475.7315 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743553713 6831075 d8bee8942bb66e5040967664c2067bd5 ""
-  "figures_and_tables.tex" 1746135236.32439 16134 6ac40bd058b12e5d3e822fa96298d5bb ""
+  "figures_and_tables.tex" 1746319563.55404 23628 f6a810418aaafda807e598ca4cae648a ""
   "llncs.cls" 1745349440.3231 43402 5fb5a2dc40571aa40f3d199c00cbb986 ""
-  "p.aux" 1746185496.84132 4145 583bfe96a5f4098e3df1b0c545fa4c3e "pdflatex"
-  "p.out" 1746185496.84231 498 067ea7a7f7fce476c20e77f96558308c "pdflatex"
-  "p.tex" 1746180650.8524 9861 65ec043a2b8c34195f5230b9f735f1d7 ""
-  "theorems_and_definitions.tex" 1746185494.43732 34821 e934cd3085d37b0349ece944b0afaa91 ""
+  "p.aux" 1746364827.83567 4116 ee5028d342583118c70192356fabcc20 "pdflatex"
+  "p.out" 1746364827.83667 341 9c824215d351c104207f537fb393db91 "pdflatex"
+  "p.tex" 1746364822.97172 10266 d01cfb3ea12dd36aaf183927c861a3ca ""
+  "theorems_and_definitions.tex" 1746362225.64881 38261 bb03240be0b7d9c6ed7e86cf89384382 ""
   (generated)
   "p.aux"
   "p.log"

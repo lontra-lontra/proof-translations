@@ -2,6 +2,7 @@ type sentence =
   | ATOMIC of string
   | NEG of sentence
   | AND of sentence * sentence
+  | IMPLIES of sentence*sentence
 
 let priority op =
   if op = ">" then 3
@@ -10,23 +11,30 @@ let priority op =
   else if op = "n" then 0
   else failwith "Unknown operator"
 
-let sentence_priority sentence = 
-  match sentence with 
-  |ATOMIC _ -> 0
-  |NEG _ -> 1
-  |AND _ -> 2
+
+
+
+
 
 let sentence_priority_is_bigger sentence_a sentence_b= 
   match sentence_a, sentence_b with 
   | ATOMIC _ ,ATOMIC _ -> false
-          | ATOMIC _, NEG _ -> false
-                | ATOMIC _, AND _ -> false
+              | ATOMIC _, NEG _ -> false
+                    | ATOMIC _, AND _ -> false
+                            | ATOMIC _, IMPLIES _ -> false
   | NEG _, ATOMIC _ -> true
-          | NEG _, NEG _ -> false
-                   | NEG _, AND _ -> false
+              | NEG _, NEG _ -> false
+                    | NEG _, AND _ -> false
+                            |   NEG _, IMPLIES _ -> true
   | AND _, ATOMIC _ -> true
-          | AND _, NEG _ -> true
-                   | AND _, AND _ -> true
+              | AND _, NEG _ -> true
+                    | AND _, AND _ -> true
+                            |   AND _, IMPLIES _ -> false
+  | IMPLIES _, ATOMIC _ -> true
+              | IMPLIES _, NEG _ -> true
+                    | IMPLIES _, AND _ -> true
+                            |   IMPLIES _, IMPLIES _ -> true
+  
 
 (*n(na^a)^n(b^nb)*)
 let find_operator phrase =
@@ -94,10 +102,10 @@ let rec parse_as_sentence phrase =
       let operator = String.make 1 phrase.[operator_location] in
       let subphrases = find_subphrases phrase in
       match operator with
-      | ">" -> AND (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
       | "^" -> AND (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
       | "n" -> NEG (parse_as_sentence (List.nth subphrases 0))
       | "(" -> parse_as_sentence (List.nth subphrases 0)
+      | ">" -> IMPLIES (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
       | _ -> ATOMIC operator
 
 
@@ -106,45 +114,50 @@ let rec sentence_to_string expr =
   match expr with
   | ATOMIC s -> s
   | NEG s -> Printf.sprintf "n(%s)" (sentence_to_string s)
-  | AND (s1, s2) -> Printf.sprintf "(%s^%s)" (sentence_to_string s1) (sentence_to_string s2)
-
+  | AND (s1, s2) -> Printf.sprintf "(%s)^(%s)" (sentence_to_string s1) (sentence_to_string s2)
+  | IMPLIES (s1, s2) -> Printf.sprintf "(%s)>(%s)" (sentence_to_string s1) (sentence_to_string s2)
 
 
 
 let sequence_of_sentences_to_string sentences =
   String.concat "," (List.map sentence_to_string sentences)
 
-let rec midle_of_sentence_to_latex expr =
-    let result = (
-    match expr with
-    | ATOMIC s -> s
-    | NEG s -> Printf.sprintf "\\neg (%s)" (midle_of_sentence_to_latex s)
-    | AND (s1, s2) -> Printf.sprintf "(%s \\land %s)" (midle_of_sentence_to_latex s1) (midle_of_sentence_to_latex s2)
-    ) in
-      result
 
-let rec smart_midle_of_sentence_to_latex ?upper_sentence expr =
-  let upper_sentence = match upper_sentence with
-    | Some u -> u
-    | None -> expr
-  in
-  let str = match expr with
-    | ATOMIC s -> s
-    | NEG s -> Printf.sprintf "\\neg %s" (smart_midle_of_sentence_to_latex ~upper_sentence s)
-    | AND (s1, s2) -> Printf.sprintf "%s \\land %s"
-                        (smart_midle_of_sentence_to_latex ~upper_sentence s1)
-                        (smart_midle_of_sentence_to_latex ~upper_sentence s2)
-  in
-  if sentence_priority_is_bigger expr upper_sentence then
-    "(" ^ str ^ ")"
-  else
-    str
+
+  
+
+  let rec smart_midle_of_sentence_to_latex ?upper_sentence expr =
+    let upper_sentence = match upper_sentence with
+      | Some u -> u
+      | None -> expr
+    in
+    let str = match expr with
+      | ATOMIC s -> s
+      | NEG s -> Printf.sprintf "\\neg %s"
+                   (smart_midle_of_sentence_to_latex ~upper_sentence:expr s)
+      | AND (s1, s2) -> Printf.sprintf "%s \\land %s"
+                          (smart_midle_of_sentence_to_latex ~upper_sentence:expr s1)
+                          (smart_midle_of_sentence_to_latex ~upper_sentence:expr s2)
+      | IMPLIES (s1, s2) -> Printf.sprintf "%s \\rightarrow %s"
+                              (smart_midle_of_sentence_to_latex ~upper_sentence:expr s1)
+                              (smart_midle_of_sentence_to_latex ~upper_sentence:expr s2)
+    in
+    if sentence_priority_is_bigger expr upper_sentence then
+      "(" ^ str ^ ")"
+    else
+      str
+  
       
 
 let sentence_to_latex expr = 
   "$"^smart_midle_of_sentence_to_latex expr^"$"
 
-let sequence_of_sentences_to_latex sentences =
-    String.concat ", " (List.map sentence_to_latex sentences)
-
-
+  let sequence_of_sentences_to_latex sentences =
+    let len = List.length sentences in
+    if len <= 3 then
+      String.concat ", " (List.map sentence_to_latex sentences)
+    else
+      let first = sentence_to_latex (List.nth sentences 0) in
+      let last = sentence_to_latex (List.nth sentences (len - 1)) in
+      String.concat ", " [first; "\\dots"; last]
+  

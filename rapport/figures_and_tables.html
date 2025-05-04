@@ -406,6 +406,81 @@ h1.textidote {
 <div class="linenb">315</div><div class="codeline"><span class="keyword2">\end{tabular}</span></div><div class="clear"></div>
 <div class="linenb">316</div><div class="codeline"><span class="keyword2">\end{table}</span></div><div class="clear"></div>
 <div class="linenb">317</div><div class="codeline">}</div><div class="clear"></div>
+<div class="linenb">318</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">319</div><div class="codeline">\def\fs{</div><div class="clear"></div>
+<div class="linenb">320</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">321</div><div class="codeline">    \def\H{4}</div><div class="clear"></div>
+<div class="linenb">322</div><div class="codeline">    \def\FT{3}</div><div class="clear"></div>
+<div class="linenb">323</div><div class="codeline">    \def\TT{2}</div><div class="clear"></div>
+<div class="linenb">324</div><div class="codeline">    \def\TF{1}</div><div class="clear"></div>
+<div class="linenb">325</div><div class="codeline">    \def\FF{0}</div><div class="clear"></div>
+<div class="linenb">326</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">327</div><div class="codeline">    \def\Pl{0.75}</div><div class="clear"></div>
+<div class="linenb">328</div><div class="codeline">    \def\Ql{1.25}</div><div class="clear"></div>
+<div class="linenb">329</div><div class="codeline">    \def\Peq{2.75}</div><div class="clear"></div>
+<div class="linenb">330</div><div class="codeline">    \def\Qeq{3.25}</div><div class="clear"></div>
+<div class="linenb">331</div><div class="codeline">    \def\Pgr{4.75}</div><div class="clear"></div>
+<div class="linenb">332</div><div class="codeline">    \def\Qsm{5.25}</div><div class="clear"></div>
+<div class="linenb">333</div><div class="codeline">    \def\Pin{6.75}</div><div class="clear"></div>
+<div class="linenb">334</div><div class="codeline">    \def\Qin{7.25}</div><div class="clear"></div>
+<div class="linenb">335</div><div class="codeline">    </div><div class="clear"></div>
+<div class="linenb">336</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">337</div><div class="codeline">    <span class="keyword2">\begin{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">338</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">339</div><div class="codeline">        \node at (3, \H) {$p = q$};</div><div class="clear"></div>
+<div class="linenb">340</div><div class="codeline">        \node at (5, \H) {$p &gt; q$};</div><div class="clear"></div>
+<div class="linenb">341</div><div class="codeline">        \node at (7, \H) {$p$   $q$ i};</div><div class="clear"></div>
+<div class="linenb">342</div><div class="codeline">        \node at (\Pl, \FT){$F_q$};</div><div class="clear"></div>
+<div class="linenb">343</div><div class="codeline">        \node at (\Pl, \TT){$F_q$} ;</div><div class="clear"></div>
+<div class="linenb">344</div><div class="codeline">        \node at (\Pl, \TF){$F_q$} ;</div><div class="clear"></div>
+<div class="linenb">345</div><div class="codeline">        \node at (\Pl, \FF){$F_q$} ;</div><div class="clear"></div>
+<div class="linenb">346</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">347</div><div class="codeline">        \node at (\Ql, \FT){$T_q$};</div><div class="clear"></div>
+<div class="linenb">348</div><div class="codeline">        \node at (\Ql, \TT){$T_q$} ;</div><div class="clear"></div>
+<div class="linenb">349</div><div class="codeline">        \node at (\Ql, \TF){$T_q$} ;</div><div class="clear"></div>
+<div class="linenb">350</div><div class="codeline">        \node at (\Ql, \FF){$T_q$} ;</div><div class="clear"></div>
+<div class="linenb">351</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">352</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">353</div><div class="codeline">        </div><div class="clear"></div>
+<div class="linenb">354</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Peq,\FT) {};</div><div class="clear"></div>
+<div class="linenb">355</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qeq,\FT) {};</div><div class="clear"></div>
+<div class="linenb">356</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pgr,\FT) {};</div><div class="clear"></div>
+<div class="linenb">357</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qsm,\FT) {};</div><div class="clear"></div>
+<div class="linenb">358</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pin,\FT) {};</div><div class="clear"></div>
+<div class="linenb">359</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qin,\FT) {};</div><div class="clear"></div>
+<div class="linenb">360</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">361</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Peq,\TT) {};</div><div class="clear"></div>
+<div class="linenb">362</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qeq,\TT) {};</div><div class="clear"></div>
+<div class="linenb">363</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pgr,\TT) {};</div><div class="clear"></div>
+<div class="linenb">364</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qsm,\TT) {};</div><div class="clear"></div>
+<div class="linenb">365</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pin,\TT) {};</div><div class="clear"></div>
+<div class="linenb">366</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qin,\TT) {};</div><div class="clear"></div>
+<div class="linenb">367</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">368</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Peq,\TF) {};</div><div class="clear"></div>
+<div class="linenb">369</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qeq,\TF) {};</div><div class="clear"></div>
+<div class="linenb">370</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pgr,\TF) {};</div><div class="clear"></div>
+<div class="linenb">371</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qsm,\TF) {};</div><div class="clear"></div>
+<div class="linenb">372</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pin,\TF) {};</div><div class="clear"></div>
+<div class="linenb">373</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qin,\TF) {};</div><div class="clear"></div>
+<div class="linenb">374</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">375</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Peq,\FF) {};</div><div class="clear"></div>
+<div class="linenb">376</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qeq,\FF) {};</div><div class="clear"></div>
+<div class="linenb">377</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pgr,\FF) {};</div><div class="clear"></div>
+<div class="linenb">378</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qsm,\FF) {};</div><div class="clear"></div>
+<div class="linenb">379</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Pin,\FF) {};</div><div class="clear"></div>
+<div class="linenb">380</div><div class="codeline">        \node[circle, fill, inner sep=1pt] at (\Qin,\FF) {};</div><div class="clear"></div>
+<div class="linenb">381</div><div class="codeline">          </div><div class="clear"></div>
+<div class="linenb">382</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">383</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">384</div><div class="codeline">        \draw[-&gt;, bend left] (\Peq,\FT) to (\Qeq,\TT);</div><div class="clear"></div>
+<div class="linenb">385</div><div class="codeline">        \draw[-&gt;, bend right] (\Pgr,\TT) to (\Qsm,\TF);</div><div class="clear"></div>
+<div class="linenb">386</div><div class="codeline">        \draw[-&gt;, bend left] (\Pin,\TF) to (\Qin,\FF);</div><div class="clear"></div>
+<div class="linenb">387</div><div class="codeline">        \draw[-&gt;, bend right] (\Peq,\TT) to (\Qeq,\TF);</div><div class="clear"></div>
+<div class="linenb">388</div><div class="codeline">        \draw[-&gt;, bend left] (\Pgr,\FT) to (\Qsm,\FF);</div><div class="clear"></div>
+<div class="linenb">389</div><div class="codeline">    <span class="keyword2">\end{tikzpicture}</span></div><div class="clear"></div>
+<div class="linenb">390</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">391</div><div class="codeline">&nbsp;</div><div class="clear"></div>
+<div class="linenb">392</div><div class="codeline">}</div><div class="clear"></div>
 </div>
 <hr/>
 Output produced by TeXtidote v0.8.2, &copy; 2018-2020 Sylvain Hall&eacute; - All rights reserved.<br/>

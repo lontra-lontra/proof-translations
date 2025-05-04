@@ -40,7 +40,7 @@
 \input{theorems_and_definitions}
 \begin{document}
 %
-\title{Translating Tableaux Proofs into Sequent Proofs in Classical and Intuitionistic Logic}
+\title{Proof Translations in Classical and Intuitionistic Logic}
 %
 %\titlerunning{Abbreviated paper title}
 % If the paper title is too long for the running head, you can set
@@ -62,9 +62,9 @@ MINES ParisTech, PSL Research University, France\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-This work aims to discuss the translation between Tableaux proofs and sequent calculus proofs in first-order intuitionistic predicate logic and in first-order classical predicate logic.
+This work aims to discuss the translation between Tableaux proofs and sequent calculus proofs in first-order intuitionistic propositional logic and in first-order classical propositional logic.
 It begins with an overview of the definitions and clarification of the notation.
-It then shows a translation process in classical logic and its OCAML implementation restricted to propositional logic. 
+It then shows a translation process in classical logic and its OCAML implementation. 
 Finally, a potential extension towards translation in intuitionistic logic is discussed.
  \keywords{Tableaux proof  \and  sequent calculus  \and intuitionistic logic.}
 \end{abstract}
@@ -77,7 +77,10 @@ Finally, a potential extension towards translation in intuitionistic logic is di
 
 %See Figure~\ref{fig:first} and Figure~\ref{fig:second}. asdf %
 
-In this work, sentences will implicitly refer to first-order predicate logic sentences; for intuitionistic logic, their meaning will come from Kripke's semantics \cite{kripke1965} . The notation for structures and frames will be heavily based on \cite{book1}. 
+In this work, sentences will implicitly refer to first-order predicate logic sentences; In the translation discussed in chapter V, they 
+will be implicitly restricted to first-order propositional logic sentences in order to simplify the discussion. 
+For intuitionistic logic, their meaning will come from Kripke's semantics \cite{kripke1965} . The notation for structures and frames, as well as the motivation for
+the intuitionistic tableaux will be heavily based on \cite{book1}. 
 In order to make this document slightly more self-reliant and to clarify the notation, we will briefly explain:
 \subsection{Definitions}
 %(TODO how detailed? < or > than thepresentation? )
@@ -102,21 +105,22 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
 \section{The Intuitionistic Tableaux Method}
 
 \subsubsection{Considerations}
-    Here we first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, were each node is a truth assertion. This different version  will allow for a more implementation-oriented approach and the translation later on.
+
+
+    Here we first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, where each node is a truth assertion. This different version  will allow for a more implementation-oriented approach and the translation later on.
 
     The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in Figure \ref{fig:destructive_tableaux}. Generally speaking, a node in the usual definition is replaced by a sequence of all nodes in the path that goes from the root to it. Afterwards, some nodes are removed from the newly formed tableaux by adjoining its son(s) and its parent. A node should be removed if its corresponding node in the original tableaux was not a leaf of the atomic tableaux \cite{book1} that introduced it.
 
 
 \tableauxCumulativeAndNonCumulativeExampleFigure
-    In this new presentation, one can see each node of the tree as an assumption of the existence of 
+    In this new presentation, one could see each node of the tree as an assumption of the existence of 
     a frame that respects a list of constraints, and each edge as an implication between assumptions.
 \subsubsection{The Intuitionistic Tableaux Method }
 The tableaux stands on some definitions, they will be justified briefly:
 \signedSentenceIntuitionisticDefinition
  
 
-A Signed sentence list can be seen as an existence assumption that may or may not be intuitionistically valid. We can infer other assumptions that are, by definition, 
-consequences of a given assumption. The function f, defined bellow, is one of the ways we can do that: 
+A Signed sentence list can be seen as an existence assumption that may or may not be intuitionistically valid. We can infer other assumptions from a  signed sentence list. The function f, defined bellow, is one of the ways we can do that: 
 
 
 \fIntuitionisticDefinition
@@ -126,11 +130,11 @@ Although not justified here, the reordering of the terms plays an important role
 each signed sentence will be $\sigma$ infinitely many times.
 
 On the other hand, 
-the soundness of the tableaux method depends on the fact that f is 'well-behaved":
+the soundness of the tableaux method depends on f being 'well-behaved":
 
 \wellBehavedTheorem
 
-By choosing $c_i$ differently, we might arrive at at a intuitionistic invalid [Q irrespectable?] tableaux.   
+The general idea is that, by choosing p $c_i$ differently, we might arrive at at a intuitionistic invalid signed sentence list assuming a valid one.   
 
 \TableauxDevelopmentListDefinition
 
@@ -151,9 +155,9 @@ For purposes of implementation, we define an $\hookleftarrow_c$ that can be appl
 
 \completeiteratordefinition
 
-we can use $\hookleftarrow_c$ instead of $\hookleftarrow$ to define a systematic tableaux
+We can use $\hookleftarrow_c$ instead of $\hookleftarrow$ to define a systematic tableaux. This was important for generating tableaux proofs in order to test 
+the translation implementation. This will not be discussed further, as the translation assumes a tableaux proof not necessarylly equal to one given by $\hookleftarrow_c$.
 
-[TODO]
 
 \section{The Classical Tableaux Method}
 
@@ -181,17 +185,15 @@ The more awkward definition:
 
 
 "
-A sequent is classically valid if there does not exist a single-sentenced frame 
+A sequent is intuitionistically valid if there does not exist a frame 
 that forces all sentences in $\Gamma$ and does not force any sentence in $\Delta$.
 "
 
 when compared with the definition of list of signed sentences, hints us towards an equivalence for single framed structures. This will not be discussed in depth. 
 
 \paragraph{}
-The meaning of a sequent calculus rule is [Question : is "meaning" too strong? -> maybe change to "a sequent calculus rule can be interpreted as"] the implication: if the top sequent is 
- valid, then the bottom sequent is valid.
- 
- Syntactically, each of the rules represent vertices that can be added to a sequent proof tree development 
+A sequent calculus rule can be interpreted as the implication: if the top sequent is 
+ valid, then the bottom sequent is valid. Syntactically, each of the rules represent vertices that can be added to a sequent proof tree development 
 to obtain another sequent proof tree development
 
 
@@ -235,13 +237,17 @@ Rules for L's intuitionistic multi-consequence sequent calculus are given in \re
 
 
 \subsection{Intuitionistic Translation}
-When looking at the tableaux proof of $\neg (A \land \neg A) \land (\neg X \land \neg Y)$ and trying to chose 
-proper w's for Translating like we did for classical logic we find a problem with the $\neg R$ rule:
-"useless" terms from our acumulative tableaux method can "overcrowd" the right side of the sequent equation. One naive solution would be 
-to remove all useless terms: (Another way of seeing is that sequent calculus has a Weakening rule that we are not using yet) 
+When examining the tableaux proof of $\neg (A \land \neg A) \land (\neg X \land \neg Y)$ and attempting to choose 
+appropriate w's for translation, as we did for classical logic, we encounter an issue with the $\neg R$ rule: 
+"useless" terms from our cumulative tableaux method can "overcrowd" the right side of the sequent equation. 
+A naive solution would be to remove all useless terms. Another way to view this is that the sequent calculus has a Weakening rule that we have not yet utilized.
 \ThinningFunctionDefinition
-
+We must, of course, be sure we have not removed "too much":
 \nFProof
+\nnFProof
+\nnnFProof
+\nnnnFProof
+\fs
 
 %
 % ---- Bibliography ----

@@ -1,3 +1,5 @@
+\usetikzlibrary{arrows.meta}
+
 \def\figureRandFrame{
 
 \begin{figure}
@@ -314,4 +316,201 @@ $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdas
 $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ \hline
 \end{tabular}
 \end{table}
+}
+
+\tikzset{bigarrow/.style={-{Latex[length=2mm, width=1mm]}, bend left}}
+
+
+\def\fs{
+
+    \def\H{7}
+    \def\FT{6}
+    \def\TT{4}
+    \def\TF{0}
+    \def\FF{2}
+
+    \def\l{1}
+    \def\eq{3}
+    \def\gr{6}
+    \def\in{9}
+
+    \def\Pl{\l-0.25}
+    \def\Ql{\l+0.25}
+    \def\Peq{\eq-0.25}
+    \def\Qeq{\eq+0.25}
+    \def\Pgr{\gr-0.25}
+    \def\Qgr{\gr+0.25}
+    \def\Pin{\in-0.25}
+    \def\Qin{\in+0.25}
+    
+
+    \begin{tikzpicture}
+
+        \node at (\eq, \H) {$p = q$};
+        \node at (\gr, \H) {$p > q$};
+        \node at (\in, \H) {$p  \not\lessgtr
+        q$ };
+
+        \node at (\Pl, \FT){$F_p$};
+        \node at (\Pl, \TT){$T_p$};
+        \node at (\Pl, \TF){$T_p$};
+        \node at (\Pl, \FF){$F_p$};
+
+        \node at (\Ql, \FT){$T_q$};
+        \node at (\Ql, \TT){$T_q$};
+        \node at (\Ql, \TF){$F_q$};
+        \node at (\Ql, \FF){$F_q$};
+
+        
+        
+        % \node[circle, fill, inner sep=1pt] at (\Peq,\FT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qeq,\FT) {};
+
+        
+        % \node[circle, fill, inner sep=1pt] at (\Pgr,\FT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qgr,\FT) {};
+
+        % \node[circle, fill, inner sep=1pt] at (\Peq,\TT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qeq,\TT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Pgr,\TT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qgr,\TT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Pin,\TT) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qin,\TT) {};
+
+        % \node[circle, fill, inner sep=1pt] at (\Pgr,\TF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qgr,\TF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Pin,\TF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qin,\TF) {};
+
+        % \node[circle, fill, inner sep=1pt] at (\Peq,\FF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qeq,\FF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Pgr,\FF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qgr,\FF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Pin,\FF) {};
+        % \node[circle, fill, inner sep=1pt] at (\Qin,\FF) {};
+          
+
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Qeq,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TF);
+
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TT);
+
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
+
+ 
+
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Qeq,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Qin,\FF);
+
+
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
+
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Qin,\TF);
+
+        
+
+
+        \draw[bigarrow] (\Qeq,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\TT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
+        
+
+        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\FT);
+        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Qeq,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TF);
+
+
+
+        \draw[bigarrow] (\Peq,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FT);
+        
+        \draw[bigarrow] (\Pgr,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FT);
+
+
+        \draw[bigarrow] (\Peq,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Peq,\FT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Peq,\FT);
+
+
+        \draw[bigarrow] (\Pgr,\TF) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FF);
+
+    \end{tikzpicture}
+
+
+
+
+    \begin{tikzpicture}
+
+        \node at (\eq, \H) {$p = q$};
+        \node at (\gr, \H) {$p > q$};
+        \node at (\in, \H) {$p  \not\lessgtr
+        q$ };
+
+        \node at (\Pl, \FT){$F_p$};
+        \node at (\Pl, \TT){$T_p$};
+        \node at (\Pl, \TF){$T_p$};
+        \node at (\Pl, \FF){$F_p$};
+
+        \node at (\Ql, \FT){$T_q$};
+        \node at (\Ql, \TT){$T_q$};
+        \node at (\Ql, \TF){$F_q$};
+        \node at (\Ql, \FF){$F_q$};
+
+        
+        
+        \node[circle, fill, inner sep=1pt] at (\Peq,\FT) {};
+        \node[circle, fill, inner sep=1pt] at (\Qeq,\FT) {};
+
+        
+        \node[circle, fill, inner sep=1pt] at (\Pgr,\FT) {};
+        \node[circle, fill, inner sep=1pt] at (\Qgr,\FT) {};
+
+        \node[circle, fill, inner sep=1pt] at (\Peq,\TT) {};
+        \node[circle, fill, inner sep=1pt] at (\Qeq,\TT) {};
+        \node[circle, fill, inner sep=1pt] at (\Pgr,\TT) {};
+        \node[circle, fill, inner sep=1pt] at (\Qgr,\TT) {};
+        \node[circle, fill, inner sep=1pt] at (\Pin,\TT) {};
+        \node[circle, fill, inner sep=1pt] at (\Qin,\TT) {};
+
+        \node[circle, fill, inner sep=1pt] at (\Pgr,\TF) {};
+        \node[circle, fill, inner sep=1pt] at (\Qgr,\TF) {};
+        \node[circle, fill, inner sep=1pt] at (\Pin,\TF) {};
+        \node[circle, fill, inner sep=1pt] at (\Qin,\TF) {};
+
+        \node[circle, fill, inner sep=1pt] at (\Peq,\FF) {};
+        \node[circle, fill, inner sep=1pt] at (\Qeq,\FF) {};
+        \node[circle, fill, inner sep=1pt] at (\Pgr,\FF) {};
+        \node[circle, fill, inner sep=1pt] at (\Qgr,\FF) {};
+        \node[circle, fill, inner sep=1pt] at (\Pin,\FF) {};
+        \node[circle, fill, inner sep=1pt] at (\Qin,\FF) {};
+          
+
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TT);
+
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
+
+ 
+
+
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
+
+
+    
+
+        \draw[bigarrow] (\Qeq,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\TT);
+        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
+        
+
+        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\FT);
+
+    \end{tikzpicture}
+
 }

@@ -218,6 +218,9 @@ INPUT ./figures_and_tables.tex
 INPUT ./figures_and_tables.tex
 INPUT ./figures_and_tables.tex
 INPUT figures_and_tables.tex
+INPUT /usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+INPUT /usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
+INPUT /usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex
 INPUT ./theorems_and_definitions.tex
 INPUT ./theorems_and_definitions.tex
 INPUT ./theorems_and_definitions.tex
