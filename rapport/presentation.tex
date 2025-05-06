@@ -1,0 +1,1244 @@
+\documentclass{beamer}
+\usepackage{tikz}
+\usepackage{wasysym}
+\usepackage{marvosym}
+\usepackage{pgffor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%
+\input{figures_and_tables}
+\input{theorems_and_definitions}
+
+% Theme and settings
+%\usetheme{Madrid}
+\setbeamertemplate{footline}[frame number]
+
+% Title and author
+\title{Proof Translations in Classical and Intuitionistic Logic}
+\author{Ian Ribeiro de Faria Leite}
+\date{\today}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+
+%\begin{frame}{Intuitionism}
+%    \begin{center}
+%        \includegraphics[width=0.3\textwidth]{B.png} {\color{white}.\\}%
+%
+%        \vspace{0.5cm}
+%        \textbf{L.E.J. Brouwer}\\
+%        \textit{“Mathematics is nothing more, nothing less, than the exact part of our thinking”} 
+%    \end{center}
+%end{frame}
+
+
+
+% Example slide
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item \textbf{The Subject:}  \\
+        {\color{white} Translation from Tableaux Proofs {\color{white}?} into Sequent Proofs {\color{white}?} in classical and Intuitionistic Logic.{\color{white}?}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item \textbf{The Subject:}  \\
+        { Translating Tableaux Proofs {\color{white}?} into Sequent Proofs {\color{white}?} in classical and Intuitionistic Logic.{\color{white}?}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction}
+    \begin{itemize}
+        \item \textbf{The Subject:}  \\
+        { Translating \underline{Tableaux Proofs} {\color{blue}?} into \underline{Sequent Proofs} {\color{blue}?} in classical and \underline{Intuitionistic Logic}{\color{blue}?}}
+    \end{itemize}
+\end{frame}
+
+
+
+% Table of contents slide
+\begin{frame}{Outline}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item[$\textcolor{black}{\Box}$] \textcolor{black}{Context}
+            \begin{itemize}
+                \item[$\textcolor{black}{\CheckedBox}$] \textcolor{black}{Introduction}
+                \item[$\textcolor{black}{\Box}$] \textcolor{black}{Classical Logic}
+                \item[$\textcolor{black}{\Box}$] \textcolor{black}{Intuitionistic Logic}
+                \begin{itemize}
+                    \item[$\textcolor{black}\Box$] Structures
+                    \item[$\textcolor{black}\Box$] Kripke Frames
+                    \item[$\textcolor{black}\Box$] Forcing
+                \end{itemize}
+                \item[$\textcolor{black}\Box$] Tableaux proofs
+                \item[$\textcolor{black}\Box$] Sequent proofs
+            \end{itemize}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item[${\Box}$] {Steps taken}
+            \begin{itemize}
+                \item[${\Box}$] {Cumulative Tableaux}
+                \begin{itemize}
+                    \item[${\Box}$] {Inference Function f}
+                \end{itemize}
+                \item[${\Box}$] {Intuitionistic Translation}
+                \begin{itemize}
+                    \item[${\Box}$] {Node Translating }
+                    \item[${\Box}$] {Thinning }
+                    \item[${\Box}$] {Non-branching tree properties}
+                \end{itemize}
+                \item[${\Box}$] {Classical translation}
+                \begin{itemize}
+                    \item[${\Box}$] {Examples}
+                \end{itemize}
+                
+            \end{itemize}
+        \end{itemize}
+    \end{columns}
+\end{frame}
+% Define sections for the table of contents
+
+
+
+
+\def\classicalExamplei{%
+\begin{tikzpicture}
+
+
+    \node (root) at (0,-1) {\scriptsize{$\langle \{c_1\},\{ P(c_1) \} \rangle$ \color{white}{$\checkmark$} }};
+    % Root node
+    \color{white}{
+    \node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{  \} \rangle\checkmark$ }};
+
+
+    \node (root) at (0,-2) {\scriptsize{$\langle \{c_1, c_2\},\{  \} \rangle\checkmark$ }};
+
+    \node (root) at (0,-3) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) \} \rangle\checkmark$ }};
+
+    \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) P(c_2) \} \rangle\checkmark$ }};
+
+
+    \node (root) at (0,-5) {\scriptsize{$...$ }};
+    }
+    % Second stage nodes
+
+    
+\end{tikzpicture}
+}
+
+\def\classicalExampleii{%
+
+\begin{tikzpicture}
+
+
+    \node (root) at (0,-1) {\scriptsize{$\langle \{c_1\},\{ P(c_1) \} \rangle \checkmark$  }};
+    % Root node
+    \color{white}{
+    \node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{  \} \rangle\checkmark$ }};
+
+
+    \node (root) at (0,-2) {\scriptsize{$\langle \{c_1, c_2\},\{  \} \rangle\checkmark$ }};
+
+    \node (root) at (0,-3) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) \} \rangle\checkmark$ }};
+
+    \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) P(c_2) \} \rangle\checkmark$ }};
+
+
+    \node (root) at (0,-5) {\scriptsize{$...$ }};
+    }
+    % Second stage nodes
+
+    
+\end{tikzpicture}
+}
+
+
+\def\classicalExampleiii{
+    \begin{tikzpicture}
+
+
+        \node (root) at (0,-1) {\scriptsize{$\langle \{c_1\},\{ P(c_1) \} \rangle \checkmark$  }};
+        % Root node
+    
+        \node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{  \} \rangle\checkmark$ }};
+    
+    
+        \node (root) at (0,-2) {\scriptsize{$\langle \{c_1, c_2\},\{  \} \rangle\checkmark$ }};
+    
+        \node (root) at (0,-3) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) \} \rangle\checkmark$ }};
+    
+        \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) P(c_2) \} \rangle\checkmark$ }};
+    
+    
+        \node (root) at (0,-5) {\scriptsize{$...$ }};
+        
+        % Second stage nodes
+    
+        
+    \end{tikzpicture}
+}
+
+
+
+
+
+% Frames counting to 10
+\foreach \n in {1.2,1,0.9,0.7,0.5,0.51,0.511,0.5111}{
+
+
+\begin{frame}{Classical Logic}
+    \begin{columns}
+        \column{\n\textwidth} % Left column
+
+        
+        \begin{center}
+Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
+        \end{center}
+
+
+
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    
+    \ifdim\n pt=0.51pt
+        \classicalExamplei
+
+
+        \scriptsize{
+            Here we are denoting
+            $ \langle $ Domain,All true atomic sentences $ \rangle $:
+            }
+    \fi
+
+    \ifdim\n pt=0.511pt
+    \classicalExampleii
+
+
+    \scriptsize{
+        Here we are denoting
+        $ \langle $ Domain,All true atomic sentences $ \rangle $:
+        }
+    \fi
+
+    \ifdim\n pt=0.5111pt
+    \classicalExampleiii
+
+
+    \scriptsize{
+        Here we are denoting
+        $ \langle $ Domain,All true atomic sentences $ \rangle $:
+        }
+    \fi
+
+        \hfill
+    \end{columns}
+\end{frame}
+
+
+}
+
+
+
+
+\def\forcingExampleii{%
+\begin{tikzpicture}
+
+    % Root node
+    \node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ P(c_1)\} \rangle \text{\sffamily X}$ }};
+
+    % Second stage nodes
+    \node (n1) at (0,-1) {\scriptsize{$\langle \{c_1,c_2\},\{P(c_1), P(c_2) \} \rangle$ }};
+
+    % Second stage nodes
+    \node (n2) at (0,-2) {\scriptsize{$\langle \{c_1,c_2,c_3\},\{P(c_1), P(c_2) \} \rangle$ }};
+
+
+    % Edges
+    \draw[-] (root) -- (n1);
+    \draw[-] (n2) -- (n1);
+\end{tikzpicture}
+}
+
+
+
+\begin{frame}{Intuitionistic Logic}
+    \begin{columns}
+        \column{0.5\textwidth} % Left column
+
+        
+        \begin{center}
+            Is $ \exists x (P(x) \to (\forall y)P(y))$ intuitionistically valid ?
+        \end{center}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+        \hfill
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Intuitionistic Logic}
+    \begin{columns}
+        \column{0.5\textwidth} % Left column
+
+        
+        \begin{center}
+            Is $ \exists x (P(x) \to (\forall y)P(y))$ intuitionistically valid ?
+        \end{center}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+        \forcingExampleii
+
+        
+        \scriptsize{
+            Here we are denoting
+            $ \langle $ Domain,All true atomic sentences $ \rangle $:
+            }
+
+        \hfill
+    \end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Structures}
+
+
+    \begin{itemize}
+        \item A \textbf{structure for a Language $\mathcal{L}$} (an $\mathcal{L}$-structure) consists of:
+        \begin{itemize}
+            \item A domain. (ex: $\mathbb{Z}$)
+            \item Assignments for constant symbols to elements of the domain (ex: "1" $\mapsto 1$ )
+            \item Functions and predicates corresponding to function and predicate symbols. (ex: P(x) $\mapsto$ is odd )
+
+        \end{itemize}
+    \end{itemize}
+    
+\end{frame}
+
+
+\def\forcingExamplei{%
+\begin{tikzpicture}
+\node (equation) at (-2,1) {\scriptsize{does $\emptyset \vDash_{\mathcal{C}} \phi \lor \neg \phi$} ?};
+% Root node
+\node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ \} \rangle$ }};
+
+% Second stage nodes
+\node (n1) at (0,-1) {\scriptsize{$\langle \{c_1\},\{\phi \} \rangle$ }};
+
+% Edges
+\draw[-] (root) -- (n1);
+\end{tikzpicture}
+}
+
+\def\forcingExampleiI{%
+\begin{tikzpicture}
+\node (equation) at (-2,1) {\scriptsize{does $\emptyset \vDash_{\mathcal{C}} \phi $} ?};
+% Root node
+\node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ \} \rangle$ }};
+
+% Second stage nodes
+\node (n1) at (0,-1) {\scriptsize{$\langle \{c_1\},\{\phi \} \rangle$ }};
+
+% Edges
+\draw[-] (root) -- (n1);
+\end{tikzpicture}
+}
+
+\def\forcingExampleiII{%
+\begin{tikzpicture}
+\node (equation) at (-2,1) {\scriptsize{does $\emptyset \vDash_{\mathcal{C}} \neg \phi $} ?};
+% Root node
+\node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ \} \rangle$ }};
+
+% Second stage nodes
+\node (n1) at (0,-1) {\scriptsize{$\langle \{c_1\},\{\phi \} \rangle$ }};
+
+% Edges
+\draw[-] (root) -- (n1);
+\end{tikzpicture}
+}
+
+
+
+\def\forcingExampleiIII{%
+\begin{tikzpicture}
+% Root node
+\node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ \} \rangle$ }};
+
+% Second stage nodes
+\node (n1) at (0,-1) {\scriptsize{$\langle \{c_1\},\{\phi \} \rangle$ }};
+
+% Edges
+\draw[-] (root) -- (n1);
+\end{tikzpicture}
+}
+
+
+
+
+\def\forcingExampleii{%
+    
+\begin{tikzpicture}
+
+% Root node
+\node (root) at (0,0) {\scriptsize{$\langle \{c_1\},\{ P(c_1)\} \rangle$ }};
+
+% Second stage nodes
+\node (n1) at (0,-1) {\scriptsize{$\langle \{c_1,c_2\},\{P(c_1), P(c_2) \} \rangle$ }};
+
+% Second stage nodes
+\node (n2) at (0,-2) {\scriptsize{$\langle \{c_1,c_2,c_3\},\{P(c_1), P(c_2) \} \rangle$ }};
+
+
+% Edges
+\draw[-] (root) -- (n1);
+\draw[-] (n2) -- (n1);
+\end{tikzpicture}
+
+}
+
+
+
+\begin{frame}{Intuitionistic Logic/Kripke Frames}
+
+
+        \begin{itemize}
+        \item A \textbf{Kripke Frame} of a Language \(\mathcal{L}\),   \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of \\a partially ordered set R, and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). Also:
+        \begin{itemize}
+            \item all interpretations are preserved
+            \item if $p \leq q$ , then C(q) extends C(p): \\ all sentences that are true in C(p) are true in C(q) \\
+            and the domain of C(p) is included in the domain of C(q)
+        \end{itemize}
+        \end{itemize}
+    \end{frame}    
+
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Kripke Frames}
+\begin{itemize}
+
+    \normalsize{
+     \item When a sentence $\phi$ of a language $\mathcal{L}$ is \textbf{forced} by a structure $C(p)$ of a frame $\mathcal{C}$, we denote:\\
+    $ p \vDash_{\mathcal{C}} \phi$}
+    \item Forcing is defined by induction:
+
+
+\scriptsize{
+    \begin{itemize}
+        \item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+        \item    $ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$
+        \item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+        \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+        \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+        \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+        \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+    
+    
+    \end{itemize}
+}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\foreach \n in {1.5,1,0.9,0.7,0.5} {
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{\n\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+\item    $ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$
+\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+\item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+\item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+\item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+\item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
+
+    \end{itemize}
+}
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \hfill
+\end{columns}
+\end{frame}
+
+}
+
+
+
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+
+
+
+
+
+
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}}\\
+
+
+    \end{itemize}
+}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \forcingExampleiI
+    
+
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+
+
+
+
+
+
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}}\\
+
+
+    \end{itemize}
+}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \forcingExampleiII
+    
+
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+
+
+
+
+
+
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}}\\
+
+
+    \end{itemize}
+}
+
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \forcingExampleiIII
+    
+
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+
+
+
+
+
+
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}}\\
+
+
+    \end{itemize}
+}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \scriptsize{does $\emptyset \vDash_{\mathcal{C}} \exists x (P(x) \to (\forall y)P(y))$ } ?
+    \newline
+    \forcingExampleii
+    
+
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Intuitionistic Logic/Forcing}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+
+\scriptsize{
+    \begin{itemize}
+
+
+
+
+
+
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \to \psi)      \Leftrightarrow$   for all $q \geq p$, if $q \vDash_{\mathcal{C}} \phi$, then $q \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$}}\\
+
+%\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}\\
+\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$}}\\
+
+\item    \textcolor{black!30}{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}\\
+%\item    \textbf{\boldmath{$ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$}}\\
+
+
+
+
+    \end{itemize}
+}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+    \scriptsize{does $\emptyset \vDash_{\mathcal{C}} \forall x (P(x) \to P(x))$ } ?
+    \newline
+    \forcingExampleii
+
+
+
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{The tableaux method}
+\begin{itemize}
+
+    \item In order to prove that a sentence $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
+
+    \end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{The tableaux method}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+    \begin{itemize}
+            \item In order to prove that a formula $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
+
+%\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+    %\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+% \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
+
+    \end{itemize}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+    \begin{tikzpicture}[node distance=1.2cm, auto]
+    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
+
+        
+        {\color{white} 
+        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n0) -- (n1);
+            
+        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
+        \draw[-] (n1) -- (n2);
+
+        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
+        \draw[-] (n2) -- (n3);
+            
+        \node[below of=n3] (n4) {$T {00} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n3) -- (n4);                
+
+        \node[below of=n4] (n5) {\textbf{X}};
+        \draw[-] (n4) -- (n5);
+    }
+\end{tikzpicture}
+    \hfill
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{The tableaux method}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+    \begin{itemize}
+            \item In order to prove that a formula $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
+
+%\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+%\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+% \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
+
+    \end{itemize}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+    \begin{tikzpicture}[node distance=1.2cm, auto]
+    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
+        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n0) -- (n1);
+          
+        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
+        \draw[-] (n1) -- (n2);
+        {\color{white}   
+        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
+        \draw[-] (n2) -- (n3);
+            
+        \node[below of=n3] (n4) {$T {00} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n3) -- (n4);                
+
+        \node[below of=n4] (n5) {\textbf{X}};
+        \draw[-] (n4) -- (n5);
+    }
+\end{tikzpicture}
+    \hfill
+\end{columns}
+\end{frame}
+
+
+
+
+
+\begin{frame}{The  tableaux method}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+    \begin{itemize}
+            \item In order to prove that a formula $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
+
+%\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+    %\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+% \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
+
+    \end{itemize}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+
+    \begin{tikzpicture}[node distance=1.2cm, auto]
+    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
+        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n0) -- (n1);
+          
+        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
+        \draw[-] (n1) -- (n2);
+        {\color{white}   
+        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
+        \draw[-] (n2) -- (n3);
+            
+        \node[below of=n3] (n4) {$T {00} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n3) -- (n4);                
+
+        \node[below of=n4] (n5) {\textbf{X}};
+        \draw[-] (n4) -- (n5);
+    }
+    
+\end{tikzpicture}
+    \hfill
+\end{columns}
+\end{frame}
+
+
+
+
+
+
+
+
+\begin{frame}{The tableaux method}
+
+\begin{columns}
+    \column{0.5\textwidth} % Left column
+    \begin{itemize}
+            \item In order to prove that a formula $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
+
+%\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
+    %\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
+% \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
+% \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
+
+
+    \end{itemize}
+
+    \column{0.00001\textwidth} 
+    \rule{0.2mm}{\textheight} % Black line dividing the columns
+    \column{0.5\textwidth}
+
+
+    \begin{tikzpicture}[node distance=1.2cm, auto]
+    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
+        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
+        \draw[-] (n0) -- (n1);
+          
+        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
+        \draw[-] (n1) -- (n2);
+       
+        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
+        \draw[-] (n2) -- (n3);
+
+        \node[below of=n3] (n4) {$F {00} \vDash_{\mathcal{C}} \neg \alpha$};
+        \draw[-] (n3) -- (n4);                
+        \node[below of=n4] (n5) {\textbf{X}};
+        \draw[-] (n4) -- (n5);
+        
+\end{tikzpicture}
+    \hfill
+\end{columns}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Sequent Calculus}
+
+    \begin{block}{}
+        A Sequent is an expression of the form:
+        \[
+        \Gamma \vdash \Delta
+        \]
+        where \(\Gamma = \{\Gamma_1, \Gamma_2, \Gamma_3, \dots\}\) and \(\Delta = \{\Delta_1, \Delta_2, \Delta_3, \dots\}\) are finite sets of formulas. \\
+        A sequent is intuitionistically valid if for all Kripke frames, if \(\Gamma\) are forced, then at least one of \(\Delta\) is forced.
+    
+    \end{block}
+\end{frame}
+
+
+
+
+\begin{frame}{Classical Sequent Calculus}
+    \tiny{
+    \RulesClassicalSequentCalculusSmall
+    }
+\end{frame}
+
+
+\begin{frame}{Classical Sequent Calculus}
+    \RulesClassicalSequentCalculusSmallBF
+\end{frame}
+
+
+
+\begin{frame}{Intuitionistic Sequent Calculus}
+    \tiny{
+    \RulesIntuitionisticSequentCalculusSmall
+    }
+\end{frame}
+
+
+\begin{frame}{Intuitionistic Sequent Calculus}
+    \tiny{
+    \RulesIntuitionisticSequentCalculusSmallBF
+    }
+\end{frame}
+
+
+
+% Table of contents slide
+\begin{frame}{Outline}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item[$\textcolor{black}{\CheckedBox}$] \textcolor{black}{Context}
+            \begin{itemize}
+                \item[$\textcolor{black}{\CheckedBox}$] \textcolor{black}{Introduction}
+                \item[$\textcolor{black}{\CheckedBox}$] \textcolor{black}{Classical Logic}
+                \item[$\textcolor{black}{\CheckedBox}$] \textcolor{black}{Intuitionistic Logic}
+                \begin{itemize}
+                    \item[$\textcolor{black}\CheckedBox$] Structures
+                    \item[$\textcolor{black}\CheckedBox$] Kripke Frames
+                    \item[$\textcolor{black}\CheckedBox$] Forcing
+                \end{itemize}
+                \item[$\textcolor{black}\CheckedBox$] Tableaux proofs
+                \item[$\textcolor{black}\CheckedBox$] Sequent proofs
+            \end{itemize}
+        \end{itemize}
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item[${\Box}$] {Steps taken}
+            \begin{itemize}
+                \item[${\Box}$] {Cumulative Tableaux}
+                \begin{itemize}
+                    \item[${\Box}$] {Inference Function f}
+                \end{itemize}
+                \item[${\Box}$] {Intuitionistic Translation}
+                \begin{itemize}
+                    \item[${\Box}$] {Thinning }
+                    \item[${\Box}$] {Non-branching tree properties}
+                \end{itemize}
+                \item[${\Box}$] {Classical translation}
+                \begin{itemize}
+                    \item[${\Box}$] {Translating Nodes }
+                    \item[${\Box}$] {Examples}
+                \end{itemize}
+                
+            \end{itemize}
+        \end{itemize}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Cumulative Tableaux}
+    \tableauxCumulativeAndNonCumulativeExampleFigure
+\end{frame}
+
+
+\begin{frame}{Cumulative Tableaux}
+    \tableauxCumulativeAndNonCumulativeExampleFigureClassical
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Cumulative Tableaux/Inference function F}
+    \scriptsize{
+    \begin{itemize}
+
+        \item\textcolor{black}{ $f(T_{p} ,L) = [L - \sigma: \sigma ] $ 
+        \item $f(T_{p} \neg \alpha,L) = [\sigma :L - \sigma: F_{p'}\alpha] $ \\for a minimal $p' \geq p$ present in $\sigma:L$.
+        \textcolor{black}{\item $f(F_{p} \neg \alpha,L) = [L - \sigma : \sigma : T_p' \alpha]$  \\for a new $p' \geq p$}
+        \item $f(T_{p} (\alpha \land \beta), L) = [\sigma :L - \sigma: T_{p} \alpha : T_{p} \beta]$.
+        \item $f(F_{p} (\alpha \land \beta), L) = [\sigma :L - \sigma: F_{p} \alpha],[ \sigma :L - \sigma: F_{p} \beta]$.
+        \textcolor{black}{\item $f(T_{p} (\alpha \lor \beta), L) = [\sigma :L - \sigma: T_{p} \alpha],[ \sigma :L - \sigma: T_{p} \beta]$.}
+        \item $f(F_{p} (\alpha \lor \beta), L) = [\sigma :L - \sigma: F_{p} \alpha : F_{p} \beta]$.
+        \item $f(T_{p} (\alpha \to \beta), L) = [\sigma :L - \sigma: F_{p'} \alpha],[ L - \sigma : \sigma : T_{p'} \beta]$ \\for a new $p' \geq p$ 
+        \item $f(F_{p} (\alpha \to \beta), L) = [\sigma :L - \sigma: T_{p'} \alpha : F_{p'} \beta]$ \\for a minimal $p' \geq p$ present in $\sigma:L$.}
+    \end{itemize} 
+    }
+\end{frame}
+
+
+\begin{frame}{Cumulative Tableaux/Inference function F}
+    \scriptsize{
+    \begin{itemize}
+
+        \item\textcolor{black!30}{ $f(T_{p} ,L) = [L - \sigma: \sigma ] $ 
+        \item $f(T_{p} \neg \alpha,L) = [\sigma :L - \sigma: F_{p'}\alpha] $ \\for a minimal $p' \geq p$ present in $\sigma:L$.
+        \textcolor{black}{\boldmath{\item $f(F_{p} \neg \alpha,L) = [\sigma : L - \sigma :  T_p' \alpha]$  \\for a new $p' \geq p$}} 
+        \item $f(T_{p} (\alpha \land \beta), L) = [\sigma :L - \sigma: T_{p} \alpha : T_{p} \beta]$.
+        \item $f(F_{p} (\alpha \land \beta), L) = [\sigma :L - \sigma: F_{p} \alpha],[ \sigma :L - \sigma: F_{p} \beta]$.
+        \item $f(T_{p} (\alpha \lor \beta), L) = [\sigma :L - \sigma: T_{p} \alpha],[ \sigma :L - \sigma: T_{p} \beta]$.
+        \textcolor{black}{\boldmath{\item $f(F_{p} (\alpha \lor \beta), L) = [\sigma :L - \sigma: F_{p} \alpha : F_{p} \beta]$.}}
+        \item $f(T_{p} (\alpha \to \beta), L) = [\sigma :L - \sigma: F_{p'} \alpha],[ L - \sigma : \sigma : T_{p'} \beta]$ \\for a new $p' \geq p$ 
+        \item $f(F_{p} (\alpha \to \beta), L) = [\sigma :L - \sigma: T_{p'} \alpha : F_{p'} \beta]$ \\for a minimal $p' \geq p$ present in $\sigma:L$.}
+    \end{itemize} 
+    }
+\end{frame}
+
+
+\begin{frame}{Classical Translation/Thinning }      
+    
+    \begin{tikzpicture}
+        % Root node
+        \node (root) at (0,0) {$\mathbf{F_{\emptyset} x \to \neg \neg x}$};
+                
+        % Third stage nodes
+        \node (n2) at (0,-3) {$\mathbf{F_{0} \neg \neg x}, F_{\emptyset} x \to \neg \neg x, \mathbf{T_{0} x}$};
+        \draw[->] (root) -- (n2);
+        
+        % Fourth stage nodes
+        \node (n3) at (0,-4.5) {$ \mathbf{T_{00} \neg x}, F_{\emptyset} x \to \neg \neg x,\mathbf{ T_{0} x},F_{0} \neg \neg x$};
+        \draw[->] (n2) -- (n3);
+        
+        % Fifth stage nodes
+        \node (n4) at (0,-6) {$ \mathbf{F_{00}  x}, F_{\emptyset} x \to \neg \neg x, \mathbf{T_{0} x},F_{0} \neg \neg x, T_{00} \neg x$};
+        \draw[->] (n3) -- (n4);
+        \node (n5) at (0,-7.5) {  $\mathbf{F_{00}x} , F_{\emptyset} x \to \neg \neg x, \mathbf{T_{00} x }    ,T_{0} x,F_{0} \neg \neg x, T_{00} \neg x$};     \draw[->] (n4) -- (n5);
+
+
+        \node (n6) at (0,-8.5) {X};
+        \draw[->] (n5) -- (n6);
+    \end{tikzpicture}
+    
+\end{frame}
+
+
+\def\H{5.5}
+\def\FT{4.5}
+\def\TT{3}
+\def\TF{0}
+\def\FF{1.5}
+
+\def\ll{0}
+\def\sol{1}
+\def\eq{3}
+\def\gr{5}
+\def\inc{7}
+\def\l{9}
+
+\def\Pl{\l-0.25}
+\def\Ql{\l+0.25}
+\def\Peq{\eq-0.05}
+\def\Qeq{\eq+0.05}
+\def\Pgr{\gr-0.05}
+\def\Qgr{\gr+0.05}
+\def\Pin{\inc-0.05}
+\def\Qin{\inc+0.05}
+\def\Psol{\sol}
+
+\def\fs{
+
+
+
+    \begin{tikzpicture}
+
+        \node at (\eq, \H) {$p = q$};
+        \node at (\gr, \H) {$p > q$};
+        \node at (\inc, \H) {$p  \not\lessgtr
+        q$ };
+
+        \node at (\Pl, \FT){$F_p$};
+        \node at (\Pl, \TT){$T_p$};
+        \node at (\Pl, \TF){$T_p$};
+        \node at (\Pl, \FF){$F_p$};
+
+        \node at (\Ql, \FT){$T_q$};
+        \node at (\Ql, \TT){$T_q$};
+        \node at (\Ql, \TF){$F_q$};
+        \node at (\Ql, \FF){$F_q$};
+
+
+        \node at (\ll, \TT){$T_p$};
+        \node at (\ll, \FF){$F_p$};
+
+        
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qeq,\FT);
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
+
+        \draw[bigarrow] (\Pgr,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FT);
+          
+    
+        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Qeq,\FT);
+    \end{tikzpicture}
+
+
+
+}
+\begin{frame}{Classical Translation/Translating Nodes}
+    \fs
+\end{frame}
+
+\begin{frame}{Classical Translation/Translating Nodes}
+    \nodeTranslationFunction
+\end{frame}
+
+
+
+\end{document}

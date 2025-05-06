@@ -4,13 +4,6 @@ type sentence =
   | AND of sentence * sentence
   | IMPLIES of sentence*sentence
 
-let priority op =
-  if op = ">" then 3
-  else if op = "," then 2
-  else if op = "^" then 1
-  else if op = "n" then 0
-  else failwith "Unknown operator"
-
 
 
 

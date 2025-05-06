@@ -1,5 +1,7 @@
 \usetikzlibrary{arrows.meta}
+\usepackage{graphicx} %
 
+\usepackage{bussproofs}
 \def\figureRandFrame{
 
 \begin{figure}
@@ -108,8 +110,147 @@
     \end{figure}
 }
 
+
+\def\tableauxCumulativeAndNonCumulativeExampleFigureClassical{
+
+        \centering
+        \scriptsize{
+        \makebox[\textwidth][c]{%
+        \resizebox{1\textwidth}{!}{
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$T \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$T \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F \alpha$};
+            \draw[->] (n3) -- (n4);
+
+            \node (n5) at (0,-7.5) {$T \neg \alpha$};
+            \draw[->] (n4) -- (n5);
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+
+        \hspace{1cm}
+
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$F \alpha \to \neg \neg \alpha, T \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha, F \alpha$};
+            \draw[->] (n3) -- (n4);
+
+            \node (n5) at (0,-7.5) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha, F \alpha T \alpha$};
+            \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+
+        \hspace{1cm}
+
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha$};
+            \draw[->] (root) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha, F \alpha$};
+            \draw[->] (n3) -- (n4);
+
+
+            \node (n5) at (0,-7.5) {$F \alpha \to \neg \neg \alpha, T \alpha, F \neg \neg \alpha, T \neg \alpha, F \alpha T \alpha$};
+            \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+        }
+        }
+    }
+}
+
+
+
+
+\def\tableauxClassicalExampleFigure{
+
+        \centering
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$T_{0} \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{0} \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$T_{00} \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F_{00} \alpha$};
+            \draw[->] (n3) -- (n4);
+
+            \node (n5) at (0,-7.5) {$T_{00} \neg \alpha$};
+            \draw[->] (n4) -- (n5);
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+
+
+        }
+
+
+
+
+
 \def\tableauxCumulativeAndNonCumulativeExampleFigure{
-    \begin{figure}
+
         \centering
         \scriptsize{
         \makebox[\textwidth][c]{%
@@ -135,8 +276,11 @@
             \node (n4) at (0,-6) {$F_{00} \alpha$};
             \draw[->] (n3) -- (n4);
 
-            \node (n5) at (0,-7.5) {X};
+            \node (n5) at (0,-7.5) {$T_{00} \neg \alpha$};
             \draw[->] (n4) -- (n5);
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
         \end{tikzpicture}
 
         \hspace{1cm}
@@ -161,8 +305,12 @@
             \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha$};
             \draw[->] (n3) -- (n4);
 
-            \node (n5) at (0,-7.5) {X};
+            \node (n5) at (0,-7.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha T_{00} \alpha$};
             \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
         \end{tikzpicture}
 
         \hspace{1cm}
@@ -185,16 +333,24 @@
             \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha$};
             \draw[->] (n3) -- (n4);
 
-            \node (n5) at (0,-7.5) {X};
+
+            \node (n5) at (0,-7.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha T_{00} \alpha$};
             \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
         \end{tikzpicture}
         }
         }
         }
-        \caption{Example of a destructive tableaux proof tree from \cite{book1}, the intermediary structure and the non-destructive tableaux proof tree.}
-        \label{fig:destructive_tableaux}
-    \end{figure}
+
 }
+
+
+
+
+
 
 
 
@@ -202,7 +358,7 @@
 
 
 \begin{table}[h!]
-    \caption{Rules for L's classical multi-consequence sequent calculus.}\label{tab:intuitionistic}
+    \caption{Rules for L' intuitionistic multi-consequence sequent calculus.}\label{tab:intuitionistic}
 \centering
 \renewcommand{\arraystretch}{3} % Adjust row height
 \begin{tabular}{|c|c|}  
@@ -213,7 +369,7 @@ Weakening & $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \
 $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ \hline
 Negation & 
 $\RightLabel{\scriptsize{$\neg$L  $\neg \alpha$}}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash $}\UnaryInfC{$\Gamma \vdash \neg \alpha$}\DisplayProof$ \\ \hline
+$\RightLabel{\scriptsize{$\neg$R  $\neg \alpha$}}\AxiomC{$\Gamma, \alpha \vdash \color{white}{\Delta} $}\UnaryInfC{$\Gamma \vdash \neg \alpha, \color{white}{\Delta}$}\DisplayProof$ \\ \hline
 Conjunction & 
 $\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
 $\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
@@ -237,46 +393,124 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
 \end{table}
 }
 
-\def\RulesCumulativeClassicalSequentCalculus{
-\begin{table}[h!]
-    \caption{Cumulative Sequent Calculus Rules (Multi-Consequence).}\label{tab:cumulative}
-    \centering
-    \renewcommand{\arraystretch}{3}
-    \begin{tabular}{|c|c|}
-        \hline
-        \textbf{Rule} & \textbf{Inference} \\ \hline
-        Axiom & $\AxiomC{}\UnaryInfC{$\Gamma, \phi \vdash \phi, \Delta$}\DisplayProof$ \\ \hline
-        
-        Weakening & 
-        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \vdash \Delta$}\DisplayProof$ \quad
-        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \phi$}\DisplayProof$ \\ \hline
-        
-        Negation & 
-        $\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma , \neg \phi \vdash \phi, \Delta$}\UnaryInfC{$\Gamma, \neg \phi \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma, \phi \vdash \Delta, \neg \phi $}\UnaryInfC{$\Gamma \vdash  \Delta, \neg \phi $}\DisplayProof$ \\ \hline
-        
-        Conjunction & 
-        $\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma, \phi, \psi, \phi \land \psi \vdash \Delta$}\UnaryInfC{$\Gamma, \phi \land \psi \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma \vdash \phi, \phi \land \psi,\Delta$}\AxiomC{$\Gamma \vdash \psi, \phi \land \psi,\Delta$}\BinaryInfC{$\Gamma \vdash \phi \land \psi, \Delta$}\DisplayProof$ \\ \hline
-        
-        Disjunction & 
-        $\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma, \phi \lor \psi,\phi \vdash \Delta$}\AxiomC{$\Gamma, \phi \lor \psi,\psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \lor \psi \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\lor$R}} \AxiomC{$\Gamma \vdash \phi \lor \psi, \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \lor \psi, \Delta$}\DisplayProof$ \\ \hline
-        
-        Implication & 
-        $\RightLabel{\scriptsize{$\to$L}} \AxiomC{$\Gamma, \phi \to \psi \vdash \phi, \Delta$}\AxiomC{$\Gamma, \phi \to \psi, \psi \vdash \Delta$}\BinaryInfC{$\Gamma, \phi \to \psi \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\to$R}} \AxiomC{$\Gamma, \phi \vdash \psi, \phi \to \psi, \Delta$}\UnaryInfC{$\Gamma \vdash \phi \to \psi, \Delta$}\DisplayProof$ \\ \hline
-        
-        Quantifiers & 
-        $\RightLabel{\scriptsize{$\forall$L}} \AxiomC{$\Gamma, \forall x \phi(x), \phi(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \phi(x) \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\forall$R}} \AxiomC{$\Gamma \vdash \phi(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \phi(x), \Delta$}\DisplayProof$ \\
-        & 
-        $\RightLabel{\scriptsize{$\exists$L}} \AxiomC{$\Gamma, \phi(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \phi(x) \vdash \Delta$}\DisplayProof$ \quad
-        $\RightLabel{\scriptsize{$\exists$R}} \AxiomC{$\Gamma \vdash \phi(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \phi(x), \Delta$}\DisplayProof$ \\ \hline
-    \end{tabular}
-\end{table}
+
+
+
+\def\RulesIntuitionisticSequentCalculusSmall{
+
+    \begin{table}[h!]
+        \centering
+    \renewcommand{\arraystretch}{3} % Adjust row height
+     \begin{tabular}{cc}  
+        $\RightLabel{Ax $\alpha$}\AxiomC{}\UnaryInfC{$\Gamma , \alpha \vdash \alpha,  \Delta$}\DisplayProof$ \\ 
+        $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ 
+        $\RightLabel{$\neg$L  $\neg \alpha$}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\neg$R  $\neg \alpha$}\AxiomC{$\Gamma, \alpha \vdash \color{white}{\Delta}$}\UnaryInfC{$\Gamma \vdash \neg \alpha \color{white}{,\Delta}$}\DisplayProof$ \\ 
+        $\RightLabel{$\land$L  $\alpha \land \beta$}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\land$R $\alpha \land \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\lor$ L  $\alpha \lor \beta$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\lor$ R  $\alpha \lor \beta$}\AxiomC{$\Gamma \vdash \alpha,\beta \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\
+        $\RightLabel{$\to$ L  $\alpha \to \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\to$ R  $\alpha \to \beta$}\AxiomC{$\Gamma, \alpha \vdash \beta \color{white}{, \Delta}$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta\color{white}{,\Delta}$}\DisplayProof$ \\ 
+        $\RightLabel{$\forall$ L $\forall x \alpha(x)$}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\forall$ R $\forall x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(y) \color{white}{, \Delta}$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x) \color{white}{,\Delta}$}\DisplayProof$ \\ 
+        $\RightLabel{$\exists$ L $\exists x \alpha(x)$}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\exists$ R $\exists x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ 
+        \end{tabular}
+    \end{table}
 }
 
+\def\RulesClassicalSequentCalculusSmall{
+
+    \begin{table}[h!]
+        \centering
+    \renewcommand{\arraystretch}{3} % Adjust row height
+     \begin{tabular}{cc}  
+        $\RightLabel{Ax $\alpha$}\AxiomC{}\UnaryInfC{$\Gamma , \alpha \vdash \alpha,  \Delta$}\DisplayProof$ \\ 
+        $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ 
+        $\RightLabel{$\neg$L  $\neg \alpha$}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\neg$R  $\neg \alpha$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\land$L  $\alpha \land \beta$}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\land$R $\alpha \land \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\lor$ L  $\alpha \lor \beta$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\lor$ R  $\alpha \lor \beta$}\AxiomC{$\Gamma \vdash \alpha, \beta \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\to$ L  $\alpha \to \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\to$ R  $\alpha \to \beta$}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\forall$ L $\forall x \alpha(x)$}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\forall$ R $\forall x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\exists$ L $\exists x \alpha(x)$}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\exists$ R $\exists x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ 
+        \end{tabular}
+    \end{table}
+}
+
+
+\def\RulesClassicalSequentCalculusSmallBF{
+    \textcolor{black!30}{
+        \tiny{
+    \begin{table}[h!]
+        \centering
+    \renewcommand{\arraystretch}{3} % Adjust row height
+     \begin{tabular}{cc}  
+        \textcolor{black}{\boldmath{$\RightLabel{Ax $\alpha$}\AxiomC{}\UnaryInfC{$\Gamma , \alpha \vdash \alpha,  \Delta$}\DisplayProof$ }}\\ 
+        $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ 
+        $\RightLabel{$\neg$L  $\neg \alpha$}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+        \textcolor{black}{\boldmath{$\RightLabel{$\neg$R  $\neg \alpha$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha, \Delta$}\DisplayProof$}} \\ 
+        $\RightLabel{$\land$L  $\alpha \land \beta$}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\land$R $\alpha \land \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\lor$ L  $\alpha \lor \beta$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+        \textcolor{black}{\boldmath{$\RightLabel{$\lor$ R  $\alpha \lor \beta$}\AxiomC{$\Gamma \vdash \alpha, \beta ,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$}} \\ 
+        $\RightLabel{$\to$ L  $\alpha \to \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\to$ R  $\alpha \to \beta$}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\forall$ L $\forall x \alpha(x)$}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\forall$ R $\forall x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\exists$ L $\exists x \alpha(x)$}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\exists$ R $\exists x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ 
+        \end{tabular}
+    \end{table}
+        }
+    }
+}
+
+
+\def\RulesIntuitionisticSequentCalculusSmallBF{
+    \textcolor{black!30}{
+        \tiny{
+    \begin{table}[h!]
+        \centering
+    \renewcommand{\arraystretch}{3} % Adjust row height
+     \begin{tabular}{cc}  
+        \textcolor{black}{\boldmath{$\RightLabel{Ax $\alpha$}\AxiomC{}\UnaryInfC{$\Gamma , \alpha \vdash \alpha,  \Delta$}\DisplayProof$}} \\ 
+        $ \AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \Delta$}\UnaryInfC{$\Gamma \vdash \Delta, \alpha$}\DisplayProof$ \\ 
+        $\RightLabel{$\neg$L  $\neg \alpha$}\AxiomC{$\Gamma , \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \quad
+        \textcolor{black}{\boldmath{$\RightLabel{$\neg$R  $\neg \alpha$}\AxiomC{$\Gamma, \alpha \vdash \color{white}{\Delta}$}\UnaryInfC{$\Gamma \vdash \neg \alpha \color{white}{,\Delta}$}\DisplayProof$}} \\ 
+        $\RightLabel{$\land$L  $\alpha \land \beta$}\AxiomC{$\Gamma, \alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\land$R $\alpha \land \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ 
+        $\RightLabel{$\lor$ L  $\alpha \lor \beta$}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
+        \textcolor{black}{\boldmath{$\RightLabel{$\lor$ R  $\alpha \lor \beta$}\AxiomC{$\Gamma \vdash \alpha,\beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$}} \\
+        $\RightLabel{$\to$ L  $\alpha \to \beta$}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\to$ R  $\alpha \to \beta$}\AxiomC{$\Gamma, \alpha \vdash \beta \color{white}{, \Delta}$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta\color{white}{,\Delta}$}\DisplayProof$ \\ 
+        $\RightLabel{$\forall$ L $\forall x \alpha(x)$}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\forall$ R $\forall x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(y) \color{white}{, \Delta}$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x) \color{white}{,\Delta}$}\DisplayProof$ \\ 
+        $\RightLabel{$\exists$ L $\exists x \alpha(x)$}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+        $\RightLabel{$\exists$ R $\exists x \alpha(x)$}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ 
+        $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
+        $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha, \Delta$}\DisplayProof$ \\ 
+        \end{tabular}
+    \end{table}
+        }
+    }
+}
 
 
 
@@ -318,37 +552,143 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
 \end{table}
 }
 
+
+
+
+\def\excludedmidleproof{
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{Ax}
+    \UnaryInfC{$\alpha \vdash \alpha$}
+    \RightLabel{$\neg$R}
+    \UnaryInfC{$ \vdash \alpha, \neg \alpha$}
+    \RightLabel{$\lor$R}
+    \UnaryInfC{$\vdash \alpha \lor \neg \alpha$}
+\end{prooftree}
+}
+
+
+
 \tikzset{bigarrow/.style={-{Latex[length=2mm, width=1mm]}, bend left}}
 
 
+\def\ocmalImageI{
+
+\begin{prooftree}
+
+\RightLabel{Ax $a$}
+\AxiomC{}\UnaryInfC{$a$, \dots, $(a \land \neg b)$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$, $a$}
+\RightLabel{$\land$L $(a \land \neg b)$}
+\UnaryInfC{$(a \land \neg b)$, $((a \rightarrow b) \land (a \land \neg b))$, $(a \rightarrow b)$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$, $a$}
+
+\RightLabel{Ax $b$}
+\AxiomC{}\UnaryInfC{$((a \rightarrow b) \land (a \land \neg b))$, \dots, $\neg b$ $\vdash$ $b$, $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\RightLabel{$\neg$L $\neg b$}
+\UnaryInfC{$\neg b$, \dots, $a$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\RightLabel{$\land$L $(a \land \neg b)$}
+\UnaryInfC{$(a \land \neg b)$, \dots, $b$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\RightLabel{$\rightarrow$L $(a \rightarrow b)$}
+\BinaryInfC{$(a \rightarrow b)$, $(a \land \neg b)$, $((a \rightarrow b) \land (a \land \neg b))$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\RightLabel{$\land$L $((a \rightarrow b) \land (a \land \neg b))$}
+\UnaryInfC{$((a \rightarrow b) \land (a \land \neg b))$ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\RightLabel{$\neg$R $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+\UnaryInfC{ $\vdash$ $\neg ((a \rightarrow b) \land (a \land \neg b))$}
+ 
+\end{prooftree}
+
+}
+
+
+
+
+
+
+
+
+\def\ocmalImageII{
+\begin{prooftree}
+    \rootAtTop
+    \AxiomC{T($a$), T($\neg b$),  $\dots$ , F($a$), T($(a \land \neg b)$)}
+  \UnaryInfC{T($(a \land \neg b)$), F($\neg ((a \rightarrow b) \land (a \land \neg b))$),  $\dots$ , T($(a \rightarrow b)$), F($a$)}
+  \AxiomC{F($b$), F($\neg ((a \rightarrow b) \land (a \land \neg b))$),  $\dots$ , T($a$), T($\neg b$)}
+  \UnaryInfC{T($\neg b$), F($\neg ((a \rightarrow b) \land (a \land \neg b))$),  $\dots$ , T($(a \land \neg b)$), T($a$)}
+  \UnaryInfC{T($(a \land \neg b)$), F($\neg ((a \rightarrow b) \land (a \land \neg b))$),  $\dots$ , T($(a \rightarrow b)$), T($b$)}
+  \BinaryInfC{T($(a \rightarrow b)$), T($(a \land \neg b)$),  $\dots$ , F($\neg ((a \rightarrow b) \land (a \land \neg b))$), T($((a \rightarrow b) \land (a \land \neg b))$)}
+  \UnaryInfC{T($((a \rightarrow b) \land (a \land \neg b))$), F($\neg ((a \rightarrow b) \land (a \land \neg b))$)}
+  \UnaryInfC{F($\neg ((a \rightarrow b) \land (a \land \neg b))$)}
+    \end{prooftree}
+
+}
+
+
+\def\ocmalImageIII{
+
+  \begin{prooftree}
+  \rootAtTop
+  \AxiomC{F($x$), F($\neg (x \land \neg \neg \neg x)$),  $\dots$ , F($\neg \neg x$), T($\neg x$)}
+\UnaryInfC{T($\neg x$), F($\neg (x \land \neg \neg \neg x)$),  $\dots$ , T($\neg \neg \neg x$), F($\neg \neg x$)}
+\UnaryInfC{F($\neg \neg x$), F($\neg (x \land \neg \neg \neg x)$),  $\dots$ , T($x$), T($\neg \neg \neg x$)}
+\UnaryInfC{T($\neg \neg \neg x$), F($\neg (x \land \neg \neg \neg x)$),  $\dots$ , T($(x \land \neg \neg \neg x)$), T($x$)}
+\UnaryInfC{T($(x \land \neg \neg \neg x)$), F($\neg (x \land \neg \neg \neg x)$)}
+\UnaryInfC{F($\neg (x \land \neg \neg \neg x)$)}
+  \end{prooftree}
+  
+}
+
+\def\ocmalImageIIII{
+\begin{prooftree}
+
+\RightLabel{Ax $x$}
+\AxiomC{}\UnaryInfC{$(x \land \neg \neg \neg x)$, \dots, $\neg x$ $\vdash$ $x$, $\neg (x \land \neg \neg \neg x)$, $\neg \neg x$}
+\RightLabel{$\neg$L $\neg x$}
+\UnaryInfC{$\neg x$, \dots, $\neg \neg \neg x$ $\vdash$ $\neg (x \land \neg \neg \neg x)$, $\neg \neg x$}
+\RightLabel{$\neg$R $\neg \neg x$}
+\UnaryInfC{$(x \land \neg \neg \neg x)$, $x$, $\neg \neg \neg x$ $\vdash$ $\neg \neg x$, $\neg (x \land \neg \neg \neg x)$}
+\RightLabel{$\neg$L $\neg \neg \neg x$}
+\UnaryInfC{$\neg \neg \neg x$, $(x \land \neg \neg \neg x)$, $x$ $\vdash$ $\neg (x \land \neg \neg \neg x)$}
+\RightLabel{$\land$L $(x \land \neg \neg \neg x)$}
+\UnaryInfC{$(x \land \neg \neg \neg x)$ $\vdash$ $\neg (x \land \neg \neg \neg x)$}
+\RightLabel{$\neg$R $\neg (x \land \neg \neg \neg x)$}
+\UnaryInfC{ $\vdash$ $\neg (x \land \neg \neg \neg x)$}
+ 
+\end{prooftree}
+
+
+
+}
+
+\def\H{7}
+\def\FT{6}
+\def\TT{4}
+\def\TF{0}
+\def\FF{2}
+
+\def\ll{0}
+\def\sol{1}
+\def\eq{3.5}
+\def\gr{6}
+\def\inc{8.5}
+\def\l{11}
+
+\def\Pl{\l-0.25}
+\def\Ql{\l+0.25}
+\def\Peq{\eq-0.15}
+\def\Qeq{\eq+0.15}
+\def\Pgr{\gr-0.15}
+\def\Qgr{\gr+0.15}
+\def\Pin{\inc-0.15}
+\def\Qin{\inc+0.15}
+\def\Psol{\sol}
+
 \def\fs{
 
-    \def\H{7}
-    \def\FT{6}
-    \def\TT{4}
-    \def\TF{0}
-    \def\FF{2}
 
-    \def\l{1}
-    \def\eq{3}
-    \def\gr{6}
-    \def\in{9}
-
-    \def\Pl{\l-0.25}
-    \def\Ql{\l+0.25}
-    \def\Peq{\eq-0.25}
-    \def\Qeq{\eq+0.25}
-    \def\Pgr{\gr-0.25}
-    \def\Qgr{\gr+0.25}
-    \def\Pin{\in-0.25}
-    \def\Qin{\in+0.25}
-    
 
     \begin{tikzpicture}
 
         \node at (\eq, \H) {$p = q$};
         \node at (\gr, \H) {$p > q$};
-        \node at (\in, \H) {$p  \not\lessgtr
+        \node at (\inc, \H) {$p  \not\lessgtr
         q$ };
 
         \node at (\Pl, \FT){$F_p$};
@@ -361,64 +701,41 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
         \node at (\Ql, \TF){$F_q$};
         \node at (\Ql, \FF){$F_q$};
 
-        
-        
-        % \node[circle, fill, inner sep=1pt] at (\Peq,\FT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qeq,\FT) {};
+
+        \node at (\ll, \TT){$T_p$};
+        \node at (\ll, \FF){$F_p$};
 
         
-        % \node[circle, fill, inner sep=1pt] at (\Pgr,\FT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qgr,\FT) {};
-
-        % \node[circle, fill, inner sep=1pt] at (\Peq,\TT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qeq,\TT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Pgr,\TT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qgr,\TT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Pin,\TT) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qin,\TT) {};
-
-        % \node[circle, fill, inner sep=1pt] at (\Pgr,\TF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qgr,\TF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Pin,\TF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qin,\TF) {};
-
-        % \node[circle, fill, inner sep=1pt] at (\Peq,\FF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qeq,\FF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Pgr,\FF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qgr,\FF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Pin,\FF) {};
-        % \node[circle, fill, inner sep=1pt] at (\Qin,\FF) {};
+        
           
 
-        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
-        \draw[bigarrow] (\Qeq,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
-        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TF);
-        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TF);
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TF);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TT);
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
 
-        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TT);
 
-        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
-        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Psol,\TT);
 
  
 
-        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
-        \draw[bigarrow] (\Qeq,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
-        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FF);
-        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Qin,\FF);
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\FF);
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FT);
+        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FT);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\TF);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\TF);
 
-
-        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
-        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
-
-        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Qin,\TF);
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qeq,\FT);
 
         
 
 
         \draw[bigarrow] (\Qeq,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
         \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\TT);
-        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
         
 
         \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\FT);
@@ -439,78 +756,66 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
 
         \draw[bigarrow] (\Pgr,\TF) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FF);
 
+        \draw[bigarrow] (\Psol,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Psol,\FF);
+
+
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\lor$}} (\Peq,\FF);
+
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\lor$}} (\Peq,\FF);
+
+
+        \draw[bigarrow] (\Psol,\TT) to node[midway, above, sloped] {\scriptsize{$F\land$}} (\Peq,\TT);
+
+
+
     \end{tikzpicture}
 
 
 
+}
 
+
+
+\def\nnn{
     \begin{tikzpicture}
 
-        \node at (\eq, \H) {$p = q$};
-        \node at (\gr, \H) {$p > q$};
-        \node at (\in, \H) {$p  \not\lessgtr
-        q$ };
 
-        \node at (\Pl, \FT){$F_p$};
-        \node at (\Pl, \TT){$T_p$};
-        \node at (\Pl, \TF){$T_p$};
-        \node at (\Pl, \FF){$F_p$};
+\node at (\eq, \H) {$p = q$};
+\node at (\gr, \H) {$p > q$};
+\node at (\inc, \H) {$p  \not\lessgtr
+q$ };
 
-        \node at (\Ql, \FT){$T_q$};
-        \node at (\Ql, \TT){$T_q$};
-        \node at (\Ql, \TF){$F_q$};
-        \node at (\Ql, \FF){$F_q$};
+\node at (\Pl, \FT){$F_p$};
+\node at (\Pl, \TT){$T_p$};
+\node at (\Pl, \TF){$T_p$};
+\node at (\Pl, \FF){$F_p$};
 
-        
-        
-        \node[circle, fill, inner sep=1pt] at (\Peq,\FT) {};
-        \node[circle, fill, inner sep=1pt] at (\Qeq,\FT) {};
-
-        
-        \node[circle, fill, inner sep=1pt] at (\Pgr,\FT) {};
-        \node[circle, fill, inner sep=1pt] at (\Qgr,\FT) {};
-
-        \node[circle, fill, inner sep=1pt] at (\Peq,\TT) {};
-        \node[circle, fill, inner sep=1pt] at (\Qeq,\TT) {};
-        \node[circle, fill, inner sep=1pt] at (\Pgr,\TT) {};
-        \node[circle, fill, inner sep=1pt] at (\Qgr,\TT) {};
-        \node[circle, fill, inner sep=1pt] at (\Pin,\TT) {};
-        \node[circle, fill, inner sep=1pt] at (\Qin,\TT) {};
-
-        \node[circle, fill, inner sep=1pt] at (\Pgr,\TF) {};
-        \node[circle, fill, inner sep=1pt] at (\Qgr,\TF) {};
-        \node[circle, fill, inner sep=1pt] at (\Pin,\TF) {};
-        \node[circle, fill, inner sep=1pt] at (\Qin,\TF) {};
-
-        \node[circle, fill, inner sep=1pt] at (\Peq,\FF) {};
-        \node[circle, fill, inner sep=1pt] at (\Qeq,\FF) {};
-        \node[circle, fill, inner sep=1pt] at (\Pgr,\FF) {};
-        \node[circle, fill, inner sep=1pt] at (\Qgr,\FF) {};
-        \node[circle, fill, inner sep=1pt] at (\Pin,\FF) {};
-        \node[circle, fill, inner sep=1pt] at (\Qin,\FF) {};
-          
-
-        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pin,\TT);
-
-        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
-        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\neg$}} (\Pgr,\TT);
-
- 
+\node at (\Ql, \FT){$T_q$};
+\node at (\Ql, \TT){$T_q$};
+\node at (\Ql, \TF){$F_q$};
+\node at (\Ql, \FF){$F_q$};
 
 
-        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
-        \draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$\to$}} (\Pgr,\FT);
+\node at (\ll, \TT){$T_p$};
+\node at (\ll, \FF){$F_p$};
 
 
-    
 
-        \draw[bigarrow] (\Qeq,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
-        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\TT);
-        \draw[bigarrow] (\Qgr,\TT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Pgr,\TT);
-        
+  
 
-        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$e$}} (\Qeq,\FT);
+\draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+\draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+\draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TF);
+\draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TT);
+\draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
+\draw[bigarrow] (\Pgr,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
 
-    \end{tikzpicture}
+
+\draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Psol,\TT);
+
+\end{tikzpicture}
+
+
+
 
 }

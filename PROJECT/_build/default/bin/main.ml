@@ -19,7 +19,7 @@ and sequent_proof =
 
 let sequent_to_string sequent =
   match sequent with
-    |SEQ (left, right) -> Printf.sprintf "%s > %s" (sequence_of_sentences_to_string left) (sequence_of_sentences_to_string right)
+    |SEQ (left, right) -> Printf.sprintf "%s |- %s" (sequence_of_sentences_to_string left) (sequence_of_sentences_to_string right)
 
 
 
@@ -74,7 +74,7 @@ let rec sequent_proof_to_middle_latex proof =
               [sequent_proof_to_middle_latex subproof], "\\UnaryInfC"
       in
       let subproofs_str = String.concat "\n" subproofs in
-      Printf.sprintf "%s\n\\RightLabel{\\scriptsize{%s}}\n%s{%s}" 
+      Printf.sprintf "%s\n\\RightLabel{%s}\n%s{%s}" 
         
         subproofs_str
         (justification_to_latex justification)
@@ -102,6 +102,7 @@ let vectorwise f list1 list2 =
 
 let true_in_all bool_vector =
   List.fold_left (&&) true bool_vector
+
 
 let cardinal_equal a b =
   let result = cardinal_minus a b = [] && cardinal_minus b a = [] in
@@ -132,7 +133,7 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
       
 
       let expected_sequent = [
-          cardinal_union  [left_side_a ; (List.nth necessary_elements 2)] ;
+          cardinal_union [left_side_a ; (List.nth necessary_elements 2)] ;
           cardinal_union [right_side_a ; (List.nth necessary_elements 3)];
           cardinal_union [left_side_b ; (List.nth necessary_elements 0)];
           cardinal_union [right_side_b ; (List.nth necessary_elements 1)]
@@ -143,7 +144,7 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
         then
           true
         else begin 
-          Printf.printf "{\n";
+          Printf.printf "{TOO MANY ELEMENTS:\n";
           Printf.printf "GIVEN SEQUENTS:\n\n\n";
 
           Printf.printf "%s\n" (sequent_to_string sa);
@@ -151,24 +152,24 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
           Printf.printf "%s\n" (sequent_to_string sb);
           
           Printf.printf "EXPECTED ELEMENTS:\n\n\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth necessary_elements 0 )) ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth necessary_elements 0 )) ;
           Printf.printf "{%s} \n "  ( sequence_of_sentences_to_string (List.nth necessary_elements 1 )) ;
           Printf.printf "------------------------------------------------\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth necessary_elements 2 ))  ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth necessary_elements 2 ))  ;
           Printf.printf "{%s} \ \n "  ( sequence_of_sentences_to_string (List.nth necessary_elements 3 ))  ;
 
           (Printf.printf "EXPECTED sequent :\n\n\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth expected_sequent 0 )) ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth expected_sequent 0 )) ;
           Printf.printf "{%s} \n "  ( sequence_of_sentences_to_string (List.nth expected_sequent 1)) ;
           Printf.printf "------------------------------------------------\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth expected_sequent 2 ))  ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth expected_sequent 2 ))  ;
           Printf.printf "{%s} \ \n "  ( sequence_of_sentences_to_string (List.nth expected_sequent 3))  ; 
           Printf.printf "}\n";
 );
           false
         end else begin
 
-          Printf.printf "{\n";
+          Printf.printf "MISSING ELEMENTS:\n";
 
           Printf.printf "GIVEN SEQUENTS:\n\n\n";
 
@@ -179,12 +180,14 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
 
 
           Printf.printf "EXPECTED ELEMENTS:\n\n\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth necessary_elements 0 )) ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth necessary_elements 0 )) ;
           Printf.printf "{%s} \n "  ( sequence_of_sentences_to_string (List.nth necessary_elements 1 )) ;
           Printf.printf "------------------------------------------------\n";
-          Printf.printf "{%s}  > "  ( sequence_of_sentences_to_string (List.nth necessary_elements 2 ))  ;
+          Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth necessary_elements 2 ))  ;
           Printf.printf "{%s} \ \n "  ( sequence_of_sentences_to_string (List.nth necessary_elements 3 ))  ;
           Printf.printf "}\n";
+          
+
         false
         end
 
@@ -251,13 +254,14 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
     ] 
     && check_pattern_between_sequents premisse2 sequent 
       [
-      [a]     ;    [b];     (*is in sequent  *)
-      [IMPLIES (a, b)]         ; [] (*is in premise  *)
+      []     ;    [b];     (*is in sequent  *)
+      []         ; [AND (a, b)] (*is in premise  *)
     ])
     then 
       verify_proof (PROOF (premisse1, justification1)) && verify_proof (PROOF (premisse2, justification2))
     else 
       false
+
     | PROOF (sequent, IMPLIES_R_RULE (PROOF (premisse, justification), IMPLIES (a, b))) ->
       if check_pattern_between_sequents (premisse) (sequent) 
         [
@@ -272,22 +276,22 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
       if (check_pattern_between_sequents premisse1 sequent 
         [
         []     ;    [a];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ] 
       && check_pattern_between_sequents premisse2 sequent 
         [
         [b]     ;    [];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ]) 
       || (check_pattern_between_sequents premisse1 sequent 
         [
         [b]     ;    [];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ] 
       && check_pattern_between_sequents premisse2 sequent 
         [
         []     ;    [a];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ])
       then 
         verify_proof (PROOF (premisse1, justification1)) && verify_proof (PROOF (premisse2, justification2))
@@ -583,7 +587,6 @@ let find_rule_sentence tree =
     Printf.printf "Subtree:\n%s\n" (proof_tree_to_latex subtree)
       ) proof_tree_list;
       failwith "No matching rule sentence found in proof tree"
-    
     
     
 

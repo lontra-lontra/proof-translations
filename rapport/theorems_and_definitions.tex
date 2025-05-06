@@ -51,14 +51,15 @@
 
 \def\signedSentenceIntuitionisticDefinition{
 \begin{definition}
-    \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It looks like $T_{q} \phi $ or $F_{p} \phi $ \\
-    \textbf{A Signed Sentence List} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions having sentences $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
+    \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It has the format $T_{q} \phi $ or $F_{p} \phi $ \\
+    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableau proof. We say that a list of forcing assertions $L$ made out of  sentences $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
   and $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\} $
      is "intuitionistically valid" if there exists a frame $\mathcal{C}$ that "respects" L : 
      
      $ \mathcal{C}(p_1) \Vdash \gamma_{1}$ and $ \mathcal{C}(p_{2}) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(q_{1}) \nvDash \delta_{1}$  and $ \mathcal{C}(q_{2}) \nvDash \delta_{2}$
 \end{definition}
 }
+
 \def\fIntuitionisticDefinition{
 \begin{definition}
     The function $f$ takes a signed sentence $\sigma$ and a signed sentence list $L$ and returns one or two signed sentence lists.  \\$f(\sigma,L)$ is defined as follows:
@@ -92,13 +93,13 @@
         Given a signed sentence list x, if x is intuitionistically valid then f(x) is intuitionistically valid 
     \end{theorem}
     \begin{proof}
-        \cite{book1} proves this by using the definition of forcing. We will de most complex case, that has the most part of the ideas needed for the other ones:
+        \cite{book1} proves this by using the definition of forcing. We will do the most complex case, that has the most part of the ideas needed for the other ones:
         
 
         Case: if $L \ni F_{p} (\forall x) \phi(x) $ is intuitionistically valid, then there exists frame $\mathcal{C}$ that "respects" it. We take 
-        a frame $\mathcal{C}'$ that is exactly like $\mathcal{C}$ with adition of a structure $p' \geq p$ such that $\mathcal{C}'(p') \nVdash \phi(c_i)$ for a new $c_i$. We now that 
-        $\mathcal{C}'$ exists by the defintion of forcing for $\forall$. Also $\mathcal{C}'$ is a frame that "respects"
-        $f(\forall x \phi(x), L) = [L - \sigma: \sigma : T_{p} \phi(c_i) ]$
+        a frame $\mathcal{C}'$ that is exactly like $\mathcal{C}$ with addition of a new structure $p' \geq p$ such that $\mathcal{C}'(p') \nVdash \phi(c_i)$ for a new $c_i$. We know that 
+        $\mathcal{C}'$ exists by the definition of forcing for $\forall$. Also $\mathcal{C}'$ is a frame that "respects"
+        $f(\forall x \phi(x), L) = [L - \forall x \phi(x): \forall x \phi(x) : T_{p} \phi(c_i) ]$. 
     \end{proof}
 }
 
@@ -119,7 +120,7 @@
         \textbf{The tableaux Development of a List of Sentences } is defined inductivelly: 
         \begin{itemize}
             \item A tree with the single node $L$ is a tableaux development of $L$. 
-            \item If $\tau$ is a tableaux development of $L$, then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $\phi$. Where:
+            \item If $\tau$ is a tableaux development of $L$, then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $L$. Where:
         \end{itemize}
     
         $\hookleftarrow(\sigma,\tau) = $ $\tau$ with $f(\sigma, l) $added to all leaves l that contain $\sigma$
@@ -138,7 +139,7 @@
     The proof goes by induction:
 
 
-             The base case is true by definition: either the root $F_{\emptyset}\phi$ is a intuitionistically valid leaf or the premisse is false.  Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.
+             The base case is true by definition: either the root $F_{\emptyset}\phi$ is a intuitionistically valid leaf or the premise is false.  Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.
              There are two cases to consider:
             \begin{itemize}
                 \item If $F\phi$ is not intuitionistically valid: and the theorem holds for $\tau'$.
@@ -168,8 +169,8 @@
 \def\signedSentenceClassicalDefinition{
 
 \begin{definition}
-    \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It looks like $T \phi $ or $F \phi $ \\
-    \textbf{A Signed Sentence List} is a list forcing assertions inside of a tableau proof. We say that a list of forcing assertions having sentences $\{ T\gamma_{1}, T\gamma_{2}, ...\}$
+    \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It can have the format $T \phi $ or $F \phi $ \\
+    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableau proof. We say that a list of forcing assertions $L$ made out of sentences $\{ T\gamma_{1}, T\gamma_{2}, ...\}$
   and $ \{F\delta_{1}, F\delta_{2}...\} $
      is "classically valid" if there exists a single-structured frame  $\mathcal{C}$ such that $ \mathcal{C}(\emptyset) \Vdash \gamma_{1}$ and $ \mathcal{C}(\emptyset) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(\emptyset) \nvDash \delta_{1}$  and $ \mathcal{C}(\emptyset) \nvDash \delta_{2}$
 \end{definition}
@@ -222,14 +223,16 @@
     \Gamma \vdash \Delta
     \]
     where $\Gamma = \{\Gamma_1, \Gamma_2, \Gamma_3,...\}$ and $\Delta = \{\Delta_1,\Delta_2,\Delta_3 ...\}$
-     are  finite sets of formulas. $\Gamma $ is called the antecedent, and 
-    $\Delta$ is called the succedent. 
+     are  finite sets of formulas. 
+     
 \end {definition}
 }
 
 
+
+
 \def\sequentValidityDefinition{
-    \begin {definition} \textbf{Intuitionistical Validity of a Sequent}
+    \begin {definition} \textbf{Intuitionistic Validity of a Sequent}
 A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are forced, then at least one of $\Delta$ is forced.
 \end {definition}
 
@@ -242,8 +245,8 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \begin {definition}
     A single sequent is a intuitionistic sequent proof tree development\\
-    Any of the rules of the table 1 aplied to a intuitionistic sequent proof tree development is a sequent proof tree development\\
-    A intuitionistic squent proof tree gives  a intuitionistic sequent proof tree development with axioms on all leafs.
+    Any of the rules of the table 2 applied to a intuitionistic sequent proof tree development is a sequent proof tree development\\
+    A intuitionistic squent proof tree is  a intuitionistic sequent proof tree development with axioms on all leafs.
 \end {definition} 
 
 }
@@ -253,7 +256,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 \begin {definition}
     A single sequent is a classical sequent proof tree development\\
     Any of the rules of the table 1 applied to a classical sequent proof tree development is a sequent proof tree development\\
-    A classical sequent proof tree gives a classical sequent proof tree development with axioms on all leaves.
+    A classical sequent proof tree is  a classical sequent proof tree development with axioms on all leaves.
 \end {definition} 
 
 }
@@ -268,16 +271,36 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
         Given a signed sentence list L with sentences
          $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
         and 
-            $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\}$ and a world $w \in \{p_1,p_2,...\} \cup \{q_1,q_2,...\}$ 
+            $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\}$ and a frame $w \in \{p_1,p_2,...\} \cup \{q_1,q_2,...\}$ 
         then: \\  $ \mathcal{T} (L,w$) = $\Gamma_{1}, \Gamma_{2}, ... \vdash \Delta_1, \Delta_2, ...$, where: \\
-        $\{ T_{p'_1}\Gamma_{1}, T_{p'_2}\Gamma_{2} , ...\}$    are the elements of $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$ such that  $p' \geq w$ 
+        $\{ T_{p'_1}\Gamma_{1}, T_{p'_2}\Gamma_{2} , ...\}$    are the elements of $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$ such that  $p' \leq w$ 
         and 
-        $\{ F_{q'_1}\Delta_{1}, F_{q'_2}\Delta_{2} , ...\}$ are the elements of $\{ F_{q_1}\delta_{1}, F_{q_2}\delta_{2}, ...\}$ such that  $q' \leq w$ 
+        $\{ F_{q'_1}\Delta_{1}, F_{q'_2}\Delta_{2} , ...\}$ are the elements of $\{ F_{q_1}\delta_{1}, F_{q_2}\delta_{2}, ...\}$ such that  $q' \geq w$ 
         
 
         For the classical case: $ \mathcal{T} (L) = \mathcal{T} (L,\emptyset) $
         \end{definition}
 }
+
+
+\def\nodeTranslationFunction{
+    \begin{definition} \textbf{Node Translating Function $\mathcal{T}$}
+
+
+        Given a signed sentence list L with sentences
+         $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
+        and 
+            $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\}$ and a frame $w \in \{p_1,p_2,...\} \cup \{q_1,q_2,...\}$ 
+        then: \\  $ \mathcal{T} (L,w$) = $\Gamma_{1}, \Gamma_{2}, ... \vdash \Delta_1, \Delta_2, ...$, where: \\
+        $\{ T_{p'_1}\Gamma_{1}, T_{p'_2}\Gamma_{2} , ...\}$    are the elements of $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$ such that  $p' \leq w$ 
+        and 
+        $\{ F_{q'_1}\Delta_{1}, F_{q'_2}\Delta_{2} , ...\}$ are the elements of $\{ F_{q_1}\delta_{1}, F_{q_2}\delta_{2}, ...\}$ such that  $q' \geq w$ 
+        
+
+        For the classical case: $ \mathcal{T} (L) = \mathcal{T} (L,\emptyset) $
+        \end{definition}
+}
+
 
 \def\uselessTheorem{
     \begin{theorem}
@@ -313,9 +336,9 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     \end{theorem}
     
     \begin{proof}
-        It goes directly from the definiton:
+        It goes directly from the definition:
         \begin{itemize}
-    \item If the signed sentence list is valid, then the sequent is invalid by corolary of [TODO]
+    \item If the signed sentence list is valid, then the sequent is invalid by corollary of [TODO]
     \item If the signed sentence list is not valid, it does not exist a counterexample for $\mathcal{T}$(L). (Note that 
     we can not say the same for the intuitionistic case)
        \end{itemize}
@@ -325,7 +348,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 \def\localTranslationValidityTheorem{
     \begin{theorem}
         $\RightLabel{}\AxiomC{$\mathcal{T}( f(\sigma,l))$}\doubleLine\UnaryInfC{$\mathcal{T}(l)$}\DisplayProof$ 
-       is a classically admissible rule.
+       is classically admissible
    
    \end{theorem}
    
@@ -422,7 +445,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
    
    \end{tabular}
 
-   and $c_i$ does not occour in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
+   and $c_i$ does not occur in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
 
 
    \item  If  $f = f_{F\forall}$:\\
@@ -450,7 +473,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
    \end{tabular}
    
-   and $c_i$ does not occour in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
+   and $c_i$ does not occur in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
 
    
    \item  If  $f = f_{F\exists}$:\\
@@ -474,19 +497,19 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 \begin{definition} \textbf{Tree Translating Function}
     Given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:
     \begin{itemize}
-        \item if $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:
+        \item If $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:
         
         $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$
-        \item if $\tau$ = r and there is no $\sigma$ such that $T \sigma $ and $F \sigma $ are on r: 
+        \item If $\tau$ = r and there is no $\sigma$ such that $T \sigma $ and $F \sigma $ are on r: 
         
         $\mathcal{T}_p(\tau) = \mathcal{T}(\tau) $
 
-        \item if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition, it exits a sentence $\sigma$ such that  
+        \item If $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition, it exits a sentence $\sigma$ such that  
         $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$, and so 
         
         
         $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\doubleLine\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$. 
-        \item if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:\\ by definition there exists a sentence $\sigma$  such that
+        \item If $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:\\ by definition there exists a sentence $\sigma$  such that
             $f(\sigma, r) = f_{Rule}(\sigma, r) = \{r_1, r_2\}$, and so:
 
 
@@ -527,13 +550,13 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
         \item If $r$ has a single child $f(\sigma,r)$ 
         
-        with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
+        with a corresponding sub-tree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
 
 
          $(f(\sigma,r) - r)$  are the elements generated by the inference f and 
 
 
-         $r'_0 $ are the elements necessary to the thinned proof $\tau_0$.
+         $r'_0 $ are the elements necessary on the thinned proof $\mathcal{F}(\tau_0)$.
 
 
           In this case:
@@ -541,7 +564,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
         \item
          If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $
          
-         $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the subtree $\mathcal{F}(\tau_0)$
+         $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
          \item
          If $(f(\sigma,r) - r) \cap r'_0 = \emptyset $
 
@@ -552,22 +575,23 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
          \item If $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ 
          
-         with the corresponding subtrees $\tau_1$ and $\tau_2$,  $r'_1$ is the root of $\mathcal{F}(\tau_1)$ and $r'_2$ is the root of $\mathcal{F}(\tau_2)$, 
-         then $((f(\sigma,r)[1] - r)\cap r'_1)  \cup ((f(\sigma,r)[2] - r)\cap r'_2)$ also defines if f was "usefull":
+         with the corresponding sub-trees $\tau_1$ and $\tau_2$,  $r'_1$ is the root of $\mathcal{F}(\tau_1)$ and $r'_2$ is the root of $\mathcal{F}(\tau_2)$, 
+         then $((f(\sigma,r)[1] - r)\cap r'_1)  \cup ((f(\sigma,r)[2] - r)\cap r'_2)$ also defines if f was "useful":
 
 
          
          \begin{itemize}
             \item
-             If $((f(\sigma,r)[1] - r)\cap r'_1)  \cup ((f(\sigma,r)[2] - r)\cap r'_2) \neq \emptyset $:
-             
+            % If $((f(\sigma,r)[1] - r)\cap r'_1)  \cup ((f(\sigma,r)[2] - r)\cap r'_2) \neq \emptyset $:
+
+             If $((f(\sigma,r)[1] - r)\cap r'_1)  = \emptyset $:
+             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_1) $
+             \item 
+             If $((f(\sigma,r)[2] - r)\cap r'_2)  = \emptyset $:
+             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_2) $
+             \item Otherwise:  
              $\mathcal{F}(\tau) $ = a tree with root $(r'_1 - f(\sigma,\sigma)[1]) : (r'_2 - f(\sigma,\sigma)[2]):\sigma$  connected to the children $r'_1 :(f(\sigma,\sigma)[1]-\sigma)$  and $r'_2 :(f(\sigma,\sigma)[2]-\sigma)$, each having 
-             $\mathcal{F}(\tau_1)$ and $\mathcal{F}(\tau_2)$, respectivelly, bellow them. 
-             \item
-             If $((f(\sigma,r)[1] - r)\cap r'_1)  \cup ((f(\sigma,r)[2] - r)\cap r'_2) \neq \emptyset $:
-    
-             
-             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_1) $[TODO] sera??
+             $\mathcal{F}(\tau_1)$ and $\mathcal{F}(\tau_2)$, respectively, below them. 
         \end{itemize}
     
 
@@ -578,7 +602,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 
-\def\nFProof{
+\def\thinnedInvalidityproof{
     \begin{theorem}
         Given a tableaux proof $\tau$, the root $r'$ of $\mathcal{F}(\tau)$ is intuitionistically invalid 
     \end{theorem}
@@ -589,9 +613,9 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
             \item If $\tau$ = r, $\mathcal{F}(\tau) = [T_f \sigma   , F_f \sigma ]$.  The theorem holds
      
     
-            \item If $r$ has a single child $f(\sigma,r)$ :
+            \item If $r$ has a single child $f(\sigma,r)$ 
             
-            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
+            with a corresponding sub-tree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
     
     
             \begin{itemize}
@@ -601,7 +625,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
              
-             By induction hipotesis, we know $r'_0$ to be intuitionistically invalid. We also know that the intuitionistic validity of $\sigma$ 
+             By induction hypothesis, we know $r'_0$ to be intuitionistically invalid. We also know that the intuitionistic validity of $\sigma$ 
              implies the intuitionistic validity of  $f(\sigma,\sigma)$:
 
 
@@ -614,7 +638,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
              $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$
 
-             And, by induction hipotesis, we know $r'_0$ to be intuitionistically invalid
+             And, by induction hypothesis, we know $r'_0$ to be intuitionistically invalid
              \end{itemize}
          \item if $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ :
          
@@ -639,7 +663,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 
-\def\nnFProof{
+\def\thinnedsizeproof{
     \begin{theorem}
        If a tableaux proof tree $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences  
     \end{theorem}
@@ -653,7 +677,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     
             \item If $r$ has a single child $f(\sigma,r)$ :
             
-            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
+            with a corresponding sub-tree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
     
     
             \begin{itemize}
@@ -663,7 +687,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
              the root $r'$ of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,\sigma)):\sigma$ 
              
             
-             by induction hipotesis $\#(r'_0) \leq 2$ and so $\#[ (r'_0 - f(\sigma,\sigma)):\sigma ] \leq 2$ 
+             by induction hypothesis $\#(r'_0) \leq 2$ and so $\#[ (r'_0 - f(\sigma,\sigma)):\sigma ] \leq 2$ 
             
              \item
              If $(f(\sigma,r) - r) \cap r'_0 = \emptyset $
@@ -713,16 +737,16 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     
             \item If $r$ has a single child $f(\sigma,r)$ :
             
-            with a corresponding subtree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
+            with a corresponding sub-tree $\tau_0$ and  $r'_0$ is the root of $\mathcal{F}(\tau_0)$:
     
     
             \begin{itemize}
             \item
              If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:
-             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the subtree $\mathcal{F}(\tau_0)$
+             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
    
              
-             By induction hipotesis, we know $r'_0$ to . We also know that the intuitionistic validity of $\sigma$ 
+             By induction hypothesis, we know $r'_0$ to . We also know that the intuitionistic validity of $\sigma$ 
              implies the intuitionistic validity of  $f(\sigma,\sigma)$:
 
 
@@ -735,7 +759,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
              $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$
 
-             And, by induction hipotesis, we know $r'_0$ to be intuitionistically invalid
+             And, by induction hypothesis, we know $r'_0$ to be intuitionistically invalid
              \end{itemize}
          \item if $r$ has the children $f(\sigma,r)[1]$ and $f(\sigma,r)[2]$ :
          

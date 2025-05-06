@@ -8,8 +8,8 @@
             "command": "sh",
             "args": [
                 "-c",
-                //"cd rapport; latexmk -pdf p.tex -f;textidote --output html --check en p.tex > p.html; textidote --output html --check en figures_and_tables.tex > figures_and_tables.html; textidote --output html --check en theorems_and_definitions.tex > theorems_and_definitions.html"//"rm -f p.aux && pdflatex p.tex"
-                "cd rapport; latexmk -pdf p.tex -f;"
+                //"cd rapport; latexmk -pdf p.tex -f"//textidote --output html --check en p.tex > p.html; textidote --output html --check en figures_and_tables.tex > figures_and_tables.html; textidote --output html --check en theorems_and_definitions.tex > theorems_and_definitions.html"//"rm -f p.aux && pdflatex p.tex"
+                "cd rapport; latexmk -pdf presentation.tex -f;"
             ],
             "group": {
                 "kind": "build",

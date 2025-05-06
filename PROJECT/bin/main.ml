@@ -103,6 +103,7 @@ let vectorwise f list1 list2 =
 let true_in_all bool_vector =
   List.fold_left (&&) true bool_vector
 
+
 let cardinal_equal a b =
   let result = cardinal_minus a b = [] && cardinal_minus b a = [] in
   result
@@ -185,6 +186,8 @@ let check_pattern_between_sequents(sa : sequent) (sb : sequent) (necessary_eleme
           Printf.printf "{%s}  |- "  ( sequence_of_sentences_to_string (List.nth necessary_elements 2 ))  ;
           Printf.printf "{%s} \ \n "  ( sequence_of_sentences_to_string (List.nth necessary_elements 3 ))  ;
           Printf.printf "}\n";
+          
+
         false
         end
 
@@ -273,22 +276,22 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
       if (check_pattern_between_sequents premisse1 sequent 
         [
         []     ;    [a];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ] 
       && check_pattern_between_sequents premisse2 sequent 
         [
         [b]     ;    [];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ]) 
       || (check_pattern_between_sequents premisse1 sequent 
         [
         [b]     ;    [];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ] 
       && check_pattern_between_sequents premisse2 sequent 
         [
         []     ;    [a];     (*is in sequent  *)
-        []         ; [IMPLIES (a, b)] (*is in premise  *)
+        [IMPLIES (a, b)]         ; [] (*is in premise  *)
       ])
       then 
         verify_proof (PROOF (premisse1, justification1)) && verify_proof (PROOF (premisse2, justification2))
@@ -584,7 +587,6 @@ let find_rule_sentence tree =
     Printf.printf "Subtree:\n%s\n" (proof_tree_to_latex subtree)
       ) proof_tree_list;
       failwith "No matching rule sentence found in proof tree"
-    
     
     
 
