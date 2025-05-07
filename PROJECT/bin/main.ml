@@ -10,6 +10,8 @@ type justification =
   | NEG_L_RULE of sequent_proof * sentence
   | NEG_R_RULE of sequent_proof * sentence
   | AND_L_RULE of sequent_proof * sentence
+  | OR_L_RULE of (sequent_proof *sequent_proof) * sentence
+  | OR_R_RULE of sequent_proof * sentence
   | AND_R_RULE of (sequent_proof * sequent_proof) * sentence
   | IMPLIES_L_RULE of (sequent_proof * sequent_proof) * sentence
   | IMPLIES_R_RULE of sequent_proof * sentence
@@ -38,7 +40,8 @@ let justification_to_string justification =
     | AND_R_RULE (_, s) -> Printf.sprintf "And Right: on %s" (sentence_to_string s)
     | IMPLIES_L_RULE ((_, _), s) -> Printf.sprintf "Implies Left: on %s" (sentence_to_string s)
     | IMPLIES_R_RULE (_, s) -> Printf.sprintf "Implies Right: on %s" (sentence_to_string s)
-      
+    | OR_L_RULE (_, s) -> Printf.sprintf "Or Left: on %s" (sentence_to_string s)
+    | OR_R_RULE (_, s) -> Printf.sprintf "Or Right: on %s" (sentence_to_string s)
 
 let justification_to_latex justification = 
   match justification with
@@ -49,7 +52,8 @@ let justification_to_latex justification =
     | AND_R_RULE (_, s) -> Printf.sprintf "$\\land$R %s" (sentence_to_latex s)
     | IMPLIES_L_RULE ((_, _), s) -> Printf.sprintf "$\\rightarrow$L %s" (sentence_to_latex s)
     | IMPLIES_R_RULE (_, s) -> Printf.sprintf "$\\rightarrow$R %s" (sentence_to_latex s)
-      
+    | OR_L_RULE (_, s) -> Printf.sprintf "$\\lor$L %s" (sentence_to_latex s)
+    | OR_R_RULE (_, s) -> Printf.sprintf "$\\lor$R %s" (sentence_to_latex s)      
 
 
 
@@ -68,7 +72,11 @@ let rec sequent_proof_to_middle_latex proof =
             [sequent_proof_to_middle_latex subproof],  "\\UnaryInfC"
         | AND_R_RULE ((subproof1, subproof2), _) ->
             [sequent_proof_to_middle_latex subproof1; sequent_proof_to_middle_latex subproof2], "\\BinaryInfC"
-          | IMPLIES_L_RULE ((subproof1, subproof2), _) ->
+         |OR_L_RULE ((subproof1, subproof2), _) ->
+          [sequent_proof_to_middle_latex subproof1; sequent_proof_to_middle_latex subproof2], "\\BinaryInfC"
+        | OR_R_RULE (subproof, _) ->
+            [sequent_proof_to_middle_latex subproof], "\\UnaryInfC"
+            | IMPLIES_L_RULE ((subproof1, subproof2), _) ->
               [sequent_proof_to_middle_latex subproof1; sequent_proof_to_middle_latex subproof2], "\\BinaryInfC"
           | IMPLIES_R_RULE (subproof, _) ->
               [sequent_proof_to_middle_latex subproof], "\\UnaryInfC"
@@ -90,7 +98,7 @@ let sequent_proof_to_latex proof =
 \\end{prooftree}
 " middle
 
-(*TODO find a smater way *)
+(*TODO find a smarter way *)
 let cardinal_minus a b =
   List.filter (fun x -> not (List.exists (fun y -> sentence_to_string x = sentence_to_string y) b)) a
 
@@ -261,6 +269,39 @@ let rec verify_proof (sequent_proof : sequent_proof) : bool =
       verify_proof (PROOF (premisse1, justification1)) && verify_proof (PROOF (premisse2, justification2))
     else 
       false
+  | PROOF (sequent, OR_L_RULE ((PROOF (premisse1, justification1), PROOF (premisse2, justification2)), OR (a, b))) ->
+    if (check_pattern_between_sequents premisse1 sequent 
+      [
+       [a] ;   [] ;     (*is in sequent  *)
+      [OR (a, b)] ; []     (*is in premise  *)
+     ] && check_pattern_between_sequents premisse2 sequent 
+      [
+       [b] ;   [] ;     (*is in sequent  *)
+      [OR (a, b)] ; []     (*is in premise  *)
+     ])
+    || (check_pattern_between_sequents premisse1 sequent 
+      [
+       [b] ;   [] ;     (*is in sequent  *)
+      [OR (a, b)] ; []     (*is in premise  *)
+     ] && check_pattern_between_sequents premisse2 sequent 
+      [
+       [a] ;   [] ;     (*is in sequent  *)
+      [OR (a, b)] ; []     (*is in premise  *)
+     ])
+     then 
+      verify_proof (PROOF (premisse1, justification1)) && verify_proof (PROOF (premisse2, justification2))
+    else 
+      false
+  | PROOF (sequent, OR_R_RULE (PROOF (premisse, justification), OR (a,b))) ->
+    if check_pattern_between_sequents (premisse) (sequent) 
+      [
+      []     ;    [a;b];     (*is in sequent  *)
+      []         ; [OR (a,b)] (*is in premise  *)
+    ] 
+    then 
+      verify_proof (PROOF (premisse, justification))
+    else 
+      false
 
     | PROOF (sequent, IMPLIES_R_RULE (PROOF (premisse, justification), IMPLIES (a, b))) ->
       if check_pattern_between_sequents (premisse) (sequent) 
@@ -332,7 +373,7 @@ let signed_sentence_list_to_string signed_sentences =
 
   let signed_sentence_list_to_latex signed_sentences =
     let len = List.length signed_sentences in
-    if len <= 3 then
+    if len <= 1000 then
       String.concat ", " (List.map signed_sentence_to_latex signed_sentences)
     else
       let first = signed_sentence_to_latex (List.nth signed_sentences 0) in
@@ -350,6 +391,8 @@ type proof_tree =
   | T_NEG of signed_sentence list * proof_tree
   | F_AND of signed_sentence list * proof_tree * proof_tree
   | T_AND of signed_sentence list * proof_tree 
+  | F_OR of signed_sentence list * proof_tree 
+  | T_OR of signed_sentence list * proof_tree* proof_tree
   | F_IMPLIES of signed_sentence list * proof_tree 
   | T_IMPLIES of signed_sentence list * proof_tree *proof_tree
 
@@ -363,9 +406,12 @@ let get_proof_tree_signed_sentence_list_and_proof_tree_list tree =
   | T_NEG (signed_sentence_list, proof_tree) -> "T_NEG", signed_sentence_list,[proof_tree]
   | F_AND (signed_sentence_list, proof_tree1, proof_tree2) -> "F_AND", signed_sentence_list,[proof_tree1; proof_tree2]
   | T_AND (signed_sentence_list, proof_tree) -> "T_AND", signed_sentence_list,[proof_tree]
+  | F_OR (signed_sentence_list, proof_tree) -> "F_OR", signed_sentence_list,[proof_tree]
+  | T_OR (signed_sentence_list, proof_tree1,proof_tree2) -> "T_OR", signed_sentence_list,[proof_tree1; proof_tree2]
+  
   | F_IMPLIES (signed_sentence_list, proof_tree) -> "F_IMPLIES", signed_sentence_list, [proof_tree]
   | T_IMPLIES (signed_sentence_list, proof_tree1, proof_tree2) -> "T_IMPLIES", signed_sentence_list,[proof_tree1; proof_tree2]
-  
+
 
 let rec proof_tree_to_string ?(depth=0) tree =
   let operation, signed_sentence_list, proof_tree_list = get_proof_tree_signed_sentence_list_and_proof_tree_list tree in
@@ -491,7 +537,14 @@ let rec develop_signed_sentence_list_n_times signed_sentence_list n =
       | F (IMPLIES (sentence1, sentence2)) :: rest -> 
           let circulated = [T sentence1; F sentence2] @ rest @ [F (IMPLIES (sentence1, sentence2))] in 
           F_IMPLIES(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
-
+      | T (OR (sentence1, sentence2)) :: rest ->
+          let circulated1 = [T sentence1] @ rest @ [T (OR (sentence1, sentence2))] in 
+          let circulated2 = [T sentence2] @ rest @ [T (OR (sentence1, sentence2))] in 
+        T_OR(signed_sentence_list, develop_signed_sentence_list_n_times  circulated1 (n - 1), develop_signed_sentence_list_n_times  circulated2 (n - 1))
+      | F (OR (sentence1, sentence2)) :: rest ->
+        let circulated = [F sentence1; F sentence2] @ rest @ [F (OR (sentence1, sentence2))] in 
+    
+        F_OR(signed_sentence_list, develop_signed_sentence_list_n_times  circulated (n - 1))
       | T (ATOMIC(sentence)) :: rest -> develop_signed_sentence_list_n_times ( rest@ [T (ATOMIC(sentence))] ) (n - 1)
       | F (ATOMIC(sentence)) :: rest -> develop_signed_sentence_list_n_times (rest @  [F (ATOMIC(sentence))]) (n - 1)
       | [] -> CONTRADICTION []
@@ -554,7 +607,21 @@ let find_rule_sentence tree =
               (cardinal_in (F s1) ss_list1 && cardinal_in (F s2) ss_list2) ||
               (cardinal_in (F s2) ss_list1 && cardinal_in (F s1) ss_list2)
         | _ -> false) signed_sentence_list 
-
+    | T_OR (signed_sentence_list, proof_tree1, proof_tree2) ->
+      let _, ss_list1, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree1 in
+      let _, ss_list2, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree2 in
+      List.find_opt (function 
+        | T (OR (s1, s2)) -> 
+            (cardinal_in (T s1) ss_list1 && cardinal_in (T s2) ss_list2) ||
+            (cardinal_in (T s2) ss_list1 && cardinal_in (T s1) ss_list2)
+      | _ -> false) signed_sentence_list
+    | F_OR (signed_sentence_list, proof_tree) ->
+      let _, ss_list1, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree in
+      List.find_opt (function 
+        | F (OR (s1, s2)) -> 
+            cardinal_in (F s1) ss_list1 && 
+            cardinal_in (F s2) ss_list1
+      | _ -> false) signed_sentence_list
 
     | T_IMPLIES (signed_sentence_list, proof_tree1, proof_tree2) ->
       let _, ss_list1, _ = get_proof_tree_signed_sentence_list_and_proof_tree_list proof_tree1 in
@@ -564,7 +631,6 @@ let find_rule_sentence tree =
             (cardinal_in (F s1) ss_list1 && cardinal_in (T s2) ss_list2) ||
             (cardinal_in (T s2) ss_list1 && cardinal_in (F s1) ss_list2)
       | _ -> false) signed_sentence_list 
-
 
     | F_IMPLIES (signed_sentence_list, proof_tree) ->
       let _, new_signed_sentence_list, _ =
@@ -603,7 +669,11 @@ let find_rule_sentence tree =
       PROOF  ( signed_sentence_list_to_sequent signed_sentence_list , AND_R_RULE ( (proof_tree_to_sequent_proof proof_tree1, proof_tree_to_sequent_proof proof_tree2), (find_rule_sentence tree)))
     | T_AND (signed_sentence_list, proof_tree) -> 
       PROOF (signed_sentence_list_to_sequent signed_sentence_list, AND_L_RULE (proof_tree_to_sequent_proof proof_tree, (find_rule_sentence tree)))
-    | F_IMPLIES (signed_sentence_list, proof_tree) ->
+    | F_OR (signed_sentence_list, proof_tree) ->
+      PROOF (signed_sentence_list_to_sequent signed_sentence_list, OR_R_RULE (proof_tree_to_sequent_proof proof_tree, find_rule_sentence tree))
+    | T_OR (signed_sentence_list, proof_tree1, proof_tree2) ->
+      PROOF (signed_sentence_list_to_sequent signed_sentence_list, OR_L_RULE ((proof_tree_to_sequent_proof proof_tree1, proof_tree_to_sequent_proof proof_tree2), find_rule_sentence tree))
+      | F_IMPLIES (signed_sentence_list, proof_tree) ->
     PROOF (signed_sentence_list_to_sequent signed_sentence_list, IMPLIES_R_RULE (proof_tree_to_sequent_proof proof_tree, find_rule_sentence tree))
    | T_IMPLIES (signed_sentence_list,proof_tree1, proof_tree2) ->
     PROOF (signed_sentence_list_to_sequent signed_sentence_list, IMPLIES_L_RULE ((proof_tree_to_sequent_proof proof_tree1, proof_tree_to_sequent_proof proof_tree2), find_rule_sentence tree))
@@ -632,6 +702,12 @@ let find_rule_sentence tree =
       | F_IMPLIES(sentences, subtree) ->
           let new_sentences = union_lists accumulated sentences in
           F_IMPLIES(new_sentences, aux new_sentences subtree)
+      | F_OR(sentences, subtree) ->
+          let new_sentences = union_lists accumulated sentences in
+          F_OR(new_sentences, aux new_sentences subtree)
+      | T_OR(sentences, left, right) ->
+          let new_sentences = union_lists accumulated sentences in
+          T_OR(new_sentences, aux new_sentences left, aux new_sentences right)
     in
     aux [] tree
 

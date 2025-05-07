@@ -3,6 +3,15 @@ type sentence =
   | NEG of sentence
   | AND of sentence * sentence
   | IMPLIES of sentence*sentence
+  | OR of sentence * sentence
+
+let priority op =
+  if op = ">" then 4
+  else if op = "," then 3
+  else if op = "^" then 2
+  else if op = "v" then 1
+  else if op = "n" then 0
+  else failwith "Unknown operator"
 
 
 
@@ -14,18 +23,30 @@ let sentence_priority_is_bigger sentence_a sentence_b=
   | ATOMIC _ ,ATOMIC _ -> false
               | ATOMIC _, NEG _ -> false
                     | ATOMIC _, AND _ -> false
+                      | ATOMIC _, OR _ -> false
                             | ATOMIC _, IMPLIES _ -> false
   | NEG _, ATOMIC _ -> true
               | NEG _, NEG _ -> false
                     | NEG _, AND _ -> false
+                      | NEG _, OR _ -> false
                             |   NEG _, IMPLIES _ -> true
   | AND _, ATOMIC _ -> true
               | AND _, NEG _ -> true
-                    | AND _, AND _ -> true
-                            |   AND _, IMPLIES _ -> false
+                    | AND _, AND _ -> true  
+                        | AND _, OR _ -> true
+                              |   AND _, IMPLIES _ -> false
+
+    
+  | OR _, ATOMIC _ -> true
+    | OR _, NEG _ -> true
+        |   OR _, OR _ -> true
+             | OR _, AND _ -> true
+                |   OR _, IMPLIES _ -> false
+
   | IMPLIES _, ATOMIC _ -> true
               | IMPLIES _, NEG _ -> true
                     | IMPLIES _, AND _ -> true
+                      | IMPLIES _, OR _ -> true
                             |   IMPLIES _, IMPLIES _ -> true
   
 
@@ -42,7 +63,7 @@ let find_operator phrase =
         match c with
         | '(' -> aux (i + 1) (depth + 1) operator_location
         | ')' -> aux (i + 1) (depth - 1) operator_location
-        | '^' | 'n' | '>' | ',' when depth = 0 ->
+        | '^' | 'v'| 'n' | '>' | ',' when depth = 0 ->
             let new_operator_location = 
               if operator_location = -1 || priority (String.make 1 c) > priority (String.make 1 phrase.[operator_location]) 
               then i
@@ -60,7 +81,7 @@ let operator_location = find_operator phrase in
 match phrase.[operator_location] with
 | 'n' -> [String.sub phrase (operator_location + 1) (String.length phrase - operator_location - 1)]
 | '(' -> [String.sub phrase (1) (String.length phrase - 2)]
-| '^'| '>' -> 
+| 'v'|'^'| '>' -> 
   [
     String.sub phrase 0 operator_location;
     String.sub phrase (operator_location + 1) (String.length phrase - operator_location - 1)
@@ -96,6 +117,7 @@ let rec parse_as_sentence phrase =
       let subphrases = find_subphrases phrase in
       match operator with
       | "^" -> AND (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
+      | "v" -> OR (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
       | "n" -> NEG (parse_as_sentence (List.nth subphrases 0))
       | "(" -> parse_as_sentence (List.nth subphrases 0)
       | ">" -> IMPLIES (parse_as_sentence (List.nth subphrases 0), parse_as_sentence (List.nth subphrases 1))
@@ -108,6 +130,7 @@ let rec sentence_to_string expr =
   | ATOMIC s -> s
   | NEG s -> Printf.sprintf "n(%s)" (sentence_to_string s)
   | AND (s1, s2) -> Printf.sprintf "(%s)^(%s)" (sentence_to_string s1) (sentence_to_string s2)
+  | OR (s1, s2) -> Printf.sprintf "(%s)v(%s)" (sentence_to_string s1) (sentence_to_string s2)
   | IMPLIES (s1, s2) -> Printf.sprintf "(%s)>(%s)" (sentence_to_string s1) (sentence_to_string s2)
 
 
@@ -131,6 +154,9 @@ let sequence_of_sentences_to_string sentences =
       | AND (s1, s2) -> Printf.sprintf "%s \\land %s"
                           (smart_midle_of_sentence_to_latex ~upper_sentence:expr s1)
                           (smart_midle_of_sentence_to_latex ~upper_sentence:expr s2)
+      | OR (s1, s2) -> Printf.sprintf "%s \\lor %s"
+                          (smart_midle_of_sentence_to_latex ~upper_sentence:expr s1)
+                          (smart_midle_of_sentence_to_latex ~upper_sentence:expr s2)
       | IMPLIES (s1, s2) -> Printf.sprintf "%s \\rightarrow %s"
                               (smart_midle_of_sentence_to_latex ~upper_sentence:expr s1)
                               (smart_midle_of_sentence_to_latex ~upper_sentence:expr s2)
@@ -147,7 +173,7 @@ let sentence_to_latex expr =
 
   let sequence_of_sentences_to_latex sentences =
     let len = List.length sentences in
-    if len <= 3 then
+    if len <= 1000 then
       String.concat ", " (List.map sentence_to_latex sentences)
     else
       let first = sentence_to_latex (List.nth sentences 0) in
