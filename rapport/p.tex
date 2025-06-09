@@ -59,7 +59,7 @@
 %
 \begin{abstract}
 This work aims to discuss the translation between Tableaux proofs and sequent calculus proofs in first-order intuitionistic propositional logic and in first-order classical propositional logic.
-It begins with an overview of the definitions and clarification of the notation.
+It begins with an overview of the definitions and clarification of the notations.
 It then shows a translation process in classical logic and its   \href{https://github.com/lontra-lontra/proof-translations}{OCAML implementation}.
 Finally, a potential extension towards translation in intuitionistic logic is discussed.
  \keywords{Tableaux proof  \and  sequent calculus  \and intuitionistic logic.}
@@ -68,16 +68,18 @@ Finally, a potential extension towards translation in intuitionistic logic is di
 %
 %asdf 
 \section{Introduction}
-\subsection{Notation}
+\subsection{The topic}
 
 
-%See Figure~\ref{fig:first} and Figure~\ref{fig:second}. asdf %
+Sequent calculus and the tableaux Method are both fundamental systems for representing and systematically generating logical proofs. 
+Sequent calculus highlights the structure and rules of deduction, while tableaux proofs provide a more intuitive approach. 
+Translating between proof systems is important for automatically verifying automatically generated proofs and understanding their relationships.
 
 In this work, sentences will implicitly refer to first-order predicate logic sentences; In the translation discussed in chapter V, they 
-will be implicitly restricted to first-order propositional logic sentences in order to simplify the discussion. 
+will be implicitly restricted to the propositional fragment of first order logic in order to simplify the discussion. 
 For intuitionistic logic, their meaning will come from Kripke's semantics \cite{kripke1965} . The notation for structures and frames, as well as the motivation for
-the intuitionistic tableaux will be heavily based on \cite{book1}. 
-In order to make this document slightly more self-reliant and to clarify the notation, we will briefly explain:
+the intuitionistic tableaux method will be heavily based on \cite{book1}. As in most of the proofs for the intuitionistic tableaux from \cite{book1}, there wont be any functions.  
+In order to make this document slightly more self-contained and to clarify the notation, we will briefly explain:
 \subsection{Definitions}
 %(TODO how detailed? < or > than thepresentation? )
 
@@ -85,16 +87,18 @@ In order to make this document slightly more self-reliant and to clarify the not
 Structures represent possible worlds or possible states of knowledge inside a frame:
 \kripkeFrameDefinition
 
-Particularly, in order to simplify the notation, R will always be the set of sequences of integers, and $p \leq q$ if it exists an $l$ such that $q =  p:l$  . 
- Also, from now on, the constant elements of a language will always be in the ordered set $\{c_0, c_1, c_2 ...\}$
+Particularly, in order to simplify the notation, R will always be a set of sequences of integers in lexicographic order: $p \leq q$ if it exists an $l$ such that $q =  p:l$  . 
+ Also, from now on, the constant elements of a language will always be in an ordered set $\{c_0, c_1, c_2 ...\}$
  
  \figureRandFrame
 
 \forcingDefinition
 
+By $\mathcal{L}_{C(q)}$ we are implicitly talking about the language of the structure $C(q)$. \cite{book1} defines language extensions with more details that are not necessary here.
+
 \intuitionisticValidityDefinition
 
-In classical logic, this definition simplifies to the one of forcing, and it's simplified again by the fact that p = q; in fact, here we will define classical validity as: \cite{book1}
+In classical logic, this definition simplifies, and it is simplified again by the fact that there is a unique world (R is a singleton); in fact, here we will define classical validity as: \cite{book1}
 
 \classicalValidityDefinition
 
@@ -105,7 +109,10 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
 
     Here we first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, where each node is a truth assertion. This different version  will allow for a more implementation-oriented approach and the translation later on.
 
-    The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in Figure \ref{fig:non_destructive_to_destructive_tableaux}. Generally speaking, a node in the usual definition is replaced by a sequence of all nodes in the path that goes from the root to it. Afterwards, some nodes are removed from the newly formed tableaux by adjoining its son(s) and its parent. A node should be removed if its corresponding node in the original tableaux was not a leaf of the atomic tableaux \cite{book1} that introduced it.
+    The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in Figure \ref{fig:non_destructive_to_destructive_tableaux}.
+     Generally speaking, a node collects all the signed sentences that appeear on the sequence of nodes in the path that goes from the root to it.
+      Afterwards, some nodes are removed from the newly formed tableau by adjoining its children and its parent.
+       A node should be removed if its corresponding node in the original tableau was not a leaf of the atomic tableau rule  \cite{book1} that introduced it.
 
     \begin{figure}
 \tableauxCumulativeAndNonCumulativeExampleFigure
@@ -115,25 +122,23 @@ In classical logic, this definition simplifies to the one of forcing, and it's s
     In this new format, one could see each node of the tree as an assumption of the existence of 
     a frame that respects a list of constraints, and each edge as an implication between assumptions.
 \subsubsection{The Intuitionistic Tableaux Method }
-The tableaux stands on some definitions, they will be justified briefly:
+The tableaux method stands on some definitions, they will be justified briefly:
 \signedSentenceIntuitionisticDefinition
  
 
-A signed sentence list can be seen as an existence assumption that may or may not be intuitionistically valid. We can infer other assumptions from a  signed sentence list. The function f, defined below, is one of the ways we can do that: 
+A signed sentence list can be seen as a model-existence assumption that may or may not consistently lead to a frame. We can infer other assumptions from a  signed sentence list. The function f, defined below, is one of the ways we can do that: 
 
 
 \fIntuitionisticDefinition
 
 
-Although not justified here, the reordering of the terms plays an important role on the implementation and in the completeness of the systematic tableaux: 
+Although not justified here, the reordering of the terms plays an important role on the implementation and in the completeness of the systematic tableaux method.: 
 each signed sentence will be $\sigma$ infinitely many times.
 
 On the other hand, 
-the soundness of the tableaux method depends on f being 'well-behaved":
+the soundness of the tableaux method states that f is well-behaved:
 
 \wellBehavedTheorem
-
-The general idea is that, by choosing p $c_i$ differently, we might arrive at at a intuitionistic invalid signed sentence list assuming a valid one.   
 
 \TableauxDevelopmentListDefinition
 
@@ -154,8 +159,8 @@ For purposes of implementation, we define an $\hookleftarrow_c$ that can be appl
 
 \completeiteratordefinition
 
-We can use $\hookleftarrow_c$ instead of $\hookleftarrow$ to define a systematic tableaux. This was important for generating tableaux proofs in order to test 
-the translation implementation. This will not be discussed further, as the translation assumes a tableaux proof not necessarilly equal to one given by $\hookleftarrow_c$.
+We can use $\hookleftarrow_c$ instead of $\hookleftarrow$ to define a systematic tableaux method. This was important for generating tableaux proofs in order to test 
+the translation implementation. This will not be discussed further, as the translation assumes a tableaux proof not necessarily equal to one given by $\hookleftarrow_c$.
 
 
 \section{The Classical Tableaux Method}
@@ -188,11 +193,11 @@ A sequent is intuitionistically valid if there does not exist a frame
 that forces all sentences in $\Gamma$ and does not force any sentence in $\Delta$.
 "
 
-when compared with the definition of list of signed sentences, hints us towards an equivalence for single framed structures. This will not be discussed in depth. 
+when compared with the definition of list of signed sentences, hints us towards an semantical equivalence between signed sentence lists and sequents for single framed structures. This will not be discussed in depth. 
 
 \paragraph{}
-A sequent calculus rule can be interpreted as the implication: if the top sequent is 
- valid, then the bottom sequent is valid. Syntactically, each of the rules represents vertices that can be added to a sequent proof tree development 
+A sequent-calculus rule can be interpreted as an implication: if the top sequent is 
+ valid, then the bottom sequent is valid. Syntactically, each rule represents vertices that can be added to a sequent proof-tree development 
 to obtain another sequent proof tree development
 
 
@@ -202,14 +207,14 @@ to obtain another sequent proof tree development
 
 \developmentSequentClassicalDefinition
 
-Rules for classical multi-consequence sequent calculus are given in \ref{tab:classical}
+Rules for classical multi-consequence sequent calculus are given in Table\ref{tab:classical}
 
 \RulesClassicalSequentCalculus
-\subsection {Intuitionistic Sequent calculus}
+\subsection {Intuitionistic Sequent Calculus}
 
 \developmentSequentIntuitionisticDefinition
 
-Rules for L's intuitionistic multi-consequence sequent calculus are given in \ref{tab:intuitionistic}
+Rules for intuitionistic multi-consequence sequent calculus are given in Table\ref{tab:intuitionistic}
 
 
 \RulesIntuitionisticSequentCalculus
@@ -243,12 +248,9 @@ sequent proof verifier was also develped and used on the examples.
 \begin{figure}
 
     {\fontsize{1}{1}\selectfont
-    
+        \ocmalImageII
 
-
-    \ocmalImageII
-
-\caption{Automatically generated classical tableaux proof tree.}
+\caption{Example of an automatically generated tableaux proof tree.}
 \label{fig:destructive_tableaux}
     }
 \end{figure}
@@ -258,7 +260,7 @@ sequent proof verifier was also develped and used on the examples.
     {\fontsize{1}{1}\selectfont
 \ocmalImageI
 
-\caption{Automatically generated translation of a tableaux proof tree.}
+\caption{Automatically generated translation of the tableaux proof tree of figure 4.}
 \label{fig:destructive_tableaux}
     }
 \end{figure}
@@ -270,7 +272,7 @@ sequent proof verifier was also develped and used on the examples.
     {\fontsize{1}{1}\selectfont
 \ocmalImageIII
 
-\caption{Automatically generated tableaux proof tree.}
+\caption{Another example of an automatically generated tableaux proof tree.}
 \label{fig:destructive_tableaux}
     }
 \end{figure}
@@ -281,7 +283,7 @@ sequent proof verifier was also develped and used on the examples.
     {\fontsize{1}{1}\selectfont
 \ocmalImageIIII
 
-\caption{Automatically generated translation of a tableaux proof tree.}
+\caption{Automatically generated translation the tableaux proof tree of figure 6.}
 \label{fig:destructive_tableaux}
     }
 \end{figure}
@@ -291,10 +293,12 @@ sequent proof verifier was also develped and used on the examples.
 \subsection{Intuitionistic Translation}
 
 
-When examining the tableaux proof like the proof of  $\neg (A \land \neg A) \land (\neg X \land \neg Y)$ and attempting to choose 
-appropriate w's for translation, we encounter an issue with the $\neg R$ rule: 
+When examining the intuitionistic tableaux proof of  $\neg (A \land \neg A) \land (\neg X \land \neg Y)$ and attempting to choose 
+appropriate words w for translation, we encounter an issue with the $\neg R$ rule: 
 "useless" terms from our cumulative tableaux method can "overcrowd" the right side of the sequent equation. 
-A first naive approach would be to remove all useless terms. Another way to view this is that the sequent calculus has a Weakening rule that we have not yet utilized.
+A first naive approach would be to remove all useless sentences. 
+Another way to view this is that the sequent calculus has a Weakening rule that we have not yet utilized.
+We will show later on that this suficient for non-branching tableau.
 \ThinningFunctionDefinition
 We must, of course, be sure we have not removed "too much":
 \thinnedInvalidityproof
@@ -305,31 +309,51 @@ By the completeness of intuitionistic sequent calculus that would mean that the 
  interesting, as it would use the translation to demonstrate a property of the translation that we are trying to show. 
 
 
- A less semantics-oriented approach would be to look at the general format that the root r' of a thinned not branching tableaux $\mathcal{F}(t)$ can have. Knowing 
- that a contradiction always has the format  $F_p ( ) T_q ( ), $ with $ p = q$, we can inspect the formats of the sequence lists that could have generated it.
+ A less semantics-oriented approach would be to look at the general format that the root r' of a thinned not branching tableau $\mathcal{F}(t)$ can have. Knowing 
+ that a contradiction always has the format  
+ $F_p ( ) T_q ( ), $ with $ p = q$, 
+ we can inspect the formats of the sequence lists that could have generated it.
+
+ \begin{figure}
+    \thinnedExampleImageI
+    \thinnedExampleImageII
+    \caption{Example of a thinned tableaux proof tree and its transitions.}
+ \end{figure}
 
  \begin{figure}
  \nnn
- \caption{Some of the possible "transitions" between formats of nodes in a thinned tableaux, possible by the $F_\neg$ rule}
+ \caption{The possible transitions between formats of nodes in a thinned tableau, possible by the $F_\neg$ rule. Translations in incomparable formats were omited, as they never lead to a contradiction.}
  \label{figureneg}
  \end{figure}
 
- In figure \ref{figureneg}, an arrow goes from $X_p () Y_q (), $ with $ p r q $ to $X'_p () Y'_q ()  $ with $ p r' q $ if the root of a $\mathcal{F}(\tau)$ can have the format $X_p () Y_q ()  $ with $ p r q $
+ Figure 8 can be an example for the representation: an arrow goes from $X_p () Y_q (), $ with $ p r q $ to $X'_p () Y'_q ()  $ with $ p r' q $ if the root of a $\mathcal{F}(\tau)$ can have the format $X_p () Y_q ()  $ with $ p r q $
   and the root of $\mathcal{F}(\hookleftarrow(F \neg \alpha ,\tau))$
  can have the format $X'_p () Y'_q () $ with $ p r' q $. 
 
-
+     
 
 If we were to do all of them, we can inspect that the root  of a thinned not branching tableaux proof can never have 
-the formats $F_p () F_q (), p=q$, $F_p () F_q (), p>q$,$T_p () F_q (), p>q$.
-
+the formats $\\ F_p () F_q () \text{ with }  p=q$, \\ $F_p () F_q ()  \text{ with }  p>q$, \\$T_p () F_q () \text{ with } p>q$.
+This exaustion, shown in figure 10, proves that these states never reach the state [$F_p ( ) T_q ( ), $ with $ p = q$s]
 
 \begin{figure}
     \fs
-    \caption{The possible "transitions" between formats of nodes in a thinned tableaux }
+    \caption{The possible transitions between formats of nodes in a thinned tableaux. Translations in incomparable formats were omited, as they never lead to a contradiction.}
     \label{figuretotal}
 \end{figure}
 
+\section{Implementation}
+    The work was implemented in OCAML, and the code is available at \url{github.com/lontra-lontra/proof-translations}.
+    The implementation of the classical tableaux method and the translation to sequent calculus is complete, and the intuitionistic logic case is partially implemented.
+    More precisely:
+    \begin{itemize}
+        \item The classical tableaux method, classical sequent calculus, classical transilation and classical sequent calculus proof verification are implemented in the folder \textbf{classical}. 
+        \item The intuitionistic definitions from 1.2 are implemented in the folder \textbf{intuitionistic\_defintions}.
+        \item The intuitionistic tableaux method is partially implemented in the folder \textbf{intuitionistic\_tableaux}.
+        \item The main function is in the main file, it contains some possible configurations for testing the implementation.
+        \item The output folder contains some .tex files with the representation of some of the structures seen in this document, as well as some automatically generated tableaux proofs and their translations to sequent calculus.
+    \end{itemize}
+    The more up-to-date correspandnce between the OCAML code and the definitions in this document can be found in the README.md file in the root of the repository.
 %
 % ---- Bibliography ----
 %
@@ -340,9 +364,11 @@ the formats $F_p () F_q (), p=q$, $F_p () F_q (), p>q$,$T_p () F_q (), p>q$.
 % \bibliography{mybibliography}
 %
 \section{ Conclusion}
-    Although unfortunately not resulting in a concrete contribution, this work was an exercise in several important aspects of research — notably,
-     the deep comprehension and clear expression of the subjects studied. 
-     The next step would be to analyze the translatability behavior in branching nodes.
+    This work was an exercise in several important aspects of research — notably,
+     the deep comprehension and clear expression of the subjects studied. The github repository presents the 
+     the OCAML generation of classical tableaux proofs, translation to sequento sequent calculus proofs, and the verification of the classical sequent-calculs proofs. Some
+     progress was made in the intuitionistic logic case.
+     The next step would be to analyze the translatability behavior in branching nodes in the intuitionistic logic case.
 
 \begin{thebibliography}{8}
 

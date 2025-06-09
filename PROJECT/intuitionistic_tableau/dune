@@ -1,0 +1,3 @@
+(library
+ (name intuitionistic_tableau)
+ (libraries sintax intuitionistic))

@@ -151,7 +151,7 @@
 
     \node (root) at (0,-3) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) \} \rangle\checkmark$ }};
 
-    \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) P(c_2) \} \rangle\checkmark$ }};
+    \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) ,P(c_2) \} \rangle\checkmark$ }};
 
 
     \node (root) at (0,-5) {\scriptsize{$...$ }};
@@ -177,7 +177,7 @@
     
         \node (root) at (0,-3) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) \} \rangle\checkmark$ }};
     
-        \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) P(c_2) \} \rangle\checkmark$ }};
+        \node (root) at (0,-4) {\scriptsize{$\langle \{c_1, c_2\},\{ P(c_1) ,P(c_2) \} \rangle\checkmark$ }};
     
     
         \node (root) at (0,-5) {\scriptsize{$...$ }};
@@ -219,7 +219,7 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 
         \scriptsize{
             Here we are denoting
-            $ \langle $ Domain,All true atomic sentences $ \rangle $:
+            $ \langle $ Domain,All true atomic sentences $ \rangle $
             }
     \fi
 
@@ -229,7 +229,7 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 
     \scriptsize{
         Here we are denoting
-        $ \langle $ Domain,All true atomic sentences $ \rangle $:
+        $ \langle $ Domain,All true atomic sentences $ \rangle $
         }
     \fi
 
@@ -239,7 +239,7 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 
     \scriptsize{
         Here we are denoting
-        $ \langle $ Domain,All true atomic sentences $ \rangle $:
+        $ \langle $ Domain,All true atomic sentences $ \rangle $
         }
     \fi
 
@@ -481,8 +481,6 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
 \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
 \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
-
-
     \end{itemize}
 }
     \column{0.00001\textwidth} 
@@ -881,24 +879,35 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
     \column{0.00001\textwidth} 
     \rule{0.2mm}{\textheight} % Black line dividing the columns
     \column{0.5\textwidth}
-    \begin{tikzpicture}[node distance=1.2cm, auto]
-    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
-        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
-        \draw[-] (n0) -- (n1);
-          
-        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
-        \draw[-] (n1) -- (n2);
-        {\color{white}   
-        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
-        \draw[-] (n2) -- (n3);
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
             
-        \node[below of=n3] (n4) {$T {00} \vDash_{\mathcal{C}} \alpha$};
-        \draw[-] (n3) -- (n4);                
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$T_{0} \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{0} \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {\textcolor{white}{$T_{00} \neg \alpha$}};
 
-        \node[below of=n4] (n5) {\textbf{X}};
-        \draw[-] (n4) -- (n5);
-    }
-\end{tikzpicture}
+    
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-5.5) {\textcolor{white}{$F_{00} \alpha$}};
+
+    
+            \node (n5) at (0,-6.5) {\textcolor{white}{$T_{00} \neg \alpha$}};
+
+    
+            \node (n6) at (0,-7.5) {\textcolor{white}{X}};
+
+            
+        \end{tikzpicture}
     \hfill
 \end{columns}
 \end{frame}
@@ -929,78 +938,44 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
     \column{0.5\textwidth}
 
 
-    \begin{tikzpicture}[node distance=1.2cm, auto]
-    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
-        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
-        \draw[-] (n0) -- (n1);
-          
-        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
-        \draw[-] (n1) -- (n2);
-        {\color{white}   
-        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
-        \draw[-] (n2) -- (n3);
-            
-        \node[below of=n3] (n4) {$T {00} \vDash_{\mathcal{C}} \alpha$};
-        \draw[-] (n3) -- (n4);                
-
-        \node[below of=n4] (n5) {\textbf{X}};
-        \draw[-] (n4) -- (n5);
-    }
-    
-\end{tikzpicture}
-    \hfill
-\end{columns}
-\end{frame}
-
-
-
-
-
-
-
-
-\begin{frame}{The tableaux method}
-
-\begin{columns}
-    \column{0.5\textwidth} % Left column
-    \begin{itemize}
-            \item In order to prove that a formula $\phi$ is Intuitionistically valid, we can assume that it is not ($F {\emptyset} \vDash_{\mathcal{C}} \phi$), and systematically search for the frame counter-example $\mathcal{C}$.
-
-%\item    $ p \vDash_{\mathcal{C}} \phi                 \Leftrightarrow \phi \text{ is true in } C(p)$ (if $\phi$ is an atomic sentence)\\
-    %\item    $ p \vDash_{\mathcal{C}} \neg \phi            \Leftrightarrow $  for all $q \geq p$, q does not force $\phi$\\
-% \item    $ p \vDash_{\mathcal{C}} (\forall x) \phi(x)  \Leftrightarrow $  for all $q \geq p$ and $d$ in $\mathcal{L}_{C(q)}$, $q \vDash_{\mathcal{C}} \phi(d)$ \\
-% \item    $ p \vDash_{\mathcal{C}} (\exists x) \phi(x)  \Leftrightarrow $  exists a $d$ in  $\mathcal{L}_{C(q)}$, such that $p \vDash_{\mathcal{C}} \phi(d)$\\
-% \item    $ p \vDash_{\mathcal{C}} (\phi \land \psi)    \Leftrightarrow p \vDash_{\mathcal{C}} \phi \text{ and } p \vDash_{\mathcal{C}} \psi$ \\
-% \item    $ p \vDash_{\mathcal{C}} (\phi \lor \psi)     \Leftrightarrow p \vDash_{\mathcal{C}} \phi$ or $p \vDash_{\mathcal{C}} \psi$ \\
-
-
-    \end{itemize}
-
-    \column{0.00001\textwidth} 
-    \rule{0.2mm}{\textheight} % Black line dividing the columns
-    \column{0.5\textwidth}
-
-
-    \begin{tikzpicture}[node distance=1.2cm, auto]
-    \node (n0) {$F {\emptyset} \vDash_{\mathcal{C}} \alpha \to \neg \neg \alpha$};
-        \node[below of=n0] (n1) {$T {0} \vDash_{\mathcal{C}} \alpha$};
-        \draw[-] (n0) -- (n1);
-          
-        \node[below of=n1] (n2) {$F {0} \vDash_{\mathcal{C}} \neg \neg \alpha$};
-        \draw[-] (n1) -- (n2);
-       
-        \node[below of=n2] (n3) {$T {00} \vDash_{\mathcal{C}} \neg \alpha$};
-        \draw[-] (n2) -- (n3);
-
-        \node[below of=n3] (n4) {$F {00} \vDash_{\mathcal{C}} \neg \alpha$};
-        \draw[-] (n3) -- (n4);                
-        \node[below of=n4] (n5) {\textbf{X}};
-        \draw[-] (n4) -- (n5);
+    \begin{tikzpicture}
+        % Root node
+        \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
         
-\end{tikzpicture}
+        % Second stage nodes
+        \node (n1) at (0,-1.5) {$T_{0} \alpha$};
+        \draw[->] (root) -- (n1);
+        
+        % Third stage nodes
+        \node (n2) at (0,-3) {$F_{0} \neg \neg \alpha$};
+        \draw[->] (n1) -- (n2);
+        
+        % Fourth stage nodes
+        \node (n3) at (0,-4.5) {$T_{00} \neg \alpha$};
+        \draw[->] (n2) -- (n3);
+
+        
+        % Fifth stage nodes
+        \node (n4) at (0,-5.5) {$F_{00} \alpha$};
+        \draw[->] (n3) -- (n4);
+
+        \node (n5) at (0,-6.5) {$T_{00}  \alpha$};
+        \draw[->] (n4) -- (n5);
+
+        \node (n6) at (0,-7.5) {X};
+        \draw[->] (n5) -- (n6);
+    \end{tikzpicture}
+    
     \hfill
 \end{columns}
 \end{frame}
+
+
+
+
+
+
+
 
 
 
@@ -1094,13 +1069,149 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 \end{frame}
 
 \begin{frame}{Cumulative Tableaux}
-    \tableauxCumulativeAndNonCumulativeExampleFigure
+    \centering
+        \scriptsize{
+        \makebox[\textwidth][c]{%
+        \resizebox{1\textwidth}{!}{
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$T_{0} \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{0} \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$T_{00} \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F_{00} \alpha$};
+            \draw[->] (n3) -- (n4);
+
+            \node (n5) at (0,-7.5) {$T_{00}  \alpha$};
+            \draw[->] (n4) -- (n5);
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+
+        \hspace{4cm}
+
+
+
+        \hspace{1cm}
+
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha$};
+            \draw[->] (root) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha$};
+            \draw[->] (n3) -- (n4);
+
+
+            \node (n5) at (0,-7.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{0} \alpha, F_{0} \neg \neg \alpha, T_{00} \neg \alpha, F_{00} \alpha , T_{00} \alpha$};
+            \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+        }
+        }
+        }
+
 \end{frame}
+
 
 
 \begin{frame}{Cumulative Tableaux}
-    \tableauxCumulativeAndNonCumulativeExampleFigureClassical
+    \centering
+        \scriptsize{
+        \makebox[\textwidth][c]{%
+        \resizebox{1\textwidth}{!}{
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            \node (n1) at (0,-1.5) {$T_{\emptyset} \alpha$};
+            \draw[->] (root) -- (n1);
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{\emptyset} \neg \neg \alpha$};
+            \draw[->] (n1) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$T_{\emptyset} \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F_{\emptyset} \alpha$};
+            \draw[->] (n3) -- (n4);
+
+            \node (n5) at (0,-7.5) {$T_{\emptyset}  \alpha$};
+            \draw[->] (n4) -- (n5);
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+
+        \hspace{4cm}
+
+
+
+        \hspace{1cm}
+
+        \begin{tikzpicture}
+            % Root node
+            \node (root) at (0,0) {$F_{\emptyset} \alpha \to \neg \neg \alpha$};
+            
+            % Second stage nodes
+            
+            % Third stage nodes
+            \node (n2) at (0,-3) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{\emptyset} \alpha, F_{\emptyset} \neg \neg \alpha$};
+            \draw[->] (root) -- (n2);
+            
+            % Fourth stage nodes
+            \node (n3) at (0,-4.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{\emptyset} \alpha, F_{\emptyset} \neg \neg \alpha, T_{\emptyset} \neg \alpha$};
+            \draw[->] (n2) -- (n3);
+            
+            % Fifth stage nodes
+            \node (n4) at (0,-6) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{\emptyset} \alpha, F_{\emptyset} \neg \neg \alpha, T_{\emptyset} \neg \alpha, F_{\emptyset} \alpha$};
+            \draw[->] (n3) -- (n4);
+
+
+            \node (n5) at (0,-7.5) {$F_{\emptyset} \alpha \to \neg \neg \alpha, T_{\emptyset} \alpha, F_{\emptyset} \neg \neg \alpha, T_{\emptyset} \neg \alpha, F_{\emptyset} \alpha , T_{\emptyset} \alpha$};
+            \draw[->] (n4) -- (n5);
+
+
+            \node (n6) at (0,-8.5) {X};
+            \draw[->] (n5) -- (n6);
+        \end{tikzpicture}
+        }
+        }
+        }
+
 \end{frame}
+
 
 
 
@@ -1193,11 +1304,10 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
 \def\Qin{\inc+0.05}
 \def\Psol{\sol}
 
-\def\fs{
 
+\begin{frame}{Classical Translation/Translating Nodes}
 
-
-    \begin{tikzpicture}
+\begin{tikzpicture}
 
         \node at (\eq, \H) {$p = q$};
         \node at (\gr, \H) {$p > q$};
@@ -1227,13 +1337,57 @@ Is $ \exists x (P(x) \to (\forall y)P(y))$ classically valid ?
     
         \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Qeq,\FT);
     \end{tikzpicture}
-
-
-
-}
-\begin{frame}{Classical Translation/Translating Nodes}
-    \fs
 \end{frame}
+
+
+\begin{frame}{Classical Translation/Translating Nodes}
+    \begin{tikzpicture}
+
+        \node at (\eq, \H) {$p = q$};
+        \node at (\gr, \H) {$p > q$};
+        \node at (\inc, \H) {$p  \not\lessgtr
+        q$ };
+
+        \node at (\Pl, \FT){$F_p$};
+        \node at (\Pl, \TT){$T_p$};
+        \node at (\Pl, \TF){$T_p$};
+        \node at (\Pl, \FF){$F_p$};
+
+        \node at (\Ql, \FT){$T_q$};
+        \node at (\Ql, \TT){$T_q$};
+        \node at (\Ql, \TF){$F_q$};
+        \node at (\Ql, \FF){$F_q$};
+
+
+        \node at (\ll, \TT){$T_p$};
+        \node at (\ll, \FF){$F_p$};
+
+        
+        
+          
+
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TF);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pin,\TT);
+
+
+
+        \draw[bigarrow] (\Peq,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Pgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Pgr,\FF);
+        \draw[bigarrow] (\Qgr,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\FF);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\TF);
+        \draw[bigarrow] (\Qgr,\TF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qin,\TF);
+
+
+
+
+
+    \end{tikzpicture}
+\end{frame}
+
+
+
 
 \begin{frame}{Classical Translation/Translating Nodes}
     \nodeTranslationFunction

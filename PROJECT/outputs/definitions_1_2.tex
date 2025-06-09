@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+leq-sequence-of-integers $\langle 1, 2 \rangle$ $\leq$ $\langle 1, 2, 3 \rangle$: true
+\\
+ frame-to-latex: $\text{Frame} \{ \{\langle 0 \rangle, \langle 0, 1 \rangle, \langle 0, 1, 2 \rangle, \langle 0, 1, 2, 3 \rangle\}\, \text{c: } \{ \langle \langle 0 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, P: 
+ () \Rightarrow \text{false}, Q: 
+ () \Rightarrow \text{false} \}, \langle \langle 0, 1 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, P: 
+ () \Rightarrow \text{false}, Q: 
+ () \Rightarrow \text{true} \}, \langle \langle 0, 1, 2 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, M: 
+ (a, a) \Rightarrow \text{false} \\
+(a, b) \Rightarrow \text{true} \\
+(a, c) \Rightarrow \text{false} \\
+(b, a) \Rightarrow \text{false} \\
+(b, b) \Rightarrow \text{false} \\
+(b, c) \Rightarrow \text{false} \\
+(c, a) \Rightarrow \text{false} \\
+(c, b) \Rightarrow \text{false} \\
+(c, c) \Rightarrow \text{false}, L: 
+ () \Rightarrow \text{true} \}, \langle \langle 0, 1, 2, 3 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, M: 
+ (a, a) \Rightarrow \text{false} \\
+(a, b) \Rightarrow \text{true} \\
+(a, c) \Rightarrow \text{false} \\
+(b, a) \Rightarrow \text{false} \\
+(b, b) \Rightarrow \text{false} \\
+(b, c) \Rightarrow \text{false} \\
+(c, a) \Rightarrow \text{false} \\
+(c, b) \Rightarrow \text{false} \\
+(c, c) \Rightarrow \text{false}, L: 
+ () \Rightarrow \text{true} \} \} \}$
+\ Is frame example valid? false
+\ Counterexample: p = \langle 0, 1 \rangle, q = \langle 0, 1, 2 \rangle
+\\
+ frame-to-latex: $\text{Frame} \{ \{\langle 0 \rangle, \langle 0, 1 \rangle, \langle 0, 1, 2 \rangle, \langle 0, 1, 2, 3 \rangle\}\, \text{c: } \{ \langle \langle 0 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\},  \}, \langle \langle 0, 1 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, P: 
+ () \Rightarrow \text{false} \}, \langle \langle 0, 1, 2 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, P: 
+ () \Rightarrow \text{false}, Q: 
+ () \Rightarrow \text{true} \}, \langle \langle 0, 1, 2, 3 \rangle \rangle \mapsto \text{Structure} \{ \{'a', 'b', 'c'\}, P: 
+ () \Rightarrow \text{true}, Q: 
+ () \Rightarrow \text{true} \} \} \}$
+Is frame example valid? true
+\ No counterexamples found.
+\end{document}

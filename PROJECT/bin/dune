@@ -1,7 +1,0 @@
-(executable
- (public_name PROJECT)
- (name main)
- 
- (modules main sintax) ; Explicitly list the modules
- (libraries PROJECT)
- (flags (:standard -w -32))) ; Ignore warning 32

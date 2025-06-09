@@ -1,17 +1,19 @@
 
 \def\structureDefinition{
 \begin{definition}
-    \textbf{A Structure of a Language} consists of a domain and:
+    \textbf{A Structure of a Language} (an \(\mathcal{L}\)-structure) is a triple that consists of a domain and two assignments:
     \begin{itemize}
         \item An assignment from the constant symbols of the language to the domain.
         \item An assignment from the predicate symbols of the language to predicates in the domain.
     \end{itemize}
+    Here the domain is the finite set of the objects being described by the language. 
 \end{definition}
 }
 
 \def\kripkeFrameDefinition{
 \begin{definition}
-    \textbf{A Kripke Frame} of a Language \(\mathcal{L}\), \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of a partially ordered set \(R\), and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). Furthermore, in a Kripke Frame, if \(p \leq q\), then \(C(q)\) extends \(C(p)\):
+    \textbf{A Kripke Frame} of a Language \(\mathcal{L}\), \(\mathcal{C} = (R, \{C(p)\}_{p \in R})\) consists of a partially ordered set \(R\), and an \(\mathcal{L}\)-structure \(C(p)\) for all \(p\)'s in \(R\). 
+    Furthermore, in a Kripke Frame, if \(p \leq q\), then \(C(q)\) extends \(C(p)\) in the following sense:
     \begin{itemize}
         \item All sentences that are true in \(C(p)\) are true in \(C(q)\).
         \item The domain of \(C(p)\) is included in the domain of \(C(q)\).
@@ -22,17 +24,18 @@
 
 \def\forcingDefinition{
 \begin{definition}
-    \textbf{Forcing}. When a sentence \(\phi\) of a language \(\mathcal{L}\) is \textbf{forced} by a structure \(C(p)\) of a \(\mathcal{L}\)-frame \(\mathcal{C}\), we denote:
+    \textbf{Forcing}. When a sentence \(\phi\) of a language \(\mathcal{L}\) is \textbf{forced} by a structure \(C(p)\) of a \(\mathcal{L}\)-frame \(\mathcal{C}\), we denote it as:
     \(p \Vdash_{\mathcal{C}} \phi\) \\
     Forcing is defined by induction: \cite{book1}
+    
     \begin{itemize}
-        \item \(p \Vdash_{\mathcal{C}} \phi \Leftrightarrow \phi \text{ is true in } C(p)\) (if \(\phi\) is an atomic sentence).
-        \item \(p \Vdash_{\mathcal{C}} (\phi \to \psi) \Leftrightarrow\) for all \(q \geq p\), if \(q \Vdash_{\mathcal{C}} \phi\), then \(q \Vdash_{\mathcal{C}} \psi\).
-        \item \(p \Vdash_{\mathcal{C}} \neg \phi \Leftrightarrow\) for all \(q \geq p\), \(q\) does not force \(\phi\).
-        \item \(p \Vdash_{\mathcal{C}} (\forall x) \phi(x) \Leftrightarrow\) for all \(q \geq p\) and \(d\) in \(\mathcal{L}_{C(q)}\), \(q \Vdash_{\mathcal{C}} \phi(d)\).
-        \item \(p \Vdash_{\mathcal{C}} (\exists x) \phi(x) \Leftrightarrow\) there exists a \(d\) in \(\mathcal{L}_{C(q)}\), such that \(p \Vdash_{\mathcal{C}} \phi(d)\).
-        \item \(p \Vdash_{\mathcal{C}} (\phi \land \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ and } p \Vdash_{\mathcal{C}} \psi\).
-        \item \(p \Vdash_{\mathcal{C}} (\phi \lor \psi) \Leftrightarrow p \Vdash_{\mathcal{C}} \phi \text{ or } p \Vdash_{\mathcal{C}} \psi\).
+        \item \(p \Vdash_{\mathcal{C}} \phi \text{ iff } \phi \text{ is true in } C(p)\) (if \(\phi\) is an atomic sentence).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \to \psi) \text{ iff }\) for all \(q \geq p\), if \(q \Vdash_{\mathcal{C}} \phi\), then \(q \Vdash_{\mathcal{C}} \psi\).
+        \item \(p \Vdash_{\mathcal{C}} \neg \phi \text{ iff } \) for all \(q \geq p\), \(q\) does not force \(\phi\).
+        \item \(p \Vdash_{\mathcal{C}} (\forall x) \phi(x) \text{ iff }\) for all \(q \geq p\) and \(d\) in \(\mathcal{L}_{C(q)}\), \(q \Vdash_{\mathcal{C}} \phi(d)\).
+        \item \(p \Vdash_{\mathcal{C}} (\exists x) \phi(x) \text{ iff }\) there exists a \(d\) in \(\mathcal{L}_{C(q)}\), such that \(p \Vdash_{\mathcal{C}} \phi(d)\).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \land \psi) \text{ iff } p \Vdash_{\mathcal{C}} \phi \text{ and } p \Vdash_{\mathcal{C}} \psi\).
+        \item \(p \Vdash_{\mathcal{C}} (\phi \lor \psi) \text{ iff } p \Vdash_{\mathcal{C}} \phi \text{ or } p \Vdash_{\mathcal{C}} \psi\).
     \end{itemize}
 \end{definition}
 }
@@ -45,16 +48,16 @@
 
 \def\classicalValidityDefinition{
 \begin{definition}
-    \textbf{Classical Validity}. A sentence of a language \(\mathcal{L}\) is classically valid if it is forced by all single-structure Kripke frames of \(\mathcal{L}\).
+    \textbf{Classical Validity}. A sentence of a language \(\mathcal{L}\) is classically valid if it is forced by all singleton structure Kripke frames of \(\mathcal{L}\).
 \end{definition}
 }
 
 \def\signedSentenceIntuitionisticDefinition{
 \begin{definition}
     \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It has the format $T_{q} \phi $ or $F_{p} \phi $ \\
-    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableau proof. We say that a list of forcing assertions $L$ made out of  sentences $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
+    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableaux proof. We say that a list of forcing assertions $L$ made out of  sentences $\{ T_{p_1}\gamma_{1}, T_{p_2}\gamma_{2}, ...\}$
   and $ \{F_{q_1}\delta_{1}, F_{q_2}\delta_{2}...\} $
-     is "intuitionistically valid" if there exists a frame $\mathcal{C}$ that "respects" L : 
+     is intuitionistically valid if there exists a frame $\mathcal{C}$ that respects L : 
      
      $ \mathcal{C}(p_1) \Vdash \gamma_{1}$ and $ \mathcal{C}(p_{2}) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(q_{1}) \nvDash \delta_{1}$  and $ \mathcal{C}(q_{2}) \nvDash \delta_{2}$
 \end{definition}
@@ -66,15 +69,15 @@
     \\(here we denote $l:l'$ = $l_1,l_2...,l_{|l|}, l'_1,l'_2..,l'_{|l'|} $)
     \\if $\sigma \in L$:
         \begin{itemize}
-            \item $f(T_{p} ,L) = [L - \sigma: \sigma : F_{p'}\alpha] $ \\for a minimal $p' \geq p$ not present in $\sigma:L$.
-            \item $f(T_{p} \neg \alpha,L) = [L - \sigma: \sigma : F_{p'}\alpha] $ \\for a minimal $p' \geq p$ present in $\sigma:L$.
+            \item $f(T_{p}\alpha  ,L) = [L - \sigma: \sigma : F_{p'}\alpha] $ \\for a  $p' \geq p$ such that $T_{p'}\alpha$ not present in $L$. ($\alpha$ is atomic)
+            \item $f(T_{p} \neg \alpha,L) = [L - \sigma: \sigma : F_{p'}\alpha] $ \\for a  $p' \geq p$ such that $T_{p'} ,L$ not present in $L$.
             \item $f(F_{p} \neg \alpha,L) = [L - \sigma : \sigma : T_p' \alpha]$  \\for a new $p' \geq p$ 
             \item $f(T_{p} (\alpha \land \beta), L) = [L - \sigma: \sigma : T_{p} \alpha : T_{p} \beta]$.
             \item $f(F_{p} (\alpha \land \beta), L) = [L - \sigma: \sigma : F_{p} \alpha],[ L - \sigma: \sigma : F_{p} \beta]$.
             \item $f(T_{p} (\alpha \lor \beta), L) = [L - \sigma: \sigma : T_{p} \alpha],[ L - \sigma: \sigma : T_{p} \beta]$.
             \item $f(F_{p} (\alpha \lor \beta), L) = [L - \sigma: \sigma : F_{p} \alpha : F_{p} \beta]$.
             \item $f(T_{p} (\alpha \to \beta), L) = [L - \sigma: \sigma : F_{p'} \alpha],[ L - \sigma : \sigma : T_{p'} \beta]$ \\for a new $p' \geq p$ 
-            \item $f(F_{p} (\alpha \to \beta), L) = [L - \sigma: \sigma : T_{p'} \alpha : F_{p'} \beta]$ \\for a minimal $p' \geq p$ present in $\sigma:L$.
+            \item $f(F_{p} (\alpha \to \beta), L) = [L - \sigma: \sigma : T_{p'} \alpha : F_{p'} \beta]$ \\for a  $p' \geq p$ present in $\sigma:L$ and such that $T_{p'} (\alpha)$ and $F_{p'} (\beta)$ not  $L$.
             \item $f(T_{p} (\forall x) \phi(x), L) = [L - \sigma: \sigma : T_{p} \phi(c_i) ]$\\ for the first constant $c_i$ such that $T_{p} \phi(c_i)$ is not in $L$.
             \item $f(F_{p'} (\forall x) \phi(x), L) = [L - \sigma: \sigma : F_{p} \phi(c_i) ]$\\ for the first constant $c_i$ not present in $\sigma:L$ and a new $p' \geq p$
             \item $f(T_{p'} (\exists x) \phi(x), L) = [L - \sigma: \sigma : T_{p} \phi(c_i) ]$ \\for the first constant $c_i$ not present in $\sigma:L$ and a new $p' \geq p$.
@@ -90,15 +93,18 @@
 
 \def\wellBehavedTheorem{
     \begin{theorem}
-        Given a signed sentence list x, if x is intuitionistically valid then f(x) is intuitionistically valid 
+        Given a signed sentence list L, if L is intuitionistically valid then f(L) is intuitionistically valid 
     \end{theorem}
     \begin{proof}
         \cite{book1} proves this by using the definition of forcing. We will do the most complex case, that has the most part of the ideas needed for the other ones:
         
 
-        Case: if $L \ni F_{p} (\forall x) \phi(x) $ is intuitionistically valid, then there exists frame $\mathcal{C}$ that "respects" it. We take 
-        a frame $\mathcal{C}'$ that is exactly like $\mathcal{C}$ with addition of a new structure $p' \geq p$ such that $\mathcal{C}'(p') \nVdash \phi(c_i)$ for a new $c_i$. We know that 
-        $\mathcal{C}'$ exists by the definition of forcing for $\forall$. Also $\mathcal{C}'$ is a frame that "respects"
+        Case: if $L \ni F_{p} (\forall x) \phi(x) $ is intuitionistically valid, then there exists a frame $\mathcal{C}$ that respects it (in the sense of the Definition 6). 
+        $\mathcal{C}$ contains q and a c $\in \mathcal{C}(q)$ such that $\mathcal{C}(c) \nVdash \phi(c)$. Let  $\mathcal{C'}$ be the same
+        as $\mathcal{C}$, with the new world $\mathcal{C}(p')$ such that $\mathcal{C}(p') := \mathcal{C}(q)$ and $c_i := c$
+
+        In other words, let  $\mathcal{C'}$ be a frame that is exactly like $\mathcal{C}$ with addition of a new structure $p' \geq p$ such that $\mathcal{C}'(p') \nVdash \phi(c_i)$ for a new $c_i$. We know that 
+        $\mathcal{C}'$ exists by the definition of forcing for $\forall$ in C. Also $\mathcal{C}'$ is a frame that respects
         $f(\forall x \phi(x), L) = [L - \forall x \phi(x): \forall x \phi(x) : T_{p} \phi(c_i) ]$. 
     \end{proof}
 }
@@ -117,51 +123,49 @@
 
 \def\TableauxDevelopmentListDefinition{
     \begin{definition}
-        \textbf{The tableaux Development of a List of Sentences } is defined inductivelly: 
+        \textbf{The tableaux Development of a List of Sentences } is defined inductively: 
         \begin{itemize}
             \item A tree with the single node $L$ is a tableaux development of $L$. 
             \item If $\tau$ is a tableaux development of $L$, then $\hookleftarrow(\sigma,\tau)$ is a tableaux development of $L$. Where:
         \end{itemize}
     
-        $\hookleftarrow(\sigma,\tau) = $ $\tau$ with $f(\sigma, l) $added to all leaves l that contain $\sigma$
+        $\hookleftarrow(\sigma,\tau) = $ the extension of $\tau$ with $f(\sigma, l) $added to all leaves l that contain $\sigma$
     \end{definition}
 }
 
 
 
 \def\soundnessTheorem {
-\begin{theorem}
-    If $F_{\emptyset}\phi$ is intuitionistically valid then one of the leaves of $ \hookleftarrow (\sigma_n,\hookleftarrow(\sigma_{n-1}(.....(\hookleftarrow(\sigma_1 ,F_{\emptyset}\phi )...)))) $ is intuitionistically valid.
+\begin{theorem} 
+    The following implication is true: \\ 
+    If L is intuitionistically valid then one of the leaves of $ \hookleftarrow (\sigma_n,\hookleftarrow(\sigma_{n-1}(.....(\hookleftarrow(\sigma_1 ,L )...)))) $ is intuitionistically valid.
 \end{theorem}
 
 \begin{proof}
+    If L is intuitionistically invalid, the premise is false and the implication holds. 
+    If L is intuitionistically valid,
+    The proof goes by induction on the number of times $\hookleftarrow$ is applied :
 
-    The proof goes by induction:
 
-
-             The base case is true by definition: either the root $F_{\emptyset}\phi$ is a intuitionistically valid leaf or the premise is false.  Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.
-             There are two cases to consider:
-            \begin{itemize}
-                \item If $F\phi$ is not intuitionistically valid: and the theorem holds for $\tau'$.
-                \item  If $F\phi$ is intuitionistically valid:
-
-                         By the induction hypothesis, there exists a intuitionistically valid leaf $\sigma$ in $\tau$.
-                         \begin{itemize}
+            The base case is true by definition: L is a intuitionistically valid leaf. 
+            Next we assume $\tau' = \hookleftarrow (\sigma, \tau)$.
+            By the induction hypothesis, there exists an intuitionistically valid leaf $\sigma$ in $\tau$.
+                \begin{itemize}
                     \item If $\sigma$ is a leaf in $\tau$, then  the theorem holds for $\tau'$.
                     \item If $\sigma$ is not a leaf in $\tau$, then:
                          One or two nodes were added to $\sigma$ in $\tau'$ by the definition of $\hookleftarrow$.
                          By the theorem 1, one of the added nodes is also intuitionistically valid.
                          Consequently, the theorem holds for $\tau'$.
-
-            \end{itemize}
-            \end{itemize}
+                \end{itemize}
 \end{proof}
 
 }
 
 \def\completeiteratordefinition{
 \begin{definition}
-    $\hookleftarrow_c(\tau) = \tau$ with $f(h,l)$ added to all leaves l that contain $\sigma$. h is the first signed sentence of the shalowest (and after that leftmost) non-contradictory leaf. 
+    $\hookleftarrow_c(\tau) = \tau$ with $f(h,l)$ added to all leaves l that contain $\sigma$.
+     h is the first signed sentence of the shallowest (and after that leftmost) non-contradictory leaf. 
+     here, c stands for complete. A contradictory leaf is a leaf that has T and F of the same sentence.
 \end{definition}
 }
 
@@ -170,9 +174,9 @@
 
 \begin{definition}
     \textbf{A Signed Sentence} is a forcing assertion inside of a tableaux proof. It can have the format $T \phi $ or $F \phi $ \\
-    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableau proof. We say that a list of forcing assertions $L$ made out of sentences $\{ T\gamma_{1}, T\gamma_{2}, ...\}$
+    \textbf{A Signed Sentence List} is a list of forcing assertions inside of a tableaux proof. We say that a list of forcing assertions $L$ made out of sentences $\{ T\gamma_{1}, T\gamma_{2}, ...\}$
   and $ \{F\delta_{1}, F\delta_{2}...\} $
-     is "classically valid" if there exists a single-structured frame  $\mathcal{C}$ such that $ \mathcal{C}(\emptyset) \Vdash \gamma_{1}$ and $ \mathcal{C}(\emptyset) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(\emptyset) \nvDash \delta_{1}$  and $ \mathcal{C}(\emptyset) \nvDash \delta_{2}$
+     is "classically valid" if there exists a single-structure frame  $\mathcal{C}$ such that $ \mathcal{C}(\emptyset) \Vdash \gamma_{1}$ and $ \mathcal{C}(\emptyset) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(\emptyset) \nVdash \delta_{1}$  and $ \mathcal{C}(\emptyset) \nVdash \delta_{2}$
 \end{definition}
  
 }
@@ -232,8 +236,8 @@
 
 
 \def\sequentValidityDefinition{
-    \begin {definition} \textbf{Intuitionistic Validity of a Sequent}
-A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are forced, then at least one of $\Delta$ is forced.
+    \begin {definition} \textbf{(Intuitionistic Validity of a Sequent)}
+A sequent is intuitionistically valid if for all Kripke frames, if all of $\Gamma$ are forced, then at least one of $\Delta$ is forced.
 \end {definition}
 
 }
@@ -241,22 +245,25 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 
-\def\developmentSequentIntuitionisticDefinition{
 
-\begin {definition}
-    A single sequent is a intuitionistic sequent proof tree development\\
-    Any of the rules of the table 2 applied to a intuitionistic sequent proof tree development is a sequent proof tree development\\
-    A intuitionistic squent proof tree is  a intuitionistic sequent proof tree development with axioms on all leafs.
-\end {definition} 
-
-}
 
 \def\developmentSequentClassicalDefinition{
 
 \begin {definition}
-    A single sequent is a classical sequent proof tree development\\
-    Any of the rules of the table 1 applied to a classical sequent proof tree development is a sequent proof tree development\\
-    A classical sequent proof tree is  a classical sequent proof tree development with axioms on all leaves.
+    A single sequent is a classical sequent proof-tree development\\
+    Any of the rules of the table 1 applied to a classical sequent proof-tree development is a sequent proof-tree development\\
+    A classical sequent proof-tree is  a classical sequent proof-tree development with axioms on all leaves.
+\end {definition} 
+
+}
+
+
+\def\developmentSequentIntuitionisticDefinition{
+
+\begin {definition}
+    A single sequent is an intuitionistic sequent proof-tree development\\
+    Any of the rules of table 2 applied to an intuitionistic sequent proof-tree development is an intuitionistic sequent proof-tree development\\
+    A intuitionistic squent proof-tree is  a intuitionistic sequent proof-tree development with axioms on all leafs.
 \end {definition} 
 
 }
@@ -265,7 +272,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 
 \def\nodeTranslationFunction{
-    \begin{definition} \textbf{Node Translating Function $\mathcal{T}$}
+    \begin{definition} \textbf{Node-Translating Function $\mathcal{T}$}
 
 
         Given a signed sentence list L with sentences
@@ -316,7 +323,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     
     
         $ \mathcal{C}(p_1) \Vdash \gamma_{1}$ and $ \mathcal{C}(p_{2}) \Vdash \gamma_{2}$ and ... $ \mathcal{C}(q_{1}) \nvDash \delta_{1}$  and $ \mathcal{C}(q_{2}) \nvDash \delta_{2}$ 
-       \\  which implicitly means, by the definition of extension: 
+       \\  which implicitly entails, by the definition of extension in frames: 
         
        ($ \mathcal{C}(p) \Vdash \gamma_{1}$ for all $p \geq p_1$) and ($ \mathcal{C}(p) \Vdash \gamma_{2}$ for all $p \geq p_2$) and ... ($ \mathcal{C}(p) \nvDash \delta_{1}$ for all $p \leq q_{1}$) and ($ \mathcal{C}(p) \nvDash \delta_{2}$ for all $p \leq q_{2}$)...
          
@@ -347,21 +354,21 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\localTranslationValidityTheorem{
     \begin{theorem}
-        $\RightLabel{}\AxiomC{$\mathcal{T}( f(\sigma,l))$}\doubleLine\UnaryInfC{$\mathcal{T}(l)$}\DisplayProof$ 
+        $\RightLabel{}\AxiomC{$\mathcal{T}( f(\sigma,L))$}\doubleLine\UnaryInfC{$\mathcal{T}(l)$}\DisplayProof$ 
        is classically admissible
    
    \end{theorem}
    
    \begin{proof}
-       Here will show the implicit contradiction rule being used:\\ 
-       if $L-\sigma$ has sentences $\{ T\Gamma_{1}, T\Gamma_{2}, ...\}$ and  $ \{F\Delta_1, F\Delta_2 ...\} $, then: 
+       Here will show the implicit contraction rule being used:\\ 
+       If $L-\sigma$ has sentences $\{ T\Gamma_{1}, T\Gamma_{2}, ...\}$ and  $ \{F\Delta_1, F\Delta_2 ...\} $ , $\Gamma =  \Gamma_{1}, \Gamma_{2}$, ... and $\Delta = \Delta_{1}, \Delta_{2}, $... then: 
        \small{
        \begin {itemize}
        \renewcommand{\arraystretch}{4}
     \item If  $f = f_{T\neg}$:\\
     \begin{tabular}{lll}
     
-     $\AxiomC{$\mathcal{T}( f(T\neg \alpha,l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+     $\AxiomC{$\mathcal{T}( f(T\neg \alpha,L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
      & $=\AxiomC{$\mathcal{T}( (L-T\neg \alpha):T \neg \alpha:F \alpha)$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ \\ 
      & $=\AxiomC{$\Gamma ,\neg \alpha \vdash \alpha, \Delta$}\doubleLine\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ 
       $=\RightLabel{\scriptsize{$\neg$R}}\AxiomC{$\Gamma ,\neg \alpha \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma, \neg \alpha , \neg \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \neg \alpha \vdash \Delta$}\DisplayProof$ \\ 
@@ -371,7 +378,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     
     \begin{tabular}{lll}
 
-       $\AxiomC{$\mathcal{T}( f(F\neg \alpha,l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
+       $\AxiomC{$\mathcal{T}( f(F \alpha,L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
        %$=\AxiomC{$\mathcal{T}( (L-F\neg \alpha):F \neg \alpha:T \alpha)$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$
        &$=\AxiomC{$\Gamma ,\neg \alpha \vdash \neg \alpha, \Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash , \neg \alpha \Delta$}\DisplayProof$ \\
        &$=\RightLabel{\scriptsize{$\neg$L}}\AxiomC{$\Gamma , \alpha \vdash \neg \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \neg \alpha , \neg \alpha \Delta$}\UnaryInfC{$\Gamma,  \vdash  \neg \alpha \Delta$}\DisplayProof$ 
@@ -380,111 +387,113 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
     \item  If  $f = f_{T\land}$:\\
     \begin{tabular}{lll}
 
-       $\AxiomC{$\mathcal{T}( f(T(\alpha \land \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
+       $\AxiomC{$\mathcal{T}( f(T(\alpha \land \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
        %$=\AxiomC{$\mathcal{T}( (L-T(\alpha \land \beta)):\alpha \land \beta:T \alpha:T \beta)$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$
        &$=\AxiomC{$\Gamma ,\alpha, \beta, \alpha \land \beta \vdash \Delta$}\doubleLine\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$ \\
-       &$=\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma ,\alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha, \beta, \alpha \land \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$
+       &$=\RightLabel{\scriptsize{$\land$L}}\AxiomC{$\Gamma ,\alpha, \beta \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha, \beta, \alpha \land \beta \vdash \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma, \alpha \land \beta \vdash \Delta$}\DisplayProof$
     \end{tabular}  
       
     \item  If  $f = f_{F\land}$:\\
     \begin{tabular}{lll}
-       $\AxiomC{$\mathcal{T}( f(F(\alpha \land \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
+       $\AxiomC{$\mathcal{T}( f(F(\alpha \land \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
        %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : F \alpha) $}\AxiomC{$\mathcal{T}( L - \sigma: \sigma : F \beta) $}\doubleLine\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$
        
        
        &$=\AxiomC{$\Gamma ,\alpha, \alpha \land \beta \vdash \Delta$}\AxiomC{$\Gamma , \beta, \alpha \land \beta \vdash \Delta$}\doubleLine\BinaryInfC{$\Gamma,\vdash  \alpha \land \beta  ,\Delta$}\DisplayProof$ \\
-       &$=\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma ,\alpha, \alpha \land \beta \vdash \Delta$}\AxiomC{$\Gamma , \beta, \alpha \land \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \land \beta ,\alpha \land \beta, \Delta$}\doubleLine\UnaryInfC{$\Gamma,\vdash  \alpha \land \beta  ,\Delta$}\DisplayProof$
+       &$=\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma ,\alpha, \alpha \land \beta \vdash \Delta$}\AxiomC{$\Gamma , \beta, \alpha \land \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \land \beta ,\alpha \land \beta, \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma,\vdash  \alpha \land \beta  ,\Delta$}\DisplayProof$
     \end{tabular}  
        
     \item  If  $f = f_{T\lor}$:\\
     \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(T(\alpha \lor \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
+   $\AxiomC{$\mathcal{T}( f(T(\alpha \lor \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : T \alpha)$}\AxiomC{$\mathcal{T}( L - \sigma: \sigma : T \beta)$}\doubleLine\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$
    &$=\AxiomC{$\Gamma ,\alpha , \alpha \lor \beta \vdash \Delta$}\AxiomC{$\Gamma ,\beta, \alpha \lor \beta \vdash \Delta$}\doubleLine\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$\\
-   &$=\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma ,\alpha \vdash  \alpha \lor \beta,\Delta$}\AxiomC{$\Gamma , \beta, \alpha \lor \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \lor \beta,\alpha \lor \beta ,\Delta$}\UnaryInfC{$\Gamma \vdash  \alpha \lor \beta ,\Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\lor$L}} \AxiomC{$\Gamma ,\alpha \vdash  \alpha \lor \beta,\Delta$}\AxiomC{$\Gamma , \beta, \alpha \lor \beta \vdash \Delta$}\BinaryInfC{$\Gamma \vdash  \alpha \lor \beta,\alpha \lor \beta ,\Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma \vdash  \alpha \lor \beta ,\Delta$}\DisplayProof$
     \end{tabular}
 
     \item  If  $f = f_{F\lor}$:\\
     \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(F(\alpha \lor \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
-   %$=\AxiomC{$\mathcal{T}( (L-F(\alpha \lor \beta)):F \alpha:F \beta)$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$
-   &$=\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$\\
-   &$=\RightLabel{\scriptsize{$\land$R}}\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta,\alpha \lor \beta,\alpha,\beta,\Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$
+    $\AxiomC{$\mathcal{T}( f(F(\alpha \lor \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$ 
+    &$=\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$\\
+    &$=\AxiomC{$\Gamma \vdash \alpha \lor \beta,\alpha,\beta,\Delta$}\RightLabel{\scriptsize{$\lor R_1$}}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta,\alpha \lor \beta,\beta \Delta$}\RightLabel{\scriptsize{$\lor R_2$}}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta,\alpha \lor \beta,\alpha \lor \beta \Delta$} \RightLabel{\scriptsize{contraction}} \UnaryInfC{$\Gamma \vdash \alpha \lor \beta,\alpha \lor \beta , \Delta$}\RightLabel{\scriptsize{contraction}} \UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$
     \end{tabular}
    
    \item  If  $f = f_{T\rightarrow}$:\\
    \begin{tabular}{lll}
    
-   $\AxiomC{$\mathcal{T}( f(T(\alpha \rightarrow \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(T(\alpha \rightarrow \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : F \alpha )$}\AxiomC{$\mathcal{T}( L - \sigma: \sigma : T \beta ) $}\doubleLine\BinaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    &$=\AxiomC{$\Gamma, \alpha, \alpha \rightarrow \beta \vdash \Delta$}\AxiomC{$\Gamma, \alpha \rightarrow \beta \vdash  \beta, \Delta$}\doubleLine\BinaryInfC{$\Gamma, \alpha \rightarrow \beta \vdash \Delta$}\DisplayProof$  \\
-   &$=\RightLabel{\scriptsize{$\rightarrow$L}}\AxiomC{$\Gamma, \alpha, \alpha \rightarrow \beta \vdash \Delta$}\AxiomC{$\Gamma, \alpha \rightarrow \beta \vdash  \beta, \Delta$}\BinaryInfC{$\Gamma, \alpha \rightarrow \beta,\alpha \rightarrow \beta  \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \rightarrow \beta \vdash \Delta$}\DisplayProof$  
+   &$=\RightLabel{\scriptsize{$\rightarrow$L}}\AxiomC{$\Gamma, \alpha, \alpha \rightarrow \beta \vdash \Delta$}\AxiomC{$\Gamma, \alpha \rightarrow \beta \vdash  \beta, \Delta$}\BinaryInfC{$\Gamma, \alpha \rightarrow \beta,\alpha \rightarrow \beta  \vdash \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma, \alpha \rightarrow \beta \vdash \Delta$}\DisplayProof$  
    
    \end{tabular}
 
    \item  If  $f = f_{F\rightarrow}$:\\
    \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(F(\alpha \rightarrow \beta),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(F(\alpha \rightarrow \beta),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}((L - F(\alpha \rightarrow \beta)) : F(\alpha \rightarrow \beta) : T \alpha : F \beta)$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    
    
    &$=\AxiomC{$\Gamma , \alpha \vdash \beta, \alpha \rightarrow \beta, \Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \Delta$}\DisplayProof$\\
-   &$=\RightLabel{\scriptsize{$\rightarrow$R}}\AxiomC{$\Gamma , \alpha \vdash \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\rightarrow$R}}\AxiomC{$\Gamma , \alpha \vdash \beta, \alpha \rightarrow \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \alpha \rightarrow \beta, \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma \vdash \alpha \rightarrow \beta, \Delta$}\DisplayProof$
    
    \end{tabular}
 
 
    \item  If  $f = f_{T\forall}$:\\
    \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(T(\forall x \, \phi(x)),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(T(\forall x \, \phi(x)),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : T \phi(c_i) )$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    
    
    &$=\AxiomC{$\Gamma, \forall x \, \phi(x), \phi(c_i) \vdash \Delta$}\doubleLine\UnaryInfC{$\Gamma, \forall x \, \phi(x) \vdash \Delta$}\DisplayProof$  \\
-   &$=\RightLabel{\scriptsize{$\forall$L}}\AxiomC{$\Gamma, \forall x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x), \forall x \, \phi(x) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x) \vdash \Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\forall$L}}\AxiomC{$\Gamma, \forall x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \, \phi(x), \forall x \, \phi(x) \vdash \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma, \forall x \, \phi(x) \vdash \Delta$}\DisplayProof$
    
    \end{tabular}
 
-   and $c_i$ does not occur in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
+   
 
 
    \item  If  $f = f_{F\forall}$:\\
    \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(F(\forall x \, \phi(x)),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(F(\forall x \, \phi(x)),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : F \phi(c_i) )$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    
    
    &$=\AxiomC{$\Gamma \vdash \phi(c_i), \forall x \, \phi(x), \Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \Delta$}\DisplayProof$  \\
-   &$=\RightLabel{\scriptsize{$\forall$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\forall$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \forall x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \forall x \, \phi(x), \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma \vdash \forall x \, \phi(x), \Delta$}\DisplayProof$
    
+   $c_i$ not in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$, fresh
+
+
    \end{tabular}
 
 
    
    \item  If  $f = f_{T\exists}$:\\
    \begin{tabular}{lll}
-   $\AxiomC{$\mathcal{T}( f(T(\exists x \, \phi(x)),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(T(\exists x \, \phi(x)),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : T \phi(c_i) )$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    
    
    &$=\AxiomC{$\Gamma, \exists x \, \phi(x), \phi(c_i) \vdash \Delta$}\doubleLine\UnaryInfC{$\Gamma, \exists x \, \phi(x) \vdash \Delta$}\DisplayProof$  \\
-   &$=\RightLabel{\scriptsize{$\exists$L}}\AxiomC{$\Gamma, \exists x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x), \exists x \, \phi(x) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x) \vdash \Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\exists$L}}\AxiomC{$\Gamma, \exists x \, \phi(x), \phi(c_i) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \, \phi(x), \exists x \, \phi(x) \vdash \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma, \exists x \, \phi(x) \vdash \Delta$}\DisplayProof$
    
 
    \end{tabular}
    
-   and $c_i$ does not occur in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$
+   $c_i$ not in $\Gamma$ or $\Delta$, as it is not in $L-\sigma$, fresh
 
    
    \item  If  $f = f_{F\exists}$:\\
    \begin{tabular}{lll}
 
-   $\AxiomC{$\mathcal{T}( f(F(\exists x \, \phi(x)),l))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
+   $\AxiomC{$\mathcal{T}( f(F(\exists x \, \phi(x)),L))$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    %$=\AxiomC{$\mathcal{T}( L - \sigma: \sigma : F \phi(c_i) )$}\doubleLine\UnaryInfC{$\mathcal{T}(L)$}\DisplayProof$  
    
    
    &$=\AxiomC{$\Gamma \vdash \phi(c_i), \exists x \, \phi(x), \Delta$}\doubleLine\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \Delta$}\DisplayProof$  \\
-   &$=\RightLabel{\scriptsize{$\exists$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \Delta$}\DisplayProof$
+   &$=\RightLabel{\scriptsize{$\exists$R}}\AxiomC{$\Gamma \vdash \phi(c_i), \exists x \, \phi(x), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \exists x \, \phi(x), \Delta$}\RightLabel{\scriptsize{contraction}}\UnaryInfC{$\Gamma \vdash \exists x \, \phi(x), \Delta$}\DisplayProof$
    \end{tabular}
    \end  {itemize}
    }
@@ -495,7 +504,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\TranslationClassical{
 \begin{definition} \textbf{Tree Translating Function}
-    Given a tableaux proof tree development and its root r $\tau$, we define $\mathcal{T}_p(\tau)$:
+    Given a tableaux proof-tree development $\tau$ and its root r , we define $\mathcal{T}_p(\tau)$:
     \begin{itemize}
         \item If $\tau$ = r and there are $T \sigma $ and $F \sigma $ on r:
         
@@ -504,8 +513,8 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
         
         $\mathcal{T}_p(\tau) = \mathcal{T}(\tau) $
 
-        \item If $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition, it exits a sentence $\sigma$ such that  
-        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$, and so 
+        \item If $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: \\by definition, it exists a sentence $\sigma$ such that  
+        $f(\sigma,r)=f_{Rule}(\sigma,r)=r_0$ , and $r_0$ is the root of $\mathcal{T}_0$,  so 
         
         
         $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\AxiomC{$\mathcal{T}_p(\tau_0)$}\doubleLine\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$. 
@@ -520,19 +529,20 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\TranslationClassicalProof{
     \begin{theorem}
-        Given a classical tableaux development $\tau$, $\mathcal{T}_p(\tau)$ is a valid sequent proof 
+        Given a classical tableaux development $\tau$, $\mathcal{T}_p(\tau)$ is a valid sequent proof-tree development. 
     \end{theorem}
     \begin{proof}
-        The proof goes by induction on the size of $\tau$:
+        Here r is the root of $\tau$. The proof goes by induction on the size of $\tau$:
         \begin{itemize}
-            \item if $\tau$ = r then there are $T \sigma $ and $F \sigma $ on r, $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$ is a valid sequent proof.
+            \item if $\tau$ = r and there are    $T \sigma $ and $F \sigma $ on r, $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Ax $\sigma$}}\AxiomC{}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$ is a valid sequent proof.
+            \item if $\tau$ = r and there are no $T \sigma $ and $F \sigma $ on r, $\mathcal{T}_p(\tau) = \AxiomC{$\mathcal{T}(r)$}\DisplayProof$ is a valid sequent proof.
             \item if $r$ has a single child $r_0$ with a corresponding subtree $\tau_0$: 
              $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on  $\sigma$}}\doubleLine\AxiomC{$\mathcal{T}_p(\tau_0)$}\UnaryInfC{$\mathcal{T}(r)$}\DisplayProof$
-              is a valid sequent proof since $\mathcal{T}_p(\tau_0)$ is valid by induction hypothesis and the rule is admissible by the previous theorem.
+              is a valid sequent proof since $\mathcal{T}_p(\tau_0)$ is valid by induction hypothesis and the rule is admissible by the Theroem 4.
             \item if $r$ has two children $r_1$ and $r_2$ with corresponding subtrees $\tau_1$ and $\tau_2$:\\ 
                 $\mathcal{T}_p(\tau) = \RightLabel{\scriptsize{Rule on $\sigma$}}\doubleLine\AxiomC{$\mathcal{T}_p(\tau_1)$}\AxiomC{$\mathcal{T}_p(\tau_2)$}\BinaryInfC{$\mathcal{T}(r)$}\DisplayProof$ 
-                is a valid sequent proof since $\mathcal{T}_p(\tau_1)$ and $\mathcal{T}_p(\tau_2)$ are valid by induction hypothesis and the rule is valid by the previous theorem.
-
+                is a valid sequent proof since $\mathcal{T}_p(\tau_1)$ and $\mathcal{T}_p(\tau_2)$ are valid by induction hypothesis and the rule is admissible by the Theroem 4.
+\hfill $\Box$
         \end{itemize}
     
     \end{proof}
@@ -541,7 +551,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\ThinningFunctionDefinition{
 \begin{definition} \textbf{Tree Thinning Function}
-    Given a tableaux proof tree development and its root r , we define $\mathcal{F}(\tau)$:
+    Given an intuitionistic tableaux proof-tree development and its root r , we define $\mathcal{F}(\tau)$ ($\mathcal{F}: tree \rightarrow tree $):
     \begin{itemize}
         \item If $\tau$ = r then there are $T_f \sigma $ and $F_f \sigma $ on r:
         
@@ -564,7 +574,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
         \item
          If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $
          
-         $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
+         $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,[\sigma])):\sigma$ connected to the child $r'_0 :(f(\sigma,[\sigma])-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
          \item
          If $(f(\sigma,r) - r) \cap r'_0 = \emptyset $
 
@@ -590,7 +600,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
              If $((f(\sigma,r)[2] - r)\cap r'_2)  = \emptyset $:
              $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_2) $
              \item Otherwise:  
-             $\mathcal{F}(\tau) $ = a tree with root $(r'_1 - f(\sigma,\sigma)[1]) : (r'_2 - f(\sigma,\sigma)[2]):\sigma$  connected to the children $r'_1 :(f(\sigma,\sigma)[1]-\sigma)$  and $r'_2 :(f(\sigma,\sigma)[2]-\sigma)$, each having 
+             $\mathcal{F}(\tau) $ = a tree with root $(r'_1 - f(\sigma,[\sigma])[1]) : (r'_2 - f(\sigma,[\sigma])[2]):\sigma$  connected to the children $r'_1 :(f(\sigma,[\sigma])[1]-\sigma)$  and $r'_2 :(f(\sigma,[\sigma])[2]-\sigma)$, each having 
              $\mathcal{F}(\tau_1)$ and $\mathcal{F}(\tau_2)$, respectively, below them. 
         \end{itemize}
     
@@ -621,16 +631,16 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
             \begin{itemize}
             \item
              If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:
-             $\mathcal{F}(\tau) $  has the root $(r'_0 - f(\sigma,\sigma)):\sigma$    
+             $\mathcal{F}(\tau) $  has the root $(r'_0 - f(\sigma,[\sigma])):\sigma$    
 
 
              
              By induction hypothesis, we know $r'_0$ to be intuitionistically invalid. We also know that the intuitionistic validity of $\sigma$ 
-             implies the intuitionistic validity of  $f(\sigma,\sigma)$:
+             implies the intuitionistic validity of  $f(\sigma,[\sigma])$:
 
 
              
-             Assume $r'$ to be valid, then $f(\sigma,r')$  should be valid then $r'_0 \supseteq  f(\sigma,r')$ should be also valid 
+             Assume $r'$ to be valid, then $f(\sigma,r')$  should be valid then $r'_0$ should be also valid, (as $r'_0 \supseteq  f(\sigma,r')$).This contradicts the induction hypothesis. 
              
 
              \item
@@ -646,14 +656,14 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
             \item
              If $(f(\sigma,r) - r) \cap (r'_1 \cup r'_2 ) \neq \emptyset $:
              
-             $\mathcal{F}(\tau) $ has the root $(r'_0 - f(\sigma,\sigma)):\sigma$ , Assume $r'$ to be valid, 
+             $\mathcal{F}(\tau) $ has the root $(r'_0 - f(\sigma,[\sigma])):\sigma$ , Assume $r'$ to be valid, 
              then either $f(\sigma,r')$[1] or $f(\sigma,r')$[2]  should be intuitionistically valid then either $r'_1 \supseteq  f(\sigma,r')[2]$ or $r'_1 \supseteq  f(\sigma,r')[2]$ should be intuitionistically valid. 
-             We know, by induction, that both are intuitionistically invalid.
+             We know, by induction hypothesis, that both are intuitionistically invalid, which yields a contradiction.
 
              \item
              If $(f(\sigma,r) - r) \cap (\mathcal{F}(r'_1) \cup \mathcal{F}(r'_2) ) = \emptyset $: 
              
-             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_1) $ is valid by induction.
+             $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_1) $ is valid by induction hypothesis.  \hfill $\Box$
         \end{itemize}
     
         \end{itemize}
@@ -665,7 +675,7 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
 
 \def\thinnedsizeproof{
     \begin{theorem}
-       If a tableaux proof tree $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences  
+       If a tableaux proof-tree $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 2 signed sentences  
     \end{theorem}
     \begin{proof}
       
@@ -684,10 +694,10 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
             \item
              If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:
              
-             the root $r'$ of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,\sigma)):\sigma$ 
+             the root $r'$ of $\mathcal{F}(\tau) $ is $(r'_0 - f(\sigma,[\sigma])):\sigma$ 
              
             
-             by induction hypothesis $\#(r'_0) \leq 2$ and so $\#[ (r'_0 - f(\sigma,\sigma)):\sigma ] \leq 2$ 
+             by induction hypothesis $\#(r'_0) \leq 2$ and so $\#[ (r'_0 - f(\sigma,[\sigma])):\sigma ] \leq 2$ 
             
              \item
              If $(f(\sigma,r) - r) \cap r'_0 = \emptyset $
@@ -695,25 +705,19 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
              $\mathcal{F}(\tau) $ = $\mathcal{F}(\tau_0)$
 
 
-              and so $\#(r') = \#(r'_0) \leq 2$
+              and so $\#(r') = \#(r'_0) \leq 2$ \hfill $\Box$
     
              \end{itemize}    
         \end{itemize}
-    
     \end{proof}
 }
 
 
 
 
-
-
-
-
-
 \def\nnnFProof{
     \begin{theorem}
-       (proof/search for a counter ex) If a tableau proof $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 1 signed sentences $F$  
+       (proof/search for a counter ex) If a tableaux proof $\tau$ does not branch, the root $r'$ of $\mathcal{F}(\tau)$  has not more than 1 signed sentences $F$  
     \end{theorem}
 
     Assume that $r'$ has more than 1 signed sentences of type $F$, 
@@ -743,11 +747,11 @@ A sequent is intuitionistically valid if for all kripke frames, if $\Gamma$ are 
             \begin{itemize}
             \item
              If $(f(\sigma,r) - r) \cap r'_0 \neq \emptyset $:
-             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,\sigma)):\sigma$ connected to the child $r'_0 :(f(\sigma,\sigma)-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
+             $\mathcal{F}(\tau) $ = a tree with root $(r'_0 - f(\sigma,[\sigma])):\sigma$ connected to the child $r'_0 :(f(\sigma,[\sigma])-\sigma)$,  that has as a child the sub-tree $\mathcal{F}(\tau_0)$
    
              
              By induction hypothesis, we know $r'_0$ to . We also know that the intuitionistic validity of $\sigma$ 
-             implies the intuitionistic validity of  $f(\sigma,\sigma)$:
+             implies the intuitionistic validity of  $f(\sigma,[\sigma])$:
 
 
              

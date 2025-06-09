@@ -82,10 +82,10 @@
         child {node {$\ldots$}
             child {node {$\ldots$}}
             child {node {$T_{p} \neg \alpha, ...$}
-                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}
+                child {node {$ ... T_{p} \neg \alpha, F_{p0} \alpha,$}}}
             child {node {$\ldots$}}
             child {node {$T_{p} \neg \alpha, ...$}
-                child {node {$F_{p0} \alpha, ... T_{p} \neg \alpha$}}}};
+                child {node {$ ... T_{p} \neg \alpha,F_{p0} \alpha$}}}};
     \end{tikzpicture}%
     
     
@@ -358,7 +358,7 @@
 
 
 \begin{table}[h!]
-    \caption{Rules for L' intuitionistic multi-consequence sequent calculus.}\label{tab:intuitionistic}
+    \caption{Rules for intuitionistic multi-consequence sequent calculus.}\label{tab:intuitionistic}
 \centering
 \renewcommand{\arraystretch}{3} % Adjust row height
 \begin{tabular}{|c|c|}  
@@ -375,16 +375,16 @@ $\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha
 $\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
 Disjunction & 
 $\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
+$\RightLabel{\scriptsize{$\lor$ $R_{1}$  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ $R_{2}$ $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
 Implication & 
 $\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
 $\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta$}\DisplayProof$ \\ \hline
 Quantifiers & 
 $\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y)$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x)$}\DisplayProof$ \\ 
+$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y)$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x)$}\DisplayProof$ with y fresh \\ 
 & 
-$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ with y fresh \quad
 $\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline
 Contraction & 
 $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
@@ -517,7 +517,7 @@ $\AxiomC{$\Gamma \vdash \alpha, \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha
 \def\RulesClassicalSequentCalculus{
 
 \begin{table}[h!]
-    \caption{Rules for L's classical multi-consequence sequent calculus.}\label{tab:classical}
+    \caption{Rules for classical multi-consequence sequent calculus.}\label{tab:classical}
 \centering
 \renewcommand{\arraystretch}{3} % Adjust row height
 \begin{tabular}{|c|c|}
@@ -534,16 +534,16 @@ $\RightLabel{\scriptsize{$\land$L  $\alpha \land \beta$}}\AxiomC{$\Gamma, \alpha
 $\RightLabel{\scriptsize{$\land$R $\alpha \land \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma \vdash \beta, \Delta$}\BinaryInfC{$\Gamma \vdash \alpha \land \beta, \Delta$}\DisplayProof$ \\ \hline
 Disjunction & 
 $\RightLabel{\scriptsize{$\lor$ L  $\alpha \lor \beta$}}\AxiomC{$\Gamma, \alpha \vdash \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \lor \beta \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\lor$ R  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
+$\RightLabel{\scriptsize{$\lor$ $R_{1}$  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\lor$ $R_{2}$  $\alpha \lor \beta$}}\AxiomC{$\Gamma \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \lor \beta, \Delta$}\DisplayProof$ \\ \hline
 Implication & 
 $\RightLabel{\scriptsize{$\to$ L  $\alpha \to \beta$}}\AxiomC{$\Gamma \vdash \alpha, \Delta$}\AxiomC{$\Gamma, \beta \vdash \Delta$}\BinaryInfC{$\Gamma, \alpha \to \beta \vdash \Delta$}\DisplayProof$ \quad
 $\RightLabel{\scriptsize{$\to$ R  $\alpha \to \beta$}}\AxiomC{$\Gamma, \alpha \vdash \beta, \Delta$}\UnaryInfC{$\Gamma \vdash \alpha \to \beta, \Delta$}\DisplayProof$ \\ \hline
 Quantifiers & 
 $\RightLabel{\scriptsize{$\forall$ L $\forall x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(t) \vdash \Delta$}\UnaryInfC{$\Gamma, \forall x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
-$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ \\ 
+$\RightLabel{\scriptsize{$\forall$ R $\forall x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(y), \Delta$}\UnaryInfC{$\Gamma \vdash \forall x \alpha(x), \Delta$}\DisplayProof$ with y fresh\\ 
 & 
-$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ \quad
+$\RightLabel{\scriptsize{$\exists$ L $\exists x \alpha(x)$}}\AxiomC{$\Gamma, \alpha(y) \vdash \Delta$}\UnaryInfC{$\Gamma, \exists x \alpha(x) \vdash \Delta$}\DisplayProof$ with y fresh \quad
 $\RightLabel{\scriptsize{$\exists$ R $\exists x \alpha(x)$}}\AxiomC{$\Gamma \vdash \alpha(t), \Delta$}\UnaryInfC{$\Gamma \vdash \exists x \alpha(x), \Delta$}\DisplayProof$ \\ \hline
 Contraction & 
 $\AxiomC{$\Gamma, \alpha, \alpha \vdash \Delta$}\UnaryInfC{$\Gamma, \alpha \vdash \Delta$}\DisplayProof$ \quad
@@ -814,8 +814,63 @@ q$ };
 \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Psol,\TT);
 
 \end{tikzpicture}
-
-
-
-
 }
+\def\thinnedExampleImageII{
+\begin{tikzpicture}
+
+        \node at (\eq, \H) {$p = q$};
+        \node at (\gr, \H) {$p > q$};
+        \node at (\inc, \H) {$p  \not\lessgtr
+        q$ };
+
+        \node at (\Pl, \FT){$F_p$};
+        \node at (\Pl, \TT){$T_p$};
+        \node at (\Pl, \TF){$T_p$};
+        \node at (\Pl, \FF){$F_p$};
+
+        \node at (\Ql, \FT){$T_q$};
+        \node at (\Ql, \TT){$T_q$};
+        \node at (\Ql, \TF){$F_q$};
+        \node at (\Ql, \FF){$F_q$};
+
+
+        \node at (\ll, \TT){$T_p$};
+        \node at (\ll, \FF){$F_p$};
+
+        
+        \draw[bigarrow] (\Psol,\FF) to node[midway, above, sloped] {\scriptsize{$F\to$}} (\Qeq,\FT);
+        \draw[bigarrow] (\Peq,\FT) to node[midway, above, sloped] {\scriptsize{$F\neg$}} (\Pgr,\TT);
+
+        \draw[bigarrow] (\Pgr,\TT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Pgr,\FT);
+          
+    
+        \draw[bigarrow] (\Qgr,\FT) to node[midway, above, sloped] {\scriptsize{$T\neg$}} (\Qeq,\FT);
+    \end{tikzpicture}
+}
+\def\thinnedExampleImageI
+{
+        \begin{tikzpicture}
+        % Root node
+        \node (root) at (0,0) {$\mathbf{F_{\emptyset} x \to \neg \neg x}$};
+                
+        % Third stage nodes
+        \node (n2) at (0,-3) {$\mathbf{F_{0} \neg \neg x}, F_{\emptyset} x \to \neg \neg x, \mathbf{T_{0} x}$};
+        \draw[->] (root) -- (n2);
+        
+        % Fourth stage nodes
+        \node (n3) at (0,-4.5) {$ \mathbf{T_{00} \neg x}, F_{\emptyset} x \to \neg \neg x,\mathbf{ T_{0} x},F_{0} \neg \neg x$};
+        \draw[->] (n2) -- (n3);
+        
+        % Fifth stage nodes
+        \node (n4) at (0,-6) {$ \mathbf{F_{00}  x}, F_{\emptyset} x \to \neg \neg x, \mathbf{T_{0} x},F_{0} \neg \neg x, T_{00} \neg x$};
+        \draw[->] (n3) -- (n4);
+        \node (n5) at (0,-7.5) {  $\mathbf{F_{00}x} , F_{\emptyset} x \to \neg \neg x, \mathbf{T_{00} x }    ,T_{0} x,F_{0} \neg \neg x, T_{00} \neg x$};     \draw[->] (n4) -- (n5);
+
+
+        \node (n6) at (0,-8.5) {X};
+        \draw[->] (n5) -- (n6);
+    \end{tikzpicture}
+}
+
+
+

@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1746574306.84319 "presentation.tex" "presentation.pdf" "presentation" 1746574312.37461 0
+["pdflatex"] 1746622191.79293 "presentation.tex" "presentation.pdf" "presentation" 1746622196.68052 0
   "/etc/texmf/web2c/texmf.cnf" 1743552946.75707 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -238,10 +238,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743553475.7315 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743553713 6831075 d8bee8942bb66e5040967664c2067bd5 ""
   "figures_and_tables.tex" 1746570925.96206 39081 c40e53f3cf6a6e20a5b4e753c1b40a9c ""
-  "presentation.aux" 1746574312.01275 6366 e06d5aa77945e5ecc8128e65f7f52701 "pdflatex"
-  "presentation.nav" 1746574312.01575 4457 a7e4b50e8bd2b630243a329822df590a "pdflatex"
-  "presentation.out" 1746574308.12075 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "presentation.tex" 1746574305.87875 44552 ca3f3f0a5104756afc2e281415c5c948 ""
+  "presentation.aux" 1746622196.41725 6366 e06d5aa77945e5ecc8128e65f7f52701 "pdflatex"
+  "presentation.nav" 1746622196.41925 4457 a7e4b50e8bd2b630243a329822df590a "pdflatex"
+  "presentation.out" 1746622193.21725 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "presentation.tex" 1746622190.22425 48634 1c43ca8d15e395151183d9b1711f30cf ""
   "theorems_and_definitions.tex" 1746571733.88881 39264 35b1b6d2c96f54f3bdfc1fb6721ea2f2 ""
   (generated)
   "presentation.aux"

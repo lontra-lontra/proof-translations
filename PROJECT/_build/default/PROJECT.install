@@ -1,8 +1,0 @@
-lib: [
-  "_build/install/default/lib/PROJECT/META"
-  "_build/install/default/lib/PROJECT/dune-package"
-  "_build/install/default/lib/PROJECT/opam"
-]
-bin: [
-  "_build/install/default/bin/PROJECT"
-]

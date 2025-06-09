@@ -302,9 +302,16 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx9.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
 INPUT p.aux
 INPUT ./p.out
 INPUT ./p.out
+INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti0700.600pk
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0500.600pk
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0700.600pk
@@ -318,6 +325,8 @@ INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600p
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk
 INPUT /home/ian/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb

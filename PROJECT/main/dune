@@ -1,0 +1,3 @@
+(executable
+ (name main)
+ (libraries sintax classical intuitionistic intuitionistic_tableau))
