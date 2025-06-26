@@ -1,2 +1,2 @@
-val examples_int_tableaux : unit -> string
+val examples_intuituinistic_tableaux : unit -> string
 

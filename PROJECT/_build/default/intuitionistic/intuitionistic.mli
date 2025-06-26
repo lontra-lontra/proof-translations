@@ -29,5 +29,5 @@ val sequence_of_integers_to_latex : sequence_of_integers -> string
 val frame_to_latex : frame -> string
 val structure_to_latex : structure  -> string
 val leq_sequence_of_integers : sequence_of_integers -> sequence_of_integers -> bool
-val examples_definitions : unit -> string
+val examples_intuituinistic : unit -> string
 val sentence_is_forced_in_structure : sentence -> structure -> bool

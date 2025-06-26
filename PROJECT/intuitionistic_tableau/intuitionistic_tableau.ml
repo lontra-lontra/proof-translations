@@ -115,7 +115,7 @@ let inference_function  (l : signed_sentence_list) (sigma : signed_sentence) : s
 
 
 (* Example usage *) 
-let examples_int_tableaux () = 
+let examples_intuituinistic_tableaux () = 
   let ss_list = [
     T ([], ATOMIC "a"); 
     T ([0], ATOMIC "b"); 

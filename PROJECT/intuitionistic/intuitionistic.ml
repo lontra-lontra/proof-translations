@@ -304,7 +304,7 @@ let frame_validity_example : frame = Frame {
 
 
 
-let examples_definitions () =
+let examples_intuituinistic () =
   let s1 = Printf.sprintf "leq-sequence-of-integers $%s$ $\\leq$ $%s$: %b\n"
     (sequence_of_integers_to_latex [1;2])
     (sequence_of_integers_to_latex [1;2;3])
