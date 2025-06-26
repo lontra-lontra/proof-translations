@@ -60,7 +60,7 @@
 \begin{abstract}
 This work aims to discuss the translation between Tableaux proofs and sequent calculus proofs in first-order intuitionistic propositional logic and in first-order classical propositional logic.
 It begins with an overview of the definitions and clarification of the notations.
-It then shows a translation process in classical logic and its   \href{https://github.com/lontra-lontra/proof-translations}{OCAML implementation}.
+It then shows a translation process in classical logic and its   \href{https://github.com/lontra-lontra/proof-translations/tree/main/PROJECT}{OCAML implementation}.
 Finally, a potential extension towards translation in intuitionistic logic is discussed.
  \keywords{Tableaux proof  \and  sequent calculus  \and intuitionistic logic.}
 \end{abstract}
@@ -78,7 +78,7 @@ Translating between proof systems is important for automatically verifying autom
 In this work, sentences will implicitly refer to first-order predicate logic sentences; In the translation discussed in chapter V, they 
 will be implicitly restricted to the propositional fragment of first order logic in order to simplify the discussion. 
 For intuitionistic logic, their meaning will come from Kripke's semantics \cite{kripke1965} . The notation for structures and frames, as well as the motivation for
-the intuitionistic tableaux method will be heavily based on \cite{book1}. As in most of the proofs for the intuitionistic tableaux from \cite{book1}, there wont be any functions.  
+the intuitionistic tableaux method will be heavily based on \cite{book1}. As in most of the proofs for the intuitionistic tableaux from \cite{book1}, there will not be functions.  
 In order to make this document slightly more self-contained and to clarify the notation, we will briefly explain:
 \subsection{Definitions}
 %(TODO how detailed? < or > than thepresentation? )
@@ -110,7 +110,7 @@ In classical logic, this definition simplifies, and it is simplified again by th
     Here we first define a slightly different version of the destructive tableaux proof tree described by \cite{book1}, where each node is a truth assertion. This different version  will allow for a more implementation-oriented approach and the translation later on.
 
     The correspondence of the destructive tableaux proof tree described in \cite{book1} to our new one is shown in Figure \ref{fig:non_destructive_to_destructive_tableaux}.
-     Generally speaking, a node collects all the signed sentences that appeear on the sequence of nodes in the path that goes from the root to it.
+     Generally speaking, a node collects all the signed sentences that appear on the sequence of nodes in the path that goes from the root to it.
       Afterwards, some nodes are removed from the newly formed tableau by adjoining its children and its parent.
        A node should be removed if its corresponding node in the original tableau was not a leaf of the atomic tableau rule  \cite{book1} that introduced it.
 
@@ -193,7 +193,7 @@ A sequent is intuitionistically valid if there does not exist a frame
 that forces all sentences in $\Gamma$ and does not force any sentence in $\Delta$.
 "
 
-when compared with the definition of list of signed sentences, hints us towards an semantical equivalence between signed sentence lists and sequents for single framed structures. This will not be discussed in depth. 
+when compared with the definition of list of signed sentences, hints us towards a semantical equivalence between signed sentence lists and sequents for single framed structures. This will not be discussed in depth. 
 
 \paragraph{}
 A sequent-calculus rule can be interpreted as an implication: if the top sequent is 
@@ -242,7 +242,7 @@ Rules for intuitionistic multi-consequence sequent calculus are given in Table\r
 
 Below there are some examples of tableaux proof trees and sequent proof trees obtained by the 
 implementation of $\hookleftarrow_c$ and $\mathcal{T}_p$. A 
-sequent proof verifier was also develped and used on the examples.
+sequent proof verifier was also developed and used on the examples.
 
 
 \begin{figure}
@@ -298,9 +298,9 @@ appropriate words w for translation, we encounter an issue with the $\neg R$ rul
 "useless" terms from our cumulative tableaux method can "overcrowd" the right side of the sequent equation. 
 A first naive approach would be to remove all useless sentences. 
 Another way to view this is that the sequent calculus has a Weakening rule that we have not yet utilized.
-We will show later on that this suficient for non-branching tableau.
+We will show later on that this sufficient for non-branching tableau.
 \ThinningFunctionDefinition
-We must, of course, be sure we have not removed "too much":
+We must, of course, be sure we have not removed too much:
 \thinnedInvalidityproof
 \thinnedsizeproof
 A first goal would be to prove that the non-branching parts (the last branches) of a thinned tableaux never have two signed sentences of type F.
@@ -334,7 +334,7 @@ By the completeness of intuitionistic sequent calculus that would mean that the 
 
 If we were to do all of them, we can inspect that the root  of a thinned not branching tableaux proof can never have 
 the formats $\\ F_p () F_q () \text{ with }  p=q$, \\ $F_p () F_q ()  \text{ with }  p>q$, \\$T_p () F_q () \text{ with } p>q$.
-This exaustion, shown in figure 10, proves that these states never reach the state [$F_p ( ) T_q ( ), $ with $ p = q$s]
+This exhaustion, shown in figure 10, proves that these states never reach the state [$F_p ( ) T_q ( ), $ with $ p = q$]
 
 \begin{figure}
     \fs
@@ -347,13 +347,12 @@ This exaustion, shown in figure 10, proves that these states never reach the sta
     The implementation of the classical tableaux method and the translation to sequent calculus is complete, and the intuitionistic logic case is partially implemented.
     More precisely:
     \begin{itemize}
-        \item The classical tableaux method, classical sequent calculus, classical transilation and classical sequent calculus proof verification are implemented in the folder \textbf{classical}. 
-        \item The intuitionistic definitions from 1.2 are implemented in the folder \textbf{intuitionistic\_defintions}.
-        \item The intuitionistic tableaux method is partially implemented in the folder \textbf{intuitionistic\_tableaux}.
+        \item The classical tableaux method, classical sequent calculus, classical translation and classical sequent calculus proof verification are implemented in the folder \textbf{\href {https://github.com/lontra-lontra/proof-translations/tree/main/PROJECT/all_classical }{all\_classical|}}. 
+        \item The intuitionistic definitions from 1.2 are implemented in the folder \textbf{\href {https://github.com/lontra-lontra/proof-translations/tree/main/PROJECT/intuitionistic }{intuitionistic|}}
+        \item The intuitionistic tableaux method is partially implemented in the folder \textbf{\href {https://github.com/lontra-lontra/proof-translations/tree/main/PROJECT/intuitionistic_tableaux }{intuitionistic\_tableaux|}}.
         \item The main function is in the main file, it contains some possible configurations for testing the implementation.
-        \item The output folder contains some .tex files with the representation of some of the structures seen in this document, as well as some automatically generated tableaux proofs and their translations to sequent calculus.
-    \end{itemize}
-    The more up-to-date correspandnce between the OCAML code and the definitions in this document can be found in the README.md file in the root of the repository.
+        \item The \textbf{\href {https://github.com/lontra-lontra/proof-translations/tree/main/PROJECT/outputs }{outputs}} folder contains some .tex files with the representation of some of the structures seen in this document.    \end{itemize}
+    The more up-to-date correspondence between the OCAML code and the definitions in this document can be found in the repository.
 %
 % ---- Bibliography ----
 %
@@ -366,7 +365,7 @@ This exaustion, shown in figure 10, proves that these states never reach the sta
 \section{ Conclusion}
     This work was an exercise in several important aspects of research — notably,
      the deep comprehension and clear expression of the subjects studied. The github repository presents the 
-     the OCAML generation of classical tableaux proofs, translation to sequento sequent calculus proofs, and the verification of the classical sequent-calculs proofs. Some
+      OCAML generation of classical tableaux proofs, translation to classical sequent calculus proofs, and the verification of the classical sequent calculus proofs. Some
      progress was made in the intuitionistic logic case.
      The next step would be to analyze the translatability behavior in branching nodes in the intuitionistic logic case.
 
